@@ -10,10 +10,30 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import StoreMallDirectoryIcon from "@material-ui/icons/StoreMallDirectory";
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import TvIcon from '@material-ui/icons/Tv';
+import ReceiptIcon from '@material-ui/icons/Receipt';
+import FlagIcon from '@material-ui/icons/Flag';
+import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
+import SettingsIcon from '@material-ui/icons/Settings';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import { NavLink } from "react-router-dom";
 
-const drawerWidth = 240;
+const drawerWidth = 200;
+
+const sideBarIcon = [
+  { icon: DashboardIcon, text: "สรุปผล", path: "/dashboard" },
+  { icon: StoreMallDirectoryIcon, text: "รายการสินค้า", path: "/product" },
+  { icon: ShoppingCartIcon, text: "รายการคำสั่งซื้อ", path: "/order" },
+  { icon: TvIcon, text: "ไลฟ์สด", path: "/livestream" },
+  { icon: FlagIcon, text: "แคมเปญ", path: "/campaign" },
+  { icon: NotificationsActiveIcon, text: "โปรโมชั่น", path: "/promotion" },
+  { icon: ReceiptIcon, text: "รายงาน", path: "/report" },
+  { icon: PersonAddIcon, text: "รายชื่อผู้ติดต่อ", path: "/contact" },
+  { icon: SettingsIcon, text: "ตั้งค่า", path: "/setting" },
+];
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -53,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Sidebar({open,handleDrawerClose}){
+export default function Sidebar({ open, handleDrawerClose }) {
   const classes = useStyles();
   const theme = useTheme();
   return (
@@ -81,26 +101,19 @@ export default function Sidebar({open,handleDrawerClose}){
       </div>
       <Divider />
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
+        {sideBarIcon.map((data, index) => (
+          <ListItem
+            button
+            key={data.text}
+          >
+            <NavLink to={data.path}>
+              <ListItemIcon>{<data.icon/>}</ListItemIcon>
+            </NavLink>
+            <ListItemText primary={data.text} />
           </ListItem>
         ))}
       </List>
       <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
     </Drawer>
   );
 }
