@@ -19,8 +19,9 @@ import Tooltip from "@material-ui/core/Tooltip";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import DeleteIcon from "@material-ui/icons/Delete";
-import FilterBox from './FilterBox';
-import AutocompleteBox from './AutocompleteBox';
+import FilterBox from "./FilterBox";
+import AutocompleteBox from "./AutocompleteBox";
+
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -64,10 +65,7 @@ const headCells = [
   { id: "Stock", numeric: false, disablePadding: false, label: "คงเหลือ" },
   { id: "Category", numeric: false, disablePadding: false, label: "ประเภท" },
   { id: "Sold", numeric: false, disablePadding: false, label: "ขายแล้ว" },
-
 ];
-
-
 
 function EnhancedTableHead(props) {
   const {
@@ -82,8 +80,6 @@ function EnhancedTableHead(props) {
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
-
-
 
   return (
     <TableHead>
@@ -154,7 +150,7 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { numSelected } = props;
+  const { numSelected, onChangeFilter, filterData } = props;
 
   return (
     <Toolbar
@@ -182,10 +178,10 @@ const EnhancedTableToolbar = (props) => {
             รายการสินค้า
           </Typography>
           <Typography className={classes.testflex}>
-            <FilterBox />
+            <FilterBox headCells={headCells} onChangeFilter={onChangeFilter} />
           </Typography>
           <Typography className={classes.testflex}>
-            <AutocompleteBox />
+            <AutocompleteBox filterData={filterData} />
           </Typography>
         </React.Fragment>
       )}
@@ -240,11 +236,23 @@ export default function EnhancedTable({ showProductDetail }) {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [rows, setRows] = React.useState([]);
+  const [filter_selected, setSelectedFilter] = React.useState(headCells[0].id);
+  const [filter_data, setFilterData] = React.useState([]);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
+  };
+
+  const findDuplicate = (raw_data,filter_id) => {
+    var filter = [];
+    for (let i = 0; i < raw_data.length; i++) {
+      if (filter.indexOf(raw_data[i][filter_id]) === -1) {
+        filter.push(raw_data[i][filter_id]);
+      }
+    }
+    return filter;
   };
 
   const handleSelectAllClick = (event) => {
@@ -289,13 +297,23 @@ export default function EnhancedTable({ showProductDetail }) {
     setDense(event.target.checked);
   };
 
+  function onChangeFilter(filter_id) {
+    const filter = findDuplicate(rows,filter_id);
+    setFilterData(filter);
+    setSelectedFilter(filter_id);
+
+
+  }
+
   function fetchProductData() {
     var xhr = new XMLHttpRequest();
     // xhr.withCredentials = true;
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4) {
         const data = JSON.parse(xhr.responseText);
+        const filterData = findDuplicate(data, filter_selected);
         setRows([...data]);
+        setFilterData(filterData);
       }
     };
     xhr.open("GET", "https://ivtr-server.herokuapp.com/product/");
@@ -314,7 +332,12 @@ export default function EnhancedTable({ showProductDetail }) {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar
+          numSelected={selected.length}
+          onChangeFilter={onChangeFilter}
+          filterData={filter_data}
+          filterSelected={filter_selected}
+        />
         <TableContainer>
           <Table
             className={classes.table}
@@ -347,7 +370,7 @@ export default function EnhancedTable({ showProductDetail }) {
                       tabIndex={-1}
                       key={row.id}
                       selected={isItemSelected}
-                      onClick={()=>{
+                      onClick={() => {
                         showProductDetail(row);
                       }}
                     >
@@ -373,7 +396,6 @@ export default function EnhancedTable({ showProductDetail }) {
                       <TableCell align="left">{row.Stock}</TableCell>
                       <TableCell align="left">{row.Category}</TableCell>
                       <TableCell align="left">{row.Sold}</TableCell>
-
                     </TableRow>
                   );
                 })}

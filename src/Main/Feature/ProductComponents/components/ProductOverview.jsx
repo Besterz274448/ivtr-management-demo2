@@ -8,9 +8,8 @@ export default function ProductOverview({ product_data, closeProductDetail }) {
     <Paper></Paper>
   ) : (
     <Paper style={{ textAlign: "center",height:"440px" }}>
-        UI for Test Data Only{" "}
+        UI for Test Data Only
         <CloseIcon style={{cursor:"pointer"}}onClick={closeProductDetail}></CloseIcon>
-
     </Paper>
   );
 }

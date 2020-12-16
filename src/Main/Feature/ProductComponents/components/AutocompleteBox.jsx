@@ -3,15 +3,16 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 
-export default function ComboBox() {
+export default function ComboBox({ filterData }) {
+  console.log(filterData);
   return (
     <Autocomplete
       id="size-small-standard"
       size="small"
-      options={top100Films}
-      style={{ width: 150, paddingTop: 19}}
+      options={filterData}
+      style={{ width: 150, paddingTop: 19 }}
       freeSolo
-      getOptionLabel={(option) => option.title}
+      getOptionLabel={(option) => option + ''}
       renderInput={(params) => (
         <TextField
           {...params}

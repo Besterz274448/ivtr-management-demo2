@@ -12,17 +12,23 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 120,
   },
 }));
-export default function FilterBox(){
-    const classes = useStyles();
+export default function FilterBox({ headCells, onChangeFilter }) {
+  const classes = useStyles();
 
-    return (
-      <FormControl className={classes.formControl}>
-        <InputLabel htmlFor="grouped-select">Grouping</InputLabel>
-        <Select defaultValue="" id="grouped-select">
-          <MenuItem value={1}>None</MenuItem>
-          <MenuItem value={2}>Option 1</MenuItem>
-          <MenuItem value={3}>Option 2</MenuItem>
-        </Select>
-      </FormControl>
-    );
+  return (
+    <FormControl className={classes.formControl}>
+      <InputLabel htmlFor="grouped-select">Filter</InputLabel>
+      <Select defaultValue={headCells[0].id}  onChange={(event)=>{
+              onChangeFilter(event.target.value);
+            }} id="grouped-select">
+        {headCells.map((data, index) => {
+          return (
+            <MenuItem key={data.id} value={data.id}>
+              {data.label}
+            </MenuItem>
+          );
+        })}
+      </Select>
+    </FormControl>
+  );
 }
