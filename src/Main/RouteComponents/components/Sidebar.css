@@ -1,0 +1,17 @@
+.sidebar-active{
+    color: rgb(44, 165, 139);
+    font-weight: bold;
+}
+
+.link-active{
+    background-color: rgb(44, 165, 139);
+}
+
+.sidebar-link{
+    text-decoration: none;
+    
+}
+
+.link-nonactive{
+
+}

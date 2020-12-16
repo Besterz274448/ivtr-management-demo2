@@ -1,8 +1,6 @@
-import React, { useState } from 'react'
-import clsx from "clsx";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import Product from '../../Feature/ProductComponents/Product';
+import React from 'react'
+import { makeStyles } from "@material-ui/core/styles";
+import Product from '../../Feature/ProductComponents/ProductContainer';
 import LiveStream from "../../Feature/LiveStreamComponents/LiveStream";
 import Order from '../../Feature/OrderComponents/Order';
 import Dashboard from '../../Feature/DashboardComponents/Dashboard'
@@ -32,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MainComponents({selected}){
       const classes = useStyles();
-      const theme = useTheme();
     return (
       <main className={classes.content}>
         <div className={classes.toolbar} />
