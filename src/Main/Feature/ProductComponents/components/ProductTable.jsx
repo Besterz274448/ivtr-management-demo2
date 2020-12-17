@@ -21,6 +21,7 @@ import Switch from "@material-ui/core/Switch";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FilterBox from "./FilterBox";
 import AutocompleteBox from "./AutocompleteBox";
+import ProductOverview from "./ProductOverview";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -67,6 +68,9 @@ const headCells = [
   { id: "Sold", numeric: false, disablePadding: false, label: "ขายแล้ว" },
 ];
 
+const NumericHeader = ["Price", "Stock", "Sold"];
+const NumericOptions = ["less","more","equal","between"];
+
 function EnhancedTableHead(props) {
   const {
     classes,
@@ -84,14 +88,7 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
-          <Checkbox
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{ "aria-label": "select all desserts" }}
-          />
-        </TableCell>
+        <TableCell padding="checkbox"></TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
@@ -148,10 +145,22 @@ const useToolbarStyles = makeStyles((theme) => ({
   },
 }));
 
+const AutocompleteStyle = {
+  paddingTop: "8px",
+  paddingRight: "10px",
+};
+
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { numSelected, onChangeFilter, filterData } = props;
+  const {
+    numSelected,
+    onChangeFilter,
+    filterData,
+    onChangeSearchBar,
+    filterSelected,
+  } = props;
 
+  const test_filterSelected = filterSelected;
   return (
     <Toolbar
       className={clsx(classes.root, {
@@ -168,22 +177,14 @@ const EnhancedTableToolbar = (props) => {
           {numSelected} selected
         </Typography>
       ) : (
-        <React.Fragment>
-          <Typography
-            className={classes.title}
-            variant="h6"
-            id="tableTitle"
-            component="div"
-          >
-            รายการสินค้า
-          </Typography>
-          <Typography className={classes.testflex}>
-            <FilterBox headCells={headCells} onChangeFilter={onChangeFilter} />
-          </Typography>
-          <Typography className={classes.testflex}>
-            <AutocompleteBox filterData={filterData} />
-          </Typography>
-        </React.Fragment>
+        <Typography
+          className={classes.title}
+          variant="h6"
+          id="tableTitle"
+          component="div"
+        >
+          รายการสินค้า
+        </Typography>
       )}
 
       {numSelected > 0 ? (
@@ -193,7 +194,18 @@ const EnhancedTableToolbar = (props) => {
           </IconButton>
         </Tooltip>
       ) : (
-        false
+        <React.Fragment>
+          <div style={{ display: "inherit" }}>
+            <FilterBox headCells={headCells} onChangeFilter={onChangeFilter} />
+            <div style={AutocompleteStyle}>
+              <AutocompleteBox
+                onChangeSearchBar={onChangeSearchBar}
+                filterData={filterData}
+              />
+            </div>
+          </div>
+
+        </React.Fragment>
       )}
     </Toolbar>
   );
@@ -237,7 +249,9 @@ export default function EnhancedTable({ showProductDetail }) {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [rows, setRows] = React.useState([]);
   const [filter_selected, setSelectedFilter] = React.useState(headCells[0].id);
+  const [filter_numeric, setNumericSelect] = React.useState("more");
   const [filter_data, setFilterData] = React.useState([]);
+  const [full_data, setFullData] = React.useState([]);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -245,7 +259,7 @@ export default function EnhancedTable({ showProductDetail }) {
     setOrderBy(property);
   };
 
-  const findDuplicate = (raw_data,filter_id) => {
+  const findDuplicate = (raw_data, filter_id) => {
     var filter = [];
     for (let i = 0; i < raw_data.length; i++) {
       if (filter.indexOf(raw_data[i][filter_id]) === -1) {
@@ -298,11 +312,27 @@ export default function EnhancedTable({ showProductDetail }) {
   };
 
   function onChangeFilter(filter_id) {
-    const filter = findDuplicate(rows,filter_id);
+    const filter = findDuplicate(full_data, filter_id);
     setFilterData(filter);
     setSelectedFilter(filter_id);
+  }
 
+  function searchData(keyword) {
+    keyword = keyword + "";
+    let query = keyword.toLowerCase();
+    const selectedData = full_data.filter(
+      (data) => (data[filter_selected] + "").toLowerCase().indexOf(query) >= 0
+    );
+    return selectedData;
+  }
 
+  function onChangeSearchBar(keyword, type) {
+    if (type == "search") {
+      const data = searchData(keyword);
+      setRows([...data]);
+    } else if (type == "reset") {
+      setRows([...full_data]);
+    }
   }
 
   function fetchProductData() {
@@ -313,6 +343,7 @@ export default function EnhancedTable({ showProductDetail }) {
         const data = JSON.parse(xhr.responseText);
         const filterData = findDuplicate(data, filter_selected);
         setRows([...data]);
+        setFullData([...data]);
         setFilterData(filterData);
       }
     };
@@ -337,6 +368,7 @@ export default function EnhancedTable({ showProductDetail }) {
           onChangeFilter={onChangeFilter}
           filterData={filter_data}
           filterSelected={filter_selected}
+          onChangeSearchBar={onChangeSearchBar}
         />
         <TableContainer>
           <Table

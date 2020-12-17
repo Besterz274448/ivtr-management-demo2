@@ -3,7 +3,6 @@ import Paper from "@material-ui/core/Paper";
 import CloseIcon from "@material-ui/icons/Close";
 
 export default function ProductOverview({ product_data, closeProductDetail }) {
-  console.log(product_data.id);
   return product_data.id === undefined ? (
     <Paper></Paper>
   ) : (
