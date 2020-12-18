@@ -69,7 +69,11 @@ const headCells = [
 ];
 
 const NumericHeader = ["Price", "Stock", "Sold"];
-const NumericOptions = ["less","more","equal","between"];
+const NumericOptions = [
+  { id: "<", label: "<" },
+  { id: ">", label: ">" },
+  { id: "=", label: "=" },
+];
 
 function EnhancedTableHead(props) {
   const {
@@ -146,8 +150,7 @@ const useToolbarStyles = makeStyles((theme) => ({
 }));
 
 const AutocompleteStyle = {
-  paddingTop: "8px",
-  paddingRight: "10px",
+  display: "inline-block",
 };
 
 const EnhancedTableToolbar = (props) => {
@@ -158,9 +161,9 @@ const EnhancedTableToolbar = (props) => {
     filterData,
     onChangeSearchBar,
     filterSelected,
+    clearAutocomplete,
   } = props;
 
-  const test_filterSelected = filterSelected;
   return (
     <Toolbar
       className={clsx(classes.root, {
@@ -183,7 +186,51 @@ const EnhancedTableToolbar = (props) => {
           id="tableTitle"
           component="div"
         >
-          รายการสินค้า
+          <div style={{ display: "inline-block" }}>รายการสินค้า</div>
+          <React.Fragment>
+            <div style={{ display: "inline-block", paddingLeft: "30px" }}>
+              <div
+                style={{
+                  display: "inline-block",
+                  verticalAlign: "top",
+                  marginTop: "-5px",
+                }}
+              >
+                <FilterBox
+                  headCells={headCells}
+                  filterName="Filter By "
+                  onChangeFilter={onChangeFilter}
+                  typeFilter="filterGroup"
+                />
+              </div>
+              {NumericHeader.indexOf(filterSelected) != -1 ? (
+                <div
+                  style={{
+                    display: "inline-block",
+                    marginTop: "-5px",
+                    verticalAlign: "top",
+                    paddingRight: "5px",
+                  }}
+                >
+                  <FilterBox
+                    headCells={NumericOptions}
+                    onChangeFilter={onChangeFilter}
+                    InputWidth={20}
+                    typeFilter="numericGroup"
+                  />
+                </div>
+              ) : (
+                false
+              )}
+              <div style={{ display: "inline-block", marginTop: "3px" }}>
+                <AutocompleteBox
+                  onChangeSearchBar={onChangeSearchBar}
+                  filterData={filterData}
+                  clearAutocomplete={clearAutocomplete}
+                />
+              </div>
+            </div>
+          </React.Fragment>
         </Typography>
       )}
 
@@ -194,18 +241,7 @@ const EnhancedTableToolbar = (props) => {
           </IconButton>
         </Tooltip>
       ) : (
-        <React.Fragment>
-          <div style={{ display: "inherit" }}>
-            <FilterBox headCells={headCells} onChangeFilter={onChangeFilter} />
-            <div style={AutocompleteStyle}>
-              <AutocompleteBox
-                onChangeSearchBar={onChangeSearchBar}
-                filterData={filterData}
-              />
-            </div>
-          </div>
-
-        </React.Fragment>
+        false
       )}
     </Toolbar>
   );
@@ -249,9 +285,12 @@ export default function EnhancedTable({ showProductDetail }) {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [rows, setRows] = React.useState([]);
   const [filter_selected, setSelectedFilter] = React.useState(headCells[0].id);
-  const [filter_numeric, setNumericSelect] = React.useState("more");
+  const [filter_numeric, setNumericSelect] = React.useState(
+    NumericOptions[0].id
+  );
   const [filter_data, setFilterData] = React.useState([]);
   const [full_data, setFullData] = React.useState([]);
+  const [clearAutocomplete,setClearAutocomplete] = React.useState(null);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -311,26 +350,55 @@ export default function EnhancedTable({ showProductDetail }) {
     setDense(event.target.checked);
   };
 
-  function onChangeFilter(filter_id) {
-    const filter = findDuplicate(full_data, filter_id);
-    setFilterData(filter);
-    setSelectedFilter(filter_id);
+  function onChangeFilter(filter_id, type) {
+    switch (type) {
+      case "filterGroup":
+        const filter = findDuplicate(full_data, filter_id);
+        setFilterData(filter);
+        setSelectedFilter(filter_id);
+        break;
+      case "numericGroup":
+        setNumericSelect(filter_id);
+        break;
+    }
+    setClearAutocomplete(clearAutocomplete == null ? "" : null);
   }
 
   function searchData(keyword) {
-    keyword = keyword + "";
-    let query = keyword.toLowerCase();
-    const selectedData = full_data.filter(
-      (data) => (data[filter_selected] + "").toLowerCase().indexOf(query) >= 0
-    );
+    let selectedData;
+    if (NumericHeader.indexOf(filter_selected) != -1) {
+      switch (filter_numeric) {
+        case ">":
+          selectedData = full_data.filter(
+            (data) => data[filter_selected] >= keyword
+          );
+          break;
+        case "<":
+          selectedData = full_data.filter(
+            (data) => data[filter_selected] <= keyword
+          );
+          break;
+        case "=":
+          selectedData = full_data.filter(
+            (data) => data[filter_selected] == keyword
+          );
+          break;
+      }
+    } else {
+      keyword = keyword + "";
+      let query = keyword.toLowerCase();
+      selectedData = full_data.filter(
+        (data) => (data[filter_selected] + "").toLowerCase().indexOf(query) >= 0
+      );
+    }
     return selectedData;
   }
 
   function onChangeSearchBar(keyword, type) {
-    if (type == "search") {
+    if (type === "search") {
       const data = searchData(keyword);
       setRows([...data]);
-    } else if (type == "reset") {
+    } else if (type === "reset") {
       setRows([...full_data]);
     }
   }
@@ -369,6 +437,7 @@ export default function EnhancedTable({ showProductDetail }) {
           filterData={filter_data}
           filterSelected={filter_selected}
           onChangeSearchBar={onChangeSearchBar}
+          clearAutocomplete={clearAutocomplete}
         />
         <TableContainer>
           <Table
