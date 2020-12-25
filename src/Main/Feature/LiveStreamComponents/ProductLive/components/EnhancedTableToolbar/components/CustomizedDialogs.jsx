@@ -63,7 +63,6 @@ const DialogActions = withStyles((theme) => ({
 
 export default function CustomizedDialogs() {
   const [open, setOpen] = React.useState(false);
-
   const classes = useStyles();
 
   const handleClickOpen = () => {
@@ -82,6 +81,7 @@ export default function CustomizedDialogs() {
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
+        keepMounted
         maxWidth={"lg"}
         classes={{ paper: classes.dialogPaper }}
       >
@@ -90,21 +90,6 @@ export default function CustomizedDialogs() {
         </DialogTitle>
         <DialogContent dividers>
           <DataTable />
-          {/*<Typography gutterBottom>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-            ac consectetur ac, vestibulum at eros.
-          </Typography>
-          <Typography gutterBottom>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-            Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor
-            auctor.
-          </Typography>
-          <Typography gutterBottom>
-            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo
-            cursus magna, vel scelerisque nisl consectetur et. Donec sed odio
-            dui. Donec ullamcorper nulla non metus auctor fringilla.
-          </Typography>*/}
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose} color="primary">

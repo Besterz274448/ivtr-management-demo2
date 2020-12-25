@@ -6,6 +6,7 @@ import TableCell from "@material-ui/core/TableCell";
 import Checkbox from "@material-ui/core/Checkbox";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 
+
 const useToolbarStyles = makeStyles(() => ({
   visuallyHidden: {
     border: 0,
@@ -21,6 +22,8 @@ const useToolbarStyles = makeStyles(() => ({
 }));
 
 const headCells = [
+  { id: "live", numeric: false, disablePadding: false, label: "ใช้งาน" },
+  { id: "keyword", numeric: false, disablePadding: false, label: "Keyword" },
   {
     id: "id",
     numeric: false,
@@ -33,10 +36,11 @@ const headCells = [
     disablePadding: false,
     label: "ชื่อสินค้า",
   },
+  { id: "category", numeric: false, disablePadding: false, label: "ประเภท" },
   { id: "price", numeric: false, disablePadding: false, label: "ราคา" },
   { id: "quantity", numeric: false, disablePadding: false, label: "คงเหลือ" },
-  { id: "category", numeric: false, disablePadding: false, label: "ประเภท" },
-  { id: "sold", numeric: false, disablePadding: false, label: "ขายแล้ว" },
+  { id: "button", numeric: false, disablePadding: false, label: "" },
+  
 ];
 
 export default function EnhancedTableHead(props) {
