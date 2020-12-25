@@ -8,7 +8,7 @@ export class Product {
         "quantity": 10,
         "category": "Jewelery",
         "sold": 38,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -18,7 +18,7 @@ export class Product {
         "quantity": 44,
         "category": "Automotive",
         "sold": 74,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -28,7 +28,7 @@ export class Product {
         "quantity": 84,
         "category": "Automotive",
         "sold": 65,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -38,7 +38,7 @@ export class Product {
         "quantity": 68,
         "category": "Grocery",
         "sold": 29,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -48,7 +48,7 @@ export class Product {
         "quantity": 69,
         "category": "Sports",
         "sold": 19,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -58,7 +58,7 @@ export class Product {
         "quantity": 60,
         "category": "Jewelery",
         "sold": 83,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -68,7 +68,7 @@ export class Product {
         "quantity": 22,
         "category": "Music",
         "sold": 36,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -78,7 +78,7 @@ export class Product {
         "quantity": 72,
         "category": "Sports",
         "sold": 8,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -88,7 +88,7 @@ export class Product {
         "quantity": 92,
         "category": "Beauty",
         "sold": 97,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -98,7 +98,7 @@ export class Product {
         "quantity": 89,
         "category": "Clothing",
         "sold": 97,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -108,7 +108,7 @@ export class Product {
         "quantity": 24,
         "category": "Industrial",
         "sold": 28,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -118,7 +118,7 @@ export class Product {
         "quantity": 82,
         "category": "Kids",
         "sold": 49,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -128,7 +128,7 @@ export class Product {
         "quantity": 5,
         "category": "Beauty",
         "sold": 26,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -138,7 +138,7 @@ export class Product {
         "quantity": 2,
         "category": "Grocery",
         "sold": 7,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -148,7 +148,7 @@ export class Product {
         "quantity": 82,
         "category": "Industrial",
         "sold": 77,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -158,7 +158,7 @@ export class Product {
         "quantity": 4,
         "category": "Industrial",
         "sold": 27,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -168,7 +168,7 @@ export class Product {
         "quantity": 19,
         "category": "Industrial",
         "sold": 55,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -178,7 +178,7 @@ export class Product {
         "quantity": 38,
         "category": "Automotive",
         "sold": 82,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -188,7 +188,7 @@ export class Product {
         "quantity": 100,
         "category": "Clothing",
         "sold": 51,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -198,7 +198,7 @@ export class Product {
         "quantity": 68,
         "category": "Shoes",
         "sold": 75,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -208,7 +208,7 @@ export class Product {
         "quantity": 63,
         "category": "Music",
         "sold": 70,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -218,7 +218,7 @@ export class Product {
         "quantity": 99,
         "category": "Clothing",
         "sold": 41,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -228,7 +228,7 @@ export class Product {
         "quantity": 93,
         "category": "Beauty",
         "sold": 34,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -238,7 +238,7 @@ export class Product {
         "quantity": 51,
         "category": "Outdoors",
         "sold": 72,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -248,7 +248,7 @@ export class Product {
         "quantity": 1,
         "category": "Computers",
         "sold": 64,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -258,7 +258,7 @@ export class Product {
         "quantity": 4,
         "category": "Clothing",
         "sold": 15,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -268,7 +268,7 @@ export class Product {
         "quantity": 67,
         "category": "Computers",
         "sold": 34,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -278,7 +278,7 @@ export class Product {
         "quantity": 75,
         "category": "Kids",
         "sold": 56,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -288,7 +288,7 @@ export class Product {
         "quantity": 89,
         "category": "Beauty",
         "sold": 51,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -298,7 +298,7 @@ export class Product {
         "quantity": 71,
         "category": "Garden",
         "sold": 63,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -308,7 +308,7 @@ export class Product {
         "quantity": 70,
         "category": "Games",
         "sold": 24,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -318,7 +318,7 @@ export class Product {
         "quantity": 62,
         "category": "Computers",
         "sold": 61,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -328,7 +328,7 @@ export class Product {
         "quantity": 13,
         "category": "Beauty",
         "sold": 54,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -338,7 +338,7 @@ export class Product {
         "quantity": 66,
         "category": "Garden",
         "sold": 7,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -348,7 +348,7 @@ export class Product {
         "quantity": 89,
         "category": "Home",
         "sold": 51,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -358,7 +358,7 @@ export class Product {
         "quantity": 76,
         "category": "Tools",
         "sold": 95,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -368,7 +368,7 @@ export class Product {
         "quantity": 95,
         "category": "Jewelery",
         "sold": 36,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -378,7 +378,7 @@ export class Product {
         "quantity": 47,
         "category": "Baby",
         "sold": 15,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -388,7 +388,7 @@ export class Product {
         "quantity": 16,
         "category": "Baby",
         "sold": 60,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -398,7 +398,7 @@ export class Product {
         "quantity": 58,
         "category": "Books",
         "sold": 60,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -408,7 +408,7 @@ export class Product {
         "quantity": 73,
         "category": "Automotive",
         "sold": 80,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -418,7 +418,7 @@ export class Product {
         "quantity": 57,
         "category": "Grocery",
         "sold": 100,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -428,7 +428,7 @@ export class Product {
         "quantity": 4,
         "category": "Computers",
         "sold": 8,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -438,7 +438,7 @@ export class Product {
         "quantity": 44,
         "category": "Movies",
         "sold": 11,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -448,7 +448,7 @@ export class Product {
         "quantity": 96,
         "category": "Shoes",
         "sold": 51,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -458,7 +458,7 @@ export class Product {
         "quantity": 36,
         "category": "Electronics",
         "sold": 92,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -468,7 +468,7 @@ export class Product {
         "quantity": 96,
         "category": "Games",
         "sold": 81,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -478,7 +478,7 @@ export class Product {
         "quantity": 8,
         "category": "Movies",
         "sold": 21,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -488,7 +488,7 @@ export class Product {
         "quantity": 62,
         "category": "Sports",
         "sold": 7,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -498,7 +498,7 @@ export class Product {
         "quantity": 84,
         "category": "Automotive",
         "sold": 55,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -508,7 +508,7 @@ export class Product {
         "quantity": 5,
         "category": "Grocery",
         "sold": 49,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -518,7 +518,7 @@ export class Product {
         "quantity": 92,
         "category": "Garden",
         "sold": 67,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -528,7 +528,7 @@ export class Product {
         "quantity": 77,
         "category": "Industrial",
         "sold": 23,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -538,7 +538,7 @@ export class Product {
         "quantity": 40,
         "category": "Beauty",
         "sold": 63,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -548,7 +548,7 @@ export class Product {
         "quantity": 39,
         "category": "Health",
         "sold": 53,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -558,7 +558,7 @@ export class Product {
         "quantity": 100,
         "category": "Computers",
         "sold": 56,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -568,7 +568,7 @@ export class Product {
         "quantity": 3,
         "category": "Shoes",
         "sold": 23,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -578,7 +578,7 @@ export class Product {
         "quantity": 73,
         "category": "Beauty",
         "sold": 46,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -588,7 +588,7 @@ export class Product {
         "quantity": 77,
         "category": "Beauty",
         "sold": 94,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -598,7 +598,7 @@ export class Product {
         "quantity": 76,
         "category": "Garden",
         "sold": 49,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -608,7 +608,7 @@ export class Product {
         "quantity": 95,
         "category": "Grocery",
         "sold": 11,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -618,7 +618,7 @@ export class Product {
         "quantity": 68,
         "category": "Shoes",
         "sold": 43,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -628,7 +628,7 @@ export class Product {
         "quantity": 71,
         "category": "Toys",
         "sold": 83,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -638,7 +638,7 @@ export class Product {
         "quantity": 13,
         "category": "Home",
         "sold": 6,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -648,7 +648,7 @@ export class Product {
         "quantity": 94,
         "category": "Home",
         "sold": 25,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -658,7 +658,7 @@ export class Product {
         "quantity": 61,
         "category": "Kids",
         "sold": 51,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -668,7 +668,7 @@ export class Product {
         "quantity": 53,
         "category": "Automotive",
         "sold": 7,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -678,7 +678,7 @@ export class Product {
         "quantity": 99,
         "category": "Baby",
         "sold": 16,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -688,7 +688,7 @@ export class Product {
         "quantity": 56,
         "category": "Garden",
         "sold": 75,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -698,7 +698,7 @@ export class Product {
         "quantity": 97,
         "category": "Grocery",
         "sold": 9,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -708,7 +708,7 @@ export class Product {
         "quantity": 96,
         "category": "Tools",
         "sold": 15,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -718,7 +718,7 @@ export class Product {
         "quantity": 98,
         "category": "Computers",
         "sold": 84,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -728,7 +728,7 @@ export class Product {
         "quantity": 67,
         "category": "Clothing",
         "sold": 76,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -738,7 +738,7 @@ export class Product {
         "quantity": 31,
         "category": "Games",
         "sold": 28,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -748,7 +748,7 @@ export class Product {
         "quantity": 70,
         "category": "Outdoors",
         "sold": 54,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -758,7 +758,7 @@ export class Product {
         "quantity": 35,
         "category": "Shoes",
         "sold": 71,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -768,7 +768,7 @@ export class Product {
         "quantity": 30,
         "category": "Tools",
         "sold": 60,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -778,7 +778,7 @@ export class Product {
         "quantity": 21,
         "category": "Industrial",
         "sold": 66,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -788,7 +788,7 @@ export class Product {
         "quantity": 76,
         "category": "Beauty",
         "sold": 94,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -798,7 +798,7 @@ export class Product {
         "quantity": 54,
         "category": "Grocery",
         "sold": 10,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -808,7 +808,7 @@ export class Product {
         "quantity": 67,
         "category": "Movies",
         "sold": 98,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -818,7 +818,7 @@ export class Product {
         "quantity": 1,
         "category": "Clothing",
         "sold": 85,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -828,7 +828,7 @@ export class Product {
         "quantity": 77,
         "category": "Tools",
         "sold": 44,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -838,7 +838,7 @@ export class Product {
         "quantity": 34,
         "category": "Kids",
         "sold": 65,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -848,7 +848,7 @@ export class Product {
         "quantity": 2,
         "category": "Kids",
         "sold": 72,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -858,7 +858,7 @@ export class Product {
         "quantity": 38,
         "category": "Music",
         "sold": 92,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -868,7 +868,7 @@ export class Product {
         "quantity": 20,
         "category": "Home",
         "sold": 48,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -878,7 +878,7 @@ export class Product {
         "quantity": 45,
         "category": "Health",
         "sold": 41,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -888,7 +888,7 @@ export class Product {
         "quantity": 22,
         "category": "Garden",
         "sold": 82,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -898,7 +898,7 @@ export class Product {
         "quantity": 1,
         "category": "Sports",
         "sold": 73,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -908,7 +908,7 @@ export class Product {
         "quantity": 85,
         "category": "Toys",
         "sold": 16,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -918,7 +918,7 @@ export class Product {
         "quantity": 2,
         "category": "Sports",
         "sold": 90,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -928,7 +928,7 @@ export class Product {
         "quantity": 26,
         "category": "Outdoors",
         "sold": 63,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -938,7 +938,7 @@ export class Product {
         "quantity": 54,
         "category": "Industrial",
         "sold": 11,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -948,7 +948,7 @@ export class Product {
         "quantity": 26,
         "category": "Outdoors",
         "sold": 71,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -958,7 +958,7 @@ export class Product {
         "quantity": 82,
         "category": "Computers",
         "sold": 52,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -968,7 +968,7 @@ export class Product {
         "quantity": 48,
         "category": "Industrial",
         "sold": 20,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -978,7 +978,7 @@ export class Product {
         "quantity": 13,
         "category": "Jewelery",
         "sold": 69,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -988,7 +988,7 @@ export class Product {
         "quantity": 47,
         "category": "Games",
         "sold": 71,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       },
       {
@@ -998,7 +998,7 @@ export class Product {
         "quantity": 49,
         "category": "Clothing",
         "sold": 23,
-        "keyword": "",
+        "keyword": [],
         "live": false,
       }
      ]

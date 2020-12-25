@@ -33,13 +33,21 @@ export default function ProductLive() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [products, setProducts ] = React.useState(new Product().liveProduct);
+  const [products, setProducts] = React.useState(new Product().liveProduct);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
+
+  const handleSwitchClick = (event, row) => {
+    const newArr = [ ...products ]
+    const index = newArr.indexOf(row);
+    row.live = !row.live;
+    newArr[index] = row;
+    setProducts(newArr);
+  }
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
@@ -111,6 +119,7 @@ export default function ProductLive() {
               rows={products}
               handleClick={handleClick}
               isSelected={isSelected}
+              onSwitchLive={handleSwitchClick}
               order={order}
               orderBy={orderBy}
               page={page}
