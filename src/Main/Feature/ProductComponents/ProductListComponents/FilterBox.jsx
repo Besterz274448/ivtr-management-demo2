@@ -1,16 +1,19 @@
 import React from 'react'
 import { makeStyles } from "@material-ui/core/styles";
-import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
-import ListSubheader from "@material-ui/core/ListSubheader";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 
 
-export default function FilterBox({ headCells, onChangeFilter,filterName,InputWidth,typeFilter }) {
+export default function FilterBox({
+  headCells,
+  onChangeFilter,
+  InputWidth,
+  typeFilter,
+  filterSelected,
+}) {
   const useStyles = makeStyles((theme) => ({
     formControl: {
-
       margin: theme.spacing(1),
       minWidth: InputWidth || 120,
     },
@@ -18,9 +21,8 @@ export default function FilterBox({ headCells, onChangeFilter,filterName,InputWi
   const classes = useStyles();
   return (
     <FormControl className={classes.formControl}>
-      <InputLabel htmlFor="grouped-select">{filterName}</InputLabel>
       <Select
-        defaultValue={headCells[0].id}
+        value={filterSelected}
         onChange={(event) => {
           onChangeFilter(event.target.value, typeFilter);
         }}

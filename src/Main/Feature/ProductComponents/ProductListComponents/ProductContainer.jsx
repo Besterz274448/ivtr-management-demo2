@@ -1,6 +1,6 @@
 import React from "react";
-import ProductTable from "./components/ProductTable";
-import ProductOverview from "./components/ProductOverview";
+import ProductTable from "./ProductTable";
+import ProductOverview from "./ProductOverview";
 import Grid from "@material-ui/core/Grid";
 export default function Product() {
   const [product_data, setProductData] = React.useState({});

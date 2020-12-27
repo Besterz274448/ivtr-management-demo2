@@ -3,14 +3,14 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 
-export default function ComboBox({ filterData, onChangeSearchBar, clearAutocomplete }) {
+export default function ComboBox({ filterData, onChangeSearchBar, clearText }) {
   return (
     <Autocomplete
       id="size-small-standard"
-      value={clearAutocomplete}
+      value={clearText}
       size="small"
       options={filterData}
-      style={{ width: 200, paddingTop: 19 }}
+      style={{ width: 150 }}
       freeSolo
       onInputChange={(event, values) => {
         if (!values) {
@@ -30,3 +30,4 @@ export default function ComboBox({ filterData, onChangeSearchBar, clearAutocompl
     />
   );
 }
+

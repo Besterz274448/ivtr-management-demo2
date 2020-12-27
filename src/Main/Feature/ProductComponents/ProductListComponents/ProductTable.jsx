@@ -21,7 +21,9 @@ import Switch from "@material-ui/core/Switch";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FilterBox from "./FilterBox";
 import AutocompleteBox from "./AutocompleteBox";
-import ProductOverview from "./ProductOverview";
+import { NavLink } from "react-router-dom";
+import InputBox from "./InputBox";
+import LoadingProgress from "./LoadingProgress";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -73,18 +75,11 @@ const NumericOptions = [
   { id: "<", label: "<" },
   { id: ">", label: ">" },
   { id: "=", label: "=" },
+  { id: "<>", label: "ระหว่าง" },
 ];
 
 function EnhancedTableHead(props) {
-  const {
-    classes,
-    onSelectAllClick,
-    order,
-    orderBy,
-    numSelected,
-    rowCount,
-    onRequestSort,
-  } = props;
+  const { classes, order, orderBy, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -145,12 +140,13 @@ const useToolbarStyles = makeStyles((theme) => ({
           backgroundColor: theme.palette.secondary.dark,
         },
   title: {
-    flex: "1 1 100%",
+    flex: "1 1 50%",
   },
 }));
 
-const AutocompleteStyle = {
-  display: "inline-block",
+const NavLinkStyle = {
+  marginRight: "2.5em",
+  textDecoration: "none",
 };
 
 const EnhancedTableToolbar = (props) => {
@@ -161,7 +157,9 @@ const EnhancedTableToolbar = (props) => {
     filterData,
     onChangeSearchBar,
     filterSelected,
-    clearAutocomplete,
+    clearText,
+    filterNumeric,
+    onSearchDataFromRange,
   } = props;
 
   return (
@@ -186,34 +184,35 @@ const EnhancedTableToolbar = (props) => {
           id="tableTitle"
           component="div"
         >
-          <div style={{ display: "inline-block" }}>รายการสินค้า</div>
+          <span>
+            <b>รายการสินค้า</b>
+          </span>
           <React.Fragment>
             <div style={{ display: "inline-block", paddingLeft: "30px" }}>
               <div
                 style={{
                   display: "inline-block",
                   verticalAlign: "top",
-                  marginTop: "-5px",
                 }}
               >
                 <FilterBox
+                  filterSelected={filterSelected}
                   headCells={headCells}
-                  filterName="Filter By "
                   onChangeFilter={onChangeFilter}
                   typeFilter="filterGroup"
                 />
               </div>
-              {NumericHeader.indexOf(filterSelected) != -1 ? (
+              {NumericHeader.indexOf(filterSelected) !== -1 ? (
                 <div
                   style={{
                     display: "inline-block",
-                    marginTop: "-5px",
                     verticalAlign: "top",
                     paddingRight: "5px",
                   }}
                 >
                   <FilterBox
                     headCells={NumericOptions}
+                    filterSelected={filterNumeric}
                     onChangeFilter={onChangeFilter}
                     InputWidth={20}
                     typeFilter="numericGroup"
@@ -222,13 +221,49 @@ const EnhancedTableToolbar = (props) => {
               ) : (
                 false
               )}
-              <div style={{ display: "inline-block", marginTop: "3px" }}>
-                <AutocompleteBox
-                  onChangeSearchBar={onChangeSearchBar}
-                  filterData={filterData}
-                  clearAutocomplete={clearAutocomplete}
-                />
-              </div>
+
+              {filterNumeric === "<>" &&
+              NumericHeader.indexOf(filterSelected) !== -1 ? (
+                <React.Fragment>
+                  <div
+                    style={{
+                      display: "inline-block",
+                      marginTop: 11,
+                      marginLeft: 10,
+                    }}
+                  >
+                    <InputBox
+                      id="product_search_min_range"
+                      name="min"
+                      onSearchDataFromRange={onSearchDataFromRange}
+                    />
+                  </div>
+                  <span
+                    style={{
+                      margin: "0px 10px",
+                      color: "#9c9c9c",
+                      fontSize: "16px",
+                    }}
+                  >
+                    ถึง
+                  </span>
+                  <div style={{ display: "inline-block", marginTop: 11 }}>
+                    <InputBox
+                      id="product_search_max_range"
+                      name="max"
+                      onSearchDataFromRange={onSearchDataFromRange}
+                    />
+                  </div>
+                </React.Fragment>
+              ) : (
+                <div style={{ display: "inline-block", marginTop: 11 }}>
+                  <AutocompleteBox
+                    onChangeSearchBar={onChangeSearchBar}
+                    filterData={filterData}
+                    clearText={clearText}
+                  />
+                </div>
+              )}
             </div>
           </React.Fragment>
         </Typography>
@@ -241,7 +276,9 @@ const EnhancedTableToolbar = (props) => {
           </IconButton>
         </Tooltip>
       ) : (
-        false
+        <NavLink style={NavLinkStyle} to="/product/addproduct">
+          <b>+</b> New Product
+        </NavLink>
       )}
     </Toolbar>
   );
@@ -290,7 +327,7 @@ export default function EnhancedTable({ showProductDetail }) {
   );
   const [filter_data, setFilterData] = React.useState([]);
   const [full_data, setFullData] = React.useState([]);
-  const [clearAutocomplete,setClearAutocomplete] = React.useState(null);
+  const [clearText, setTextInput] = React.useState(null);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -360,13 +397,26 @@ export default function EnhancedTable({ showProductDetail }) {
       case "numericGroup":
         setNumericSelect(filter_id);
         break;
+      default:
+        break;
     }
-    setClearAutocomplete(clearAutocomplete == null ? "" : null);
+    setPage(0);
+    if (
+      filter_numeric === "<>" &&
+      NumericHeader.indexOf(filter_selected) !== -1
+    ) {
+      document.getElementById("product_search_min_range").value = "";
+      document.getElementById("product_search_max_range").value = "";
+    }
+    if (rows.length !== full_data.length) {
+      setRows([...full_data]);
+    }
+    setTextInput(clearText == null ? "" : null);
   }
 
   function searchData(keyword) {
     let selectedData;
-    if (NumericHeader.indexOf(filter_selected) != -1) {
+    if (NumericHeader.indexOf(filter_selected) !== -1) {
       switch (filter_numeric) {
         case ">":
           selectedData = full_data.filter(
@@ -382,6 +432,8 @@ export default function EnhancedTable({ showProductDetail }) {
           selectedData = full_data.filter(
             (data) => data[filter_selected] == keyword
           );
+          break;
+        default:
           break;
       }
     } else {
@@ -401,11 +453,26 @@ export default function EnhancedTable({ showProductDetail }) {
     } else if (type === "reset") {
       setRows([...full_data]);
     }
+    setPage(0);
+  }
+
+  function onSearchDataFromRange(data) {
+    var min_value = document.getElementById("product_search_min_range").value;
+    var max_value = document.getElementById("product_search_max_range").value;
+
+    if (min_value.length !== 0 && max_value.length !== 0) {
+      let selectData = full_data.filter(
+        (data) =>
+          data[filter_selected] >= min_value &&
+          data[filter_selected] <= max_value
+      );
+      setRows([...selectData]);
+      setPage(0);
+    }
   }
 
   function fetchProductData() {
     var xhr = new XMLHttpRequest();
-    // xhr.withCredentials = true;
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4) {
         const data = JSON.parse(xhr.responseText);
@@ -437,8 +504,11 @@ export default function EnhancedTable({ showProductDetail }) {
           filterData={filter_data}
           filterSelected={filter_selected}
           onChangeSearchBar={onChangeSearchBar}
-          clearAutocomplete={clearAutocomplete}
+          clearText={clearText}
+          filterNumeric={filter_numeric}
+          onSearchDataFromRange={onSearchDataFromRange}
         />
+        {rows.length === 0 ? <LoadingProgress /> : false}
         <TableContainer>
           <Table
             className={classes.table}
@@ -492,7 +562,15 @@ export default function EnhancedTable({ showProductDetail }) {
                       >
                         {row.id}
                       </TableCell>
-                      <TableCell align="left">{row.Name}</TableCell>
+                      <TableCell align="left">
+                        <Tooltip title={row.Name}>
+                          <Typography>
+                            {row.Name.length > 20
+                              ? row.Name.slice(0, 20) + "..."
+                              : row.Name}
+                          </Typography>
+                        </Tooltip>
+                      </TableCell>
                       <TableCell align="left">{row.Price}</TableCell>
                       <TableCell align="left">{row.Stock}</TableCell>
                       <TableCell align="left">{row.Category}</TableCell>

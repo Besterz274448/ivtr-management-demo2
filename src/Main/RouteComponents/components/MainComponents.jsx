@@ -1,6 +1,6 @@
 import React from 'react'
 import { makeStyles } from "@material-ui/core/styles";
-import Product from '../../Feature/ProductComponents/ProductContainer';
+import Product from '../../Feature/ProductComponents/ProductRoute';
 import LiveStream from "../../Feature/LiveStreamComponents/LiveStream";
 import Order from '../../Feature/OrderComponents/Order';
 import Dashboard from '../../Feature/DashboardComponents/Dashboard'
