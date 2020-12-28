@@ -328,6 +328,7 @@ export default function EnhancedTable({ showProductDetail }) {
   const [filter_data, setFilterData] = React.useState([]);
   const [full_data, setFullData] = React.useState([]);
   const [clearText, setTextInput] = React.useState(null);
+  const [loadingData,setLoadingData] = React.useState(true);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -477,6 +478,7 @@ export default function EnhancedTable({ showProductDetail }) {
       if (xhr.readyState === 4) {
         const data = JSON.parse(xhr.responseText);
         const filterData = findDuplicate(data, filter_selected);
+        setLoadingData(false);
         setRows([...data]);
         setFullData([...data]);
         setFilterData(filterData);
@@ -508,7 +510,7 @@ export default function EnhancedTable({ showProductDetail }) {
           filterNumeric={filter_numeric}
           onSearchDataFromRange={onSearchDataFromRange}
         />
-        {rows.length === 0 ? <LoadingProgress /> : false}
+        {loadingData ? <LoadingProgress /> : false}
         <TableContainer>
           <Table
             className={classes.table}
