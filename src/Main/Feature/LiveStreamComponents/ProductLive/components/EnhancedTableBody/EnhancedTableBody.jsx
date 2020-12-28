@@ -1,12 +1,23 @@
 import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import Checkbox from "@material-ui/core/Checkbox";
 import Grid from "@material-ui/core/Grid";
 import Chip from "@material-ui/core/Chip";
-import { getComparator, stableSort } from "../../../utils/TableUtils";
 import Switch from "@material-ui/core/Switch";
-import Button from "@material-ui/core/Button";
+import { getComparator, stableSort } from "../../../utils/TableUtils";
+import EditDialog from "./components/EditDialog";
+import DeleteDialog from "./components/DeleteDialog";
+
+const useStyles = makeStyles((theme) => ({
+  chip: {
+    margin: theme.spacing(0.5),
+  },
+  dialog: {
+    margin: theme.spacing(0.3),
+  },
+}));
 
 export default function EnhancedTableBody(props) {
   const {
@@ -21,6 +32,8 @@ export default function EnhancedTableBody(props) {
     emptyRows,
     dense,
   } = props;
+
+  const classes = useStyles();
 
   return (
     <>
@@ -57,17 +70,16 @@ export default function EnhancedTableBody(props) {
                   color="primary"
                 />
               </TableCell>
-              <TableCell align="left">
-                <Chip
-                  size="small"
-                  variant="outlined"
-                  color="primary"
-                  clickable
-                  label="Test"
-                  
-                  /*onClick={handleClick}
-                  onDelete={handleDelete}*/
-                />
+              <TableCell padding="none" align="left">
+                {row.keyword.map((keyword) => (
+                  <Chip
+                    size="small"
+                    variant="outlined"
+                    color="primary"
+                    label={keyword}
+                    className={classes.chip}
+                  />
+                ))}
               </TableCell>
               <TableCell component="th" id={labelId} scope="row" padding="none">
                 {row.id}
@@ -78,15 +90,11 @@ export default function EnhancedTableBody(props) {
               <TableCell align="left">{row.quantity}</TableCell>
               <TableCell align="left" padding="none">
                 <Grid container spacing={0}>
-                  <Grid item xs={4}>
-                    <Button variant="outlined" color="primary">
-                      แก้ไข
-                    </Button>
+                  <Grid item xs={4} className={classes.dialog}>
+                    <EditDialog />
                   </Grid>
-                  <Grid item xs={4}>
-                    <Button variant="outlined" color="secondary">
-                      ลบ
-                    </Button>
+                  <Grid item xs={4} className={classes.dialog}>
+                    <DeleteDialog />
                   </Grid>
                 </Grid>
               </TableCell>
