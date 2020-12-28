@@ -116,7 +116,7 @@ export default function EnhancedTableToolbar(props) {
               สินค้าไลฟ์
             </Typography>
           </Grid>
-          <Grid item xs={3} direction="row-reverse">
+          <Grid item xs={3} >
   
           </Grid>
           <Grid item xs={1} >

@@ -73,6 +73,7 @@ export default function EnhancedTableBody(props) {
               <TableCell padding="none" align="left">
                 {row.keyword.map((keyword) => (
                   <Chip
+                    key={keyword}
                     size="small"
                     variant="outlined"
                     color="primary"

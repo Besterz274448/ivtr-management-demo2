@@ -42,12 +42,12 @@ export default function ProductLive() {
   };
 
   const handleSwitchClick = (event, row) => {
-    const newArr = [ ...products ]
+    const newArr = [...products];
     const index = newArr.indexOf(row);
     row.live = !row.live;
     newArr[index] = row;
     setProducts(newArr);
-  }
+  };
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
@@ -115,18 +115,20 @@ export default function ProductLive() {
               onRequestSort={handleRequestSort}
               rowCount={products.length}
             />
-            <EnhancedTableBody
-              rows={products}
-              handleClick={handleClick}
-              isSelected={isSelected}
-              onSwitchLive={handleSwitchClick}
-              order={order}
-              orderBy={orderBy}
-              page={page}
-              rowsPerPage={rowsPerPage}
-              emptyRows={emptyRows}
-              dense={dense}
-            />
+            <tbody>
+              <EnhancedTableBody
+                rows={products}
+                handleClick={handleClick}
+                isSelected={isSelected}
+                onSwitchLive={handleSwitchClick}
+                order={order}
+                orderBy={orderBy}
+                page={page}
+                rowsPerPage={rowsPerPage}
+                emptyRows={emptyRows}
+                dense={dense}
+              />
+            </tbody>
           </Table>
         </TableContainer>
         <Grid container spacing={0}>
@@ -135,7 +137,7 @@ export default function ProductLive() {
               style={{ marginLeft: "20px" }}
               control={<Switch checked={dense} onChange={handleChangeDense} />}
               label="Dense padding"
-              labelPlacementStart="start"
+              labelplacementstart="start"
             />
           </Grid>
           <Grid item xs={6}>

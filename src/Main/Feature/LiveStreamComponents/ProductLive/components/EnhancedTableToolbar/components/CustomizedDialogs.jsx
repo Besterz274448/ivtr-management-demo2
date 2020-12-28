@@ -86,7 +86,7 @@ export default function CustomizedDialogs() {
         classes={{ paper: classes.dialogPaper }}
       >
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          <Typography variant="h5">เพิ่มสินค้า</Typography>
+          เพิ่มสินค้า
         </DialogTitle>
         <DialogContent dividers>
           <DataTable />
