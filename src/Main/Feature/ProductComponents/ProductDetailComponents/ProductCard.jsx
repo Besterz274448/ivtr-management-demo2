@@ -34,7 +34,7 @@ function FolderList({ label, name }) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    paddingTop:"4px"
   },
   media: {
     height: 0,
@@ -67,7 +67,7 @@ export default function RecipeReviewCard(props) {
   };
 
   return (
-    <Card>
+    <Card className={classes.root}>
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>

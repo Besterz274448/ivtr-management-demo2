@@ -14,13 +14,24 @@ import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
-
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
 const useRowStyles = makeStyles({
   root: {
     "& > *": {
       borderBottom: "unset",
     },
   },
+  header: {
+    padding: "10px 5px",
+  },
+  boxInline: {
+    display: "inline-block",
+    margin: "0px 10px",
+  },
+  tableBox:{
+    marginTop:"20px"
+  }
 });
 
 function createData(name, calories, fat, carbs, protein, price) {
@@ -129,9 +140,35 @@ const rows = [
 ];
 
 export default function CollapsibleTable() {
+    const classes = useRowStyles();
   return (
-    <TableContainer component={Paper}>
-      <Table size="small"  aria-label="collapsible table">
+    <TableContainer className={classes.tableBox}component={Paper}>
+      <Paper className={classes.header}>
+        <Grid container spacing={0}>
+          <Grid item xs={9}>
+            <h3 className={classes.boxInline}>รายการสินค้าย่อย (SubProduct)</h3>
+          </Grid>
+          <Grid item xs={3}>
+            <Button
+              className={classes.boxInline}
+              variant="contained"
+              color="primary"
+              size="small"
+            >
+              + เพิ่มสินค้าย่อย
+            </Button>
+            <Button
+              className={classes.boxInline}
+              variant="contained"
+              color="primary"
+              size="small"
+            >
+              + เพิ่มสินค้าย่อย
+            </Button>
+          </Grid>
+        </Grid>
+      </Paper>
+      <Table size="small" aria-label="collapsible table">
         <TableHead>
           <TableRow>
             <TableCell />

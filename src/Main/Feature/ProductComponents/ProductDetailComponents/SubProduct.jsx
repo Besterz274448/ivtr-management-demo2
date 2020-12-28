@@ -17,7 +17,6 @@ const useStyles = makeStyles({
   },
   boxInline: {
     display: "inline-block",
-    margin: "0px 10px",
   },
 });
 
@@ -30,6 +29,9 @@ const rows = [
   createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
   createData("Eclair", 262, 16.0, 24, 6.0),
   createData("Eclair", 262, 16.0, 24, 6.0),
+  createData("Eclair", 262, 16.0, 24, 6.0),
+  createData("Eclair", 262, 16.0, 24, 6.0),
+  createData("Eclair", 262, 16.0, 24, 6.0),
 ];
 
 export default function BasicTable() {
@@ -39,10 +41,10 @@ export default function BasicTable() {
     <Paper className={classes.paper}>
       <Paper className={classes.header}>
         <Grid container spacing={0}>
-          <Grid item xs={9}>
+          <Grid item xs={8}>
             <h3 className={classes.boxInline}>รายการสินค้าย่อย (SubProduct)</h3>
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <Button
               className={classes.boxInline}
               variant="contained"
@@ -51,6 +53,8 @@ export default function BasicTable() {
             >
               + เพิ่มสินค้าย่อย
             </Button>
+          </Grid>
+          <Grid item xs={2}>
             <Button
               className={classes.boxInline}
               variant="contained"
