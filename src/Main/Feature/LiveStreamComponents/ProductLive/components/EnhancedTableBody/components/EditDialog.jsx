@@ -49,8 +49,9 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
 
-export default function EditDialog() {
+export default function EditDialog(props) {
   const [open, setOpen] = React.useState(false);
+  const { product } = props;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -66,7 +67,7 @@ export default function EditDialog() {
       </Button>
       <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Modal title
+          แก้ไข {product.name}
         </DialogTitle>
         <DialogContent dividers>
           <Typography gutterBottom>

@@ -33,6 +33,7 @@ export default function ProductLive() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [edit, setEdit] = React.useState(true);
   const [products, setProducts] = React.useState(new Product().liveProduct);
 
   const handleRequestSort = (event, property) => {
@@ -127,6 +128,7 @@ export default function ProductLive() {
                 rowsPerPage={rowsPerPage}
                 emptyRows={emptyRows}
                 dense={dense}
+                edit={edit}
               />
             </tbody>
           </Table>
