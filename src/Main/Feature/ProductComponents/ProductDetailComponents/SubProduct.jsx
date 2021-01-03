@@ -7,90 +7,293 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import Avatar from "@material-ui/core/Avatar";
+import CategoryIcon from "@material-ui/icons/Category";
+import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
+import EditIcon from "@material-ui/icons/Edit";
+import ShopIcon from "@material-ui/icons/Shop";
+import ControlPointIcon from "@material-ui/icons/ControlPoint";
+import TableContainer from "@material-ui/core/TableContainer";
+import TablePagination from "@material-ui/core/TablePagination";
+import Modal from "@material-ui/core/Modal";
 
-const useStyles = makeStyles({
-  table: {},
-  header: {
-    padding: "10px 5px",
-  },
-  boxInline: {
-    display: "inline-block",
-  },
-});
-
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
+function rand() {
+  return Math.round(Math.random() * 20) - 10;
 }
 
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-];
+function getModalStyle() {
+  const top = 50 + rand();
+  const left = 50 + rand();
 
-export default function BasicTable() {
-  const classes = useStyles();
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
+
+const FolderList = (props) => {
+  return (
+    <ListItem>
+      <ListItemAvatar>
+        <Avatar>{props.imageIcon}</Avatar>
+      </ListItemAvatar>
+      <ListItemText primary={props.label} secondary={props.detail} />
+    </ListItem>
+  );
+};
+
+const useTableStyles = makeStyles((theme) => ({
+  root: {
+    width: "100%",
+  },
+  paper: {
+    width: "100%",
+    marginBottom: theme.spacing(2),
+  },
+
+  visuallyHidden: {
+    border: 0,
+    clip: "rect(0 0 0 0)",
+    height: 1,
+    margin: -1,
+    overflow: "hidden",
+    padding: 0,
+    position: "absolute",
+    top: 20,
+    width: 1,
+  },
+}));
+
+function EnhancedTable(props) {
+  const classes = useTableStyles();
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const emptyRows =
+    rowsPerPage - Math.min(rowsPerPage, props.rows.length - page * rowsPerPage);
 
   return (
-    <Paper className={classes.paper}>
-      <Paper className={classes.header}>
-        <Grid container spacing={0}>
-          <Grid item xs={8}>
-            <h3 className={classes.boxInline}>รายการสินค้าย่อย (SubProduct)</h3>
-          </Grid>
-          <Grid item xs={2}>
-            <Button
-              className={classes.boxInline}
-              variant="contained"
-              color="primary"
-              size="small"
-            >
-              + เพิ่มสินค้าย่อย
-            </Button>
-          </Grid>
-          <Grid item xs={2}>
-            <Button
-              className={classes.boxInline}
-              variant="contained"
-              color="primary"
-              size="small"
-            >
-              + เพิ่มสินค้าย่อย
-            </Button>
-          </Grid>
-        </Grid>
-      </Paper>
-      <Table className={classes.table} size="small" aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell align="left">ชื่อ</TableCell>
-            <TableCell align="right">ราคา&nbsp;(บาท)</TableCell>
-            <TableCell align="right">จำนวนคงเหลือ&nbsp;(ชิ้น)</TableCell>
-            <TableCell align="right">ขายแล้ว&nbsp;(ชิ้น)</TableCell>
-            <TableCell align="right">
-              จำนวนสั่งซื้อทั้งหมด&nbsp;(ชิ้น)
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
-                {row.name}
+    <div className={classes.root}>
+      <TableContainer>
+        <Table
+          aria-labelledby="tableTitle"
+          size={"small"}
+          aria-label="enhanced table"
+        >
+          <TableHead>
+            <TableRow>
+              <TableCell align="left">ชื่อ</TableCell>
+              <TableCell align="right">ราคา&nbsp;(บาท)</TableCell>
+              <TableCell align="right">จำนวนคงเหลือ&nbsp;(ชิ้น)</TableCell>
+              <TableCell align="right">ขายแล้ว&nbsp;(ชิ้น)</TableCell>
+              <TableCell align="right">
+                จำนวนสั่งซื้อทั้งหมด&nbsp;(ชิ้น)
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHead>
+          <TableBody>
+            {props.rows
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row, index) => {
+                return (
+                  <TableRow hover tabIndex={-1} key={row.Name}>
+                    <TableCell>{row.Name}</TableCell>
+                    <TableCell align="right">{row.Price}</TableCell>
+                    <TableCell align="right">{row.Stock}</TableCell>
+                    <TableCell align="right">{row.Sold}</TableCell>
+                    <TableCell align="right">{row.Order}</TableCell>
+                  </TableRow>
+                );
+              })}
+            {emptyRows > 0 && (
+              <TableRow style={{ height: 33 * emptyRows }}>
+                <TableCell colSpan={6} />
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5]}
+        component="div"
+        count={props.rows.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onChangePage={handleChangePage}
+        onChangeRowsPerPage={handleChangeRowsPerPage}
+      />
+    </div>
+  );
+}
+
+const useStyles = makeStyles((theme)=>({
+  table: {},
+  paper: {
+    height: "400px",
+  },
+  headDetail: {
+    marginTop: 0,
+    paddingLeft: "10px",
+    paddingTop: "10px",
+  },
+  inline_left: {
+    display: "inline-block",
+    float: "left",
+  },
+  inline_right: {
+    display: "inline-block",
+    float: "right",
+    padding: "0px 5px",
+  },
+  inline: {
+    display: "inline-block",
+  },
+  product_header: {},
+  paper_modal: {
+    position: "absolute",
+    width: 400,
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+}));
+
+export default function BasicTable(props) {
+  const classes = useStyles();
+
+  // getModalStyle is not a pure function, we roll the style only on the first render
+  const [modalStyle] = React.useState(getModalStyle);
+  const [open, setOpen] = React.useState(false);
+  const product_detail = [
+    {
+      label: "ราคา",
+      detail: props.product.Price,
+      imageIcon: <MonetizationOnIcon />,
+    },
+    {
+      label: "ประเภท",
+      detail: props.product.Category,
+      imageIcon: <CategoryIcon />,
+    },
+    {
+      label: "จำนวนคงเหลือ",
+      detail: props.product.Stock,
+      imageIcon: <AccountBalanceIcon />,
+    },
+    {
+      label: "จำนวนสั่งซื้อ",
+      detail: props.product.Order,
+      imageIcon: <ShoppingCartIcon />,
+    },
+    {
+      label: "จำนวนที่ขายทั้งหมด",
+      detail: props.product.Sold,
+      imageIcon: <ShopIcon />,
+    },
+  ];
+
+    const handleOpen = () => {
+      setOpen(true);
+    };
+
+    const handleClose = () => {
+      setOpen(false);
+    };
+
+  const body = (
+    <div style={modalStyle} className={classes.paper_modal}>
+      <h2 id="simple-modal-title">Text in a modal</h2>
+      <p id="simple-modal-description">
+        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+      </p>
+    </div>
+  );
+  
+  return (
+    <Paper className={classes.paper}>
+      <div>
+        <div id="product_header">
+          <div className={classes.product_header}>
+            {product_detail.map((data, index) => {
+              return (
+                <div key={data.label} className={classes.inline}>
+                  <FolderList
+                    label={data.label}
+                    detail={data.detail}
+                    imageIcon={data.imageIcon}
+                  />
+                </div>
+              );
+            })}
+            <div className={classes.inline_right} style={{ marginTop: "20px" }}>
+              <Button
+                variant="text"
+                color="primary"
+                size="small"
+                className={classes.button}
+                onClick={handleOpen}
+              >
+                <EditIcon />
+              </Button>
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+              >
+                {body}
+              </Modal>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div id="subproduct_header">
+          <div className={classes.inline_left}>
+            <h4 className={classes.headDetail}>
+              รายการสินค้าย่อย (Sub-Product)
+            </h4>
+          </div>
+          <div className={classes.inline_right}>
+            <Button
+              variant="contained"
+              color="primary"
+              size="small"
+              className={classes.button}
+            >
+              แก้ไขสินค้าย่อย
+              <EditIcon />
+            </Button>
+          </div>
+          <div className={classes.inline_right}>
+            <Button
+              variant="contained"
+              color="primary"
+              size="small"
+              className={classes.button}
+            >
+              เพิ่มสินค้าย่อย
+              <ControlPointIcon />
+            </Button>
+          </div>
+        </div>
+      </div>
+      <EnhancedTable rows={props.product.SubProduct} />
     </Paper>
   );
 }
