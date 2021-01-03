@@ -10,7 +10,7 @@ class LiveStream extends React.Component {
     userProfile: {},
     pages: {},
   };
-
+  
   async componentDidMount() {
     const fbgrant = localStorage.getItem("fbgrant");
     if (fbgrant) {
@@ -30,13 +30,11 @@ class LiveStream extends React.Component {
     localStorage.setItem("fbgrant", response.accessToken);
     this.setState({ access_token: response.accessToken });
   };
-
   render() {
     if (this.state.access_token) {
       return (
         <>
           <ProductLive />
-          <h1></h1>
         </>
       )
     } else {
@@ -55,4 +53,6 @@ class LiveStream extends React.Component {
   }
 }
 
+
 export default LiveStream;
+

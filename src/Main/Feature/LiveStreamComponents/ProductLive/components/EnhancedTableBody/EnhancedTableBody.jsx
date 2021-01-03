@@ -24,7 +24,7 @@ export default function EnhancedTableBody(props) {
     rows,
     handleClick,
     isSelected,
-    onSwitchLive,
+    updateOneProduct,
     order,
     orderBy,
     page,
@@ -34,7 +34,6 @@ export default function EnhancedTableBody(props) {
   } = props;
 
   const classes = useStyles();
-
   return (
     <>
       {stableSort(rows, getComparator(order, orderBy))
@@ -65,7 +64,8 @@ export default function EnhancedTableBody(props) {
                 <Switch
                   checked={row.live}
                   onChange={(event) => {
-                    onSwitchLive(event, row);
+                    updateOneProduct(event, row);
+                    row.live = !row.live;
                   }}
                   color="primary"
                 />
@@ -85,17 +85,20 @@ export default function EnhancedTableBody(props) {
               <TableCell component="th" id={labelId} scope="row" padding="none">
                 {row.id}
               </TableCell>
-              <TableCell align="left">{row.name}</TableCell>
-              <TableCell align="left">{row.category}</TableCell>
-              <TableCell align="left">{row.price}</TableCell>
+              <TableCell align="left" >{row.name}</TableCell>
+              <TableCell align="left" >{row.category}</TableCell>
+              <TableCell align="left" >{row.price}</TableCell>
               <TableCell align="left">{row.quantity}</TableCell>
               <TableCell align="left" padding="none">
-                <Grid container spacing={0}>
+                <Grid container>
                   <Grid item xs={4} className={classes.dialog}>
-                    <EditDialog />
+                    <EditDialog
+                      onEditProduct={updateOneProduct}
+                      row={row}
+                    />
                   </Grid>
                   <Grid item xs={4} className={classes.dialog}>
-                    <DeleteDialog />
+                    <DeleteDialog product={row} />
                   </Grid>
                 </Grid>
               </TableCell>
