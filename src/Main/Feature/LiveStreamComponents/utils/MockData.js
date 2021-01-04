@@ -1012,6 +1012,7 @@ export class Product {
     var temp = this.rows.slice(0, 3);
     temp[0].keyword = ["702406276", "Venlafaxine", "test"]
     temp[1].keyword = ["F76", "Venla8", "test-kub"]
+    temp[2].keyword = []
 
     temp[0].cf = 18;
     temp[1].cf = 23;

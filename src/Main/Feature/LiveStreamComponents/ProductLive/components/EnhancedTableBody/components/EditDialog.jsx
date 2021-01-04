@@ -71,7 +71,14 @@ export default function EditDialog(props) {
   };
 
   const handleClickSave = (event) => {
-    onEditProduct(event, product);
+    const updateProduct = {
+      "id": product.id,
+      "keyword": product.keyword,
+      "price": product.price,
+      "quantity": product.quantity,
+    }
+
+    onEditProduct(event, updateProduct);
     setOpen(false);
   };
 
@@ -90,9 +97,9 @@ export default function EditDialog(props) {
 
   const handleRemoveChip = (index) => {
     let p = Object.assign({}, product);
-    p.keyword.splice(index, 1)
+    p.keyword.splice(index, 1);
     setProduct(p);
-  }
+  };
 
   return (
     <div>
@@ -112,7 +119,7 @@ export default function EditDialog(props) {
             <Grid container spacing={3}>
               <Grid item xs={12}>
                 <ChipInput
-                  classes={{ root: { color: "primary" }}}
+                  classes={{ root: { color: "primary" } }}
                   label="Keyword"
                   allowDuplicates={false}
                   value={product.keyword}

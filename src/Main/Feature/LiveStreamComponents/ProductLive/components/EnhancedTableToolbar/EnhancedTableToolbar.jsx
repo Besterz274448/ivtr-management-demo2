@@ -81,7 +81,7 @@ const useToolbarStatStyles = makeStyles((theme) => ({
 }));
 
 export default function EnhancedTableToolbar(props) {
-  const { numSelected, date } = props;
+  const { numSelected, date, onActiveLiveAll, handleRemoveWhenClickIcon } = props;
   const deleteClasses = useToolbarDeleteStyles();
   const stateClasses = useToolbarStatStyles();
 
@@ -101,7 +101,7 @@ export default function EnhancedTableToolbar(props) {
           {numSelected} selected
         </Typography>
         <Tooltip title="Delete">
-          <IconButton aria-label="delete">
+          <IconButton aria-label="delete" onClick={handleRemoveWhenClickIcon}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>
@@ -111,20 +111,13 @@ export default function EnhancedTableToolbar(props) {
     return (
       <Toolbar>
         <Grid container spacing={1}>
-          <Grid item xs={3}>
+          <Grid item xs={4}>
             <Typography variant="h5" id="statistics">
               สินค้าไลฟ์
             </Typography>
           </Grid>
           <Grid item xs={1}>
             <AddExistingProduct />
-          </Grid>
-          <Grid item xs={1}>
-            <Button variant="contained" color="primary" size={"medium"}>
-              <Typography variant="h6" className={stateClasses.infoTitle}>
-                + สินค้าใหม่
-              </Typography>
-            </Button>
           </Grid>
           <Grid item xs={1}>
             <Button variant="contained" color="primary">
@@ -134,7 +127,7 @@ export default function EnhancedTableToolbar(props) {
             </Button>
           </Grid>
           <Grid item xs={3}>
-            <ActiveConfirmDialog />
+            <ActiveConfirmDialog onActiveLiveAll={onActiveLiveAll} />
           </Grid>
           <Grid item xs={2}>
             <div className={stateClasses.notice_update}>

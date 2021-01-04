@@ -25,7 +25,7 @@ const styles = (theme) => ({
 
 const useStyles = makeStyles(() => ({
   dialogPaper: {
-    height: "700px",
+    height: "540px",
     width: "800px",
   },
 }));
@@ -92,8 +92,13 @@ export default function AddExistingProduct() {
           <DataTable />
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleClose} color="primary">
-            Save changes
+          <Button
+            autoFocus
+            onClick={handleClose}
+            variant="contained"
+            color="primary"
+          >
+            บันทึก
           </Button>
         </DialogActions>
       </Dialog>

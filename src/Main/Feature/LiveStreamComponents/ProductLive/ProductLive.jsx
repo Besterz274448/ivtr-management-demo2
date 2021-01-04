@@ -33,8 +33,6 @@ export default function ProductLive() {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [products, setProducts] = React.useState(new Product().liveProduct);
 
-  console.log(products);
-
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
@@ -48,9 +46,31 @@ export default function ProductLive() {
     setProducts(newArr);
   };
 
-  const handleActiveLiveAllClick = (event) => {
-    
+  const handleRemoveProduct = (event, productId) => {
+    const newArr = products.filter(x => x.id !== productId);
+    setProducts(newArr);
   }
+
+  const handleRemoveWhenClickIcon = () => {
+    const newArr = products.filter(x => !selected.includes(x.id));
+    setProducts(newArr)
+    setSelected([]);
+  }
+
+  const handleEditProduct = (event, product) => {
+    const newArr = [...products];
+    const index = newArr.map((x) => x.id).indexOf(product.id);
+
+    Object.keys(product).forEach((x) => {
+      newArr[index][x] = product[x];
+    });
+
+    setProducts(newArr);
+  };
+
+  const handleActiveLiveAll = (event) => {
+    setProducts(products.map((x) => ({ ...x, live: true })));
+  };
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
@@ -58,6 +78,7 @@ export default function ProductLive() {
       setSelected(newSelecteds);
       return;
     }
+
     setSelected([]);
   };
 
@@ -90,10 +111,6 @@ export default function ProductLive() {
     setPage(0);
   };
 
-  /*const handleChangeDense = (event) => {
-    setDense(event.target.checked);
-  };*/
-
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
   const emptyRows =
@@ -102,7 +119,12 @@ export default function ProductLive() {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} date={new Date()} />
+        <EnhancedTableToolbar
+          numSelected={selected.length}
+          date={new Date()}
+          onActiveLiveAll={handleActiveLiveAll}
+          handleRemoveWhenClickIcon={handleRemoveWhenClickIcon}
+        />
         <TableContainer>
           <Table
             className={classes.table}
@@ -124,6 +146,8 @@ export default function ProductLive() {
                 handleClick={handleClick}
                 isSelected={isSelected}
                 updateOneProduct={updateOneProduct}
+                handleEditProduct={handleEditProduct}
+                handleRemoveProduct={handleRemoveProduct}
                 order={order}
                 orderBy={orderBy}
                 page={page}

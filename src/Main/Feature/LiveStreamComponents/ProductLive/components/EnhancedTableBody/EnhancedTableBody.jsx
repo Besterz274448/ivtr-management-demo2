@@ -25,6 +25,8 @@ export default function EnhancedTableBody(props) {
     handleClick,
     isSelected,
     updateOneProduct,
+    handleEditProduct,
+    handleRemoveProduct,
     order,
     orderBy,
     page,
@@ -93,10 +95,13 @@ export default function EnhancedTableBody(props) {
               <TableCell align="left" padding="none">
                 <Grid container>
                   <Grid item xs={4} className={classes.dialog}>
-                    <EditDialog onEditProduct={updateOneProduct} row={row} />
+                    <EditDialog onEditProduct={handleEditProduct} row={row} />
                   </Grid>
                   <Grid item xs={4} className={classes.dialog}>
-                    <DeleteDialog product={row} />
+                    <DeleteDialog
+                      onRemoveProduct={handleRemoveProduct}
+                      productId={row.id}
+                    />
                   </Grid>
                 </Grid>
               </TableCell>

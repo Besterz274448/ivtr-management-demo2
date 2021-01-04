@@ -7,8 +7,9 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Typography from "@material-ui/core/Typography";
 
-export default function ActiveConfirmDialog() {
+export default function ActiveConfirmDialog(props) {
   const [open, setOpen] = React.useState(false);
+  const { onActiveLiveAll } = props;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -17,6 +18,11 @@ export default function ActiveConfirmDialog() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleSubmit = (event) => {
+    onActiveLiveAll(event);
+    setOpen(false);
+  }
 
   return (
     <div>
@@ -44,7 +50,7 @@ export default function ActiveConfirmDialog() {
           <Button autoFocus onClick={handleClose} color="primary">
             ยกเลิก
           </Button>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleSubmit} color="primary">
             ยืนยัน
           </Button>
         </DialogActions>
