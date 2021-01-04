@@ -61,7 +61,7 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
 
-export default function CustomizedDialogs() {
+export default function AddExistingProduct() {
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
 

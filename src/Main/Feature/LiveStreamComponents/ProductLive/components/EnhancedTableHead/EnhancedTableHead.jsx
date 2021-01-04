@@ -22,20 +22,6 @@ const useToolbarStyles = makeStyles(() => ({
 
 const headCells = [
   {
-    id: "live",
-    numeric: false,
-    disablePadding: true,
-    sort: true,
-    label: "ใช้งาน",
-  },
-  {
-    id: "keyword",
-    numeric: false,
-    disablePadding: false,
-    sort: true,
-    label: "Keyword",
-  },
-  {
     id: "id",
     numeric: false,
     disablePadding: true,
@@ -69,6 +55,27 @@ const headCells = [
     disablePadding: true,
     sort: true,
     label: "คงเหลือ",
+  },
+  {
+    id: "cf",
+    numeric: false,
+    disablePadding: true,
+    sort: true,
+    label: "จำนวน CF",
+  },
+  {
+    id: "live",
+    numeric: false,
+    disablePadding: true,
+    sort: true,
+    label: "ใช้งาน CF",
+  },
+  {
+    id: "keyword",
+    numeric: false,
+    disablePadding: false,
+    sort: true,
+    label: "Keyword",
   },
   {
     id: "buttonEdit",

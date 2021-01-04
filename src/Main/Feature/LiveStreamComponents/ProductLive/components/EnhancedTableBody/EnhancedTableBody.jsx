@@ -60,6 +60,14 @@ export default function EnhancedTableBody(props) {
                   inputProps={{ "aria-labelledby": labelId }}
                 />
               </TableCell>
+              <TableCell component="th" id={labelId} scope="row" padding="none">
+                {row.id}
+              </TableCell>
+              <TableCell align="left">{row.name}</TableCell>
+              <TableCell align="left">{row.category}</TableCell>
+              <TableCell align="left">{row.price}</TableCell>
+              <TableCell align="left">{row.quantity}</TableCell>
+              <TableCell align="left">{row.cf}</TableCell>
               <TableCell padding="none" align="left" style={{ width: "100px" }}>
                 <Switch
                   checked={row.live}
@@ -82,20 +90,10 @@ export default function EnhancedTableBody(props) {
                   />
                 ))}
               </TableCell>
-              <TableCell component="th" id={labelId} scope="row" padding="none">
-                {row.id}
-              </TableCell>
-              <TableCell align="left" >{row.name}</TableCell>
-              <TableCell align="left" >{row.category}</TableCell>
-              <TableCell align="left" >{row.price}</TableCell>
-              <TableCell align="left">{row.quantity}</TableCell>
               <TableCell align="left" padding="none">
                 <Grid container>
                   <Grid item xs={4} className={classes.dialog}>
-                    <EditDialog
-                      onEditProduct={updateOneProduct}
-                      row={row}
-                    />
+                    <EditDialog onEditProduct={updateOneProduct} row={row} />
                   </Grid>
                   <Grid item xs={4} className={classes.dialog}>
                     <DeleteDialog product={row} />
@@ -107,7 +105,7 @@ export default function EnhancedTableBody(props) {
         })}
       {emptyRows > 0 && (
         <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
-          <TableCell colSpan={6} />
+          {/*<TableCell colSpan={12} />*/}
         </TableRow>
       )}
     </>

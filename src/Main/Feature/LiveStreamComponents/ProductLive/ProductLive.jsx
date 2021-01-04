@@ -5,8 +5,6 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TablePagination from "@material-ui/core/TablePagination";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Switch from "@material-ui/core/Switch";
 import { Product } from "../utils/MockData";
 import EnhancedTableHead from "./components/EnhancedTableHead/EnhancedTableHead";
 import EnhancedTableToolbar from "./components/EnhancedTableToolbar/EnhancedTableToolbar";
@@ -31,7 +29,7 @@ export default function ProductLive() {
   const [orderBy, setOrderBy] = React.useState("name");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
+  const [dense, setDense] = React.useState(true);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [products, setProducts] = React.useState(new Product().liveProduct);
 
@@ -49,6 +47,10 @@ export default function ProductLive() {
     newArr[index] = row;
     setProducts(newArr);
   };
+
+  const handleActiveLiveAllClick = (event) => {
+    
+  }
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
@@ -88,9 +90,9 @@ export default function ProductLive() {
     setPage(0);
   };
 
-  const handleChangeDense = (event) => {
+  /*const handleChangeDense = (event) => {
     setDense(event.target.checked);
-  };
+  };*/
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
@@ -134,12 +136,12 @@ export default function ProductLive() {
         </TableContainer>
         <Grid container spacing={0}>
           <Grid item xs={6}>
-            <FormControlLabel
+            {/*<FormControlLabel
               style={{ marginLeft: "20px" }}
               control={<Switch checked={dense} onChange={handleChangeDense} />}
               label="Dense padding"
               labelplacementstart="start"
-            />
+            />*/}
           </Grid>
           <Grid item xs={6}>
             <TablePagination

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import clsx from "clsx";
 import { lighten } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/core/styles";
@@ -9,7 +9,8 @@ import Typography from "@material-ui/core/Typography";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import CustomizedDialogs from './components/CustomizedDialogs';
+import AddExistingProduct from "./components/AddExistingProduct";
+import ActiveConfirmDialog from "./components/ActiveConfirmDialog";
 
 const monthNames = [
   "January",
@@ -83,7 +84,6 @@ export default function EnhancedTableToolbar(props) {
   const { numSelected, date } = props;
   const deleteClasses = useToolbarDeleteStyles();
   const stateClasses = useToolbarStatStyles();
-  
 
   if (numSelected > 0) {
     return (
@@ -110,36 +110,31 @@ export default function EnhancedTableToolbar(props) {
   } else {
     return (
       <Toolbar>
-        <Grid container>
-          <Grid item xs={2}>
+        <Grid container spacing={1}>
+          <Grid item xs={3}>
             <Typography variant="h5" id="statistics">
               สินค้าไลฟ์
             </Typography>
           </Grid>
-          <Grid item xs={3} >
-  
+          <Grid item xs={1}>
+            <AddExistingProduct />
           </Grid>
-          <Grid item xs={1} >
-            {/*<Button variant="contained" color="primary" size={"medium"}>
-              <Typography variant="h6" className={stateClasses.infoTitle}>
-                + สินค้าเดิม
-              </Typography>
-            </Button>*/}
-            <CustomizedDialogs/>
-          </Grid>
-          <Grid item xs={1} style={{ marginLeft: "5px" }}>
+          <Grid item xs={1}>
             <Button variant="contained" color="primary" size={"medium"}>
               <Typography variant="h6" className={stateClasses.infoTitle}>
                 + สินค้าใหม่
               </Typography>
             </Button>
           </Grid>
-          <Grid item xs={2} style={{ marginLeft: "5px" }}>
+          <Grid item xs={1}>
             <Button variant="contained" color="primary">
               <Typography variant="h6" className={stateClasses.infoTitle}>
                 ทดลอง CF
               </Typography>
             </Button>
+          </Grid>
+          <Grid item xs={3}>
+            <ActiveConfirmDialog />
           </Grid>
           <Grid item xs={2}>
             <div className={stateClasses.notice_update}>

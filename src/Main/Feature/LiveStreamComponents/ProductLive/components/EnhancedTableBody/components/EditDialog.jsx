@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
@@ -23,12 +23,6 @@ const styles = (theme) => ({
     right: theme.spacing(1),
     top: theme.spacing(1),
     color: theme.palette.grey[500],
-  },
-});
-
-const useStyles = makeStyles({
-  chip: {
-    color: "primary",
   },
 });
 
@@ -94,6 +88,12 @@ export default function EditDialog(props) {
     setProduct(p);
   };
 
+  const handleRemoveChip = (index) => {
+    let p = Object.assign({}, product);
+    p.keyword.splice(index, 1)
+    setProduct(p);
+  }
+
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
@@ -112,12 +112,13 @@ export default function EditDialog(props) {
             <Grid container spacing={3}>
               <Grid item xs={12}>
                 <ChipInput
+                  classes={{ root: { color: "primary" }}}
                   label="Keyword"
                   allowDuplicates={false}
                   value={product.keyword}
                   newChipKeyCodes={[9, 32]} //Tab, Space
                   onAdd={(chip) => handleAddChip(chip)}
-                  onDelete={(chip) => console.log(chip)}
+                  onDelete={(_, index) => handleRemoveChip(index)}
                   fullWidth
                   fullWidthInput
                   variant="outlined"
