@@ -82,11 +82,6 @@ export default function RecipeReviewCard(props) {
   return (
     <Card id="productCard" className={classes.root}>
       <CardHeader
-        // avatar={
-        //   <Avatar aria-label="recipe" className={classes.avatar}>
-        //     H
-        //   </Avatar>
-        // }
         title={
           <Tooltip title={props.product.Name}>
             <Typography>
@@ -111,7 +106,12 @@ export default function RecipeReviewCard(props) {
         handleImage={props.onChangeImage}
       />
       <CardContent>
-        <b>รายละเอียด</b> : {props.product.Description}
+        <div>
+          <b>น้ำหนัก </b> : {props.product.Weight} KG
+        </div>
+        <div>
+          <b>รายละเอียด</b> : {props.product.Description}
+        </div>
       </CardContent>
     </Card>
   );

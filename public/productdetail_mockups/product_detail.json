@@ -7,6 +7,7 @@
         "Stock": 415,
         "Sold": 86,
         "Order": 161,
+        "Weight": 10,
         "SubProduct": [
             {
                 "Name": "XS",
