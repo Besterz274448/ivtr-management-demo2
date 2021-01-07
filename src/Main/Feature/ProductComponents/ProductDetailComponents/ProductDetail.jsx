@@ -4,12 +4,12 @@ import Paper from "@material-ui/core/Paper";
 import ProductCard from "./ProductCard";
 import ProductHistory from "./SubProduct";
 import ProductSaleHistory from "./ProductSaleHistory";
+import { formatDate } from "../../../Helpers/date";
 
 class ProductDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      edit_history: [],
       sale_history: [],
       product_detail: {
         id: null,
@@ -24,13 +24,14 @@ class ProductDetail extends Component {
         Picture: [],
         CreatedOn: null,
         ModifiedOn: null,
+        editHistory: [],
       },
       imageNumber: 0,
     };
   }
   getProductDetailData = () => {
     var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = ()=> {
+    xhttp.onreadystatechange = () => {
       if (xhttp.readyState === 4 && xhttp.status === 200) {
         // Typical action to be performed when the document is ready:
         var response_data = JSON.parse(xhttp.responseText);
@@ -41,6 +42,50 @@ class ProductDetail extends Component {
     };
     xhttp.open("GET", "/productdetail_mockups/product_detail.json", true);
     xhttp.send();
+  };
+
+  handleEditProduct = (item) => {
+    let newData = {};
+    let oldData = {};
+    let changed = false;
+    for (var key in item) {
+      if (item[key] != this.state.product_detail[key]) {
+        newData[key] = item[key];
+        oldData[key] = this.state.product_detail[key];
+        changed = true;
+      }
+    }
+
+    if (changed) {
+      const nowDate = formatDate(new Date());
+      const data = {
+        type: "main_product",
+        editedItem: newData,
+        oldItemValue: oldData,
+        modifiedDate: nowDate,
+        user: "test",
+      };
+      //update data in backend
+
+      //set data to state
+      const newEdit = [...this.state.product_detail["editHistory"],data];
+      const newProductDetail = this.state.product_detail; 
+      for(var key in newData){
+        newProductDetail[key] = newData[key];
+      }
+      newProductDetail["editHistory"] = newEdit;
+      newProductDetail["ModifiedOn"] = nowDate;
+      
+      console.log(newProductDetail);
+
+      this.setState({
+        product_detail: newProductDetail
+      });
+
+      return true;
+    }
+
+    return false;
   };
 
   componentDidMount() {
@@ -73,7 +118,10 @@ class ProductDetail extends Component {
           </Grid>
           <Grid item xs={9}>
             <Paper>
-              <ProductHistory product={this.state.product_detail} />
+              <ProductHistory
+                product={this.state.product_detail}
+                handleEditProduct={this.handleEditProduct}
+              />
             </Paper>
           </Grid>
         </Grid>

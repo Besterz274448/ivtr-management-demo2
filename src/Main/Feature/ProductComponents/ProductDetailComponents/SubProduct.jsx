@@ -20,7 +20,8 @@ import ShopIcon from "@material-ui/icons/Shop";
 import ControlPointIcon from "@material-ui/icons/ControlPoint";
 import TableContainer from "@material-ui/core/TableContainer";
 import TablePagination from "@material-ui/core/TablePagination";
-import EditProductDialog from './components/EditProductDialog';
+import EditProductDialog from "./components/EditProductDialog";
+import EditSubProductDialog from "./components/EditSubProductDialog";
 
 const FolderList = (props) => {
   return (
@@ -149,21 +150,20 @@ const useStyles = makeStyles((theme) => ({
     display: "inline-block",
   },
   product_header: {},
-
 }));
 
-
-export default function BasicTable(props) {
+export default function SubProduct(props) {
   const classes = useStyles();
 
-  const [open, setOpen] = React.useState(false);
+  const [openEditProduct, setOpenEditProduct] = React.useState(false);
+  const [openEditSubProduct, setOpenEditSubProduct] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleClickOpen = (callback) => {
+    callback(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleClose = (callback) => {
+    callback(false);
   };
 
   // getModalStyle is not a pure function, we roll the style only on the first render
@@ -196,7 +196,6 @@ export default function BasicTable(props) {
     },
   ];
 
-
   return (
     <Paper className={classes.paper}>
       <div>
@@ -219,11 +218,16 @@ export default function BasicTable(props) {
                 color="primary"
                 size="small"
                 className={classes.button}
-                onClick={handleClickOpen}
+                onClick={handleClickOpen.bind(this, setOpenEditProduct)}
               >
                 <EditIcon />
               </Button>
-              <EditProductDialog product={props.product} open={open} handleClose={handleClose} />
+              <EditProductDialog
+                handleEditProduct={props.handleEditProduct}
+                product={props.product}
+                open={openEditProduct}
+                handleClose={handleClose.bind(this, setOpenEditProduct)}
+              />
             </div>
           </div>
         </div>
@@ -240,10 +244,17 @@ export default function BasicTable(props) {
               color="primary"
               size="small"
               className={classes.button}
+              onClick={handleClickOpen.bind(this, setOpenEditSubProduct)}
             >
-              แก้ไขสินค้าย่อย
+              เพิ่มสินค้าย่อย
+              <ControlPointIcon /> / แก้ไขสินค้าย่อย
               <EditIcon />
             </Button>
+            <EditSubProductDialog
+              product={props.product}
+              open={openEditSubProduct}
+              handleClose={handleClose.bind(this, setOpenEditSubProduct)}
+            />
           </div>
           <div className={classes.inline_right}>
             <Button
@@ -253,7 +264,6 @@ export default function BasicTable(props) {
               className={classes.button}
             >
               เพิ่มสินค้าย่อย
-              <ControlPointIcon />
             </Button>
           </div>
         </div>
