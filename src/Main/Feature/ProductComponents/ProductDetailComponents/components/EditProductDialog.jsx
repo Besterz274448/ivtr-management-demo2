@@ -7,7 +7,6 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
-import FormControl from "@material-ui/core/FormControl";
 import LocalOfferRoundedIcon from "@material-ui/icons/LocalOfferRounded";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import FitnessCenterIcon from "@material-ui/icons/FitnessCenter";
