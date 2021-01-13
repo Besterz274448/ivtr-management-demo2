@@ -1,6 +1,5 @@
 import React from "react";
 import ProductTable from "./ProductTable";
-import ProductOverview from "./ProductOverview";
 import Grid from "@material-ui/core/Grid";
 export default function Product() {
   const [product_data, setProductData] = React.useState({});
@@ -14,15 +13,9 @@ export default function Product() {
   }
 
   return (
-    <Grid container item xs={12} spacing={1}>
-      <Grid item xs={10}>
+    <Grid container  spacing={1}>
+      <Grid item xs={12}>
         <ProductTable showProductDetail={showProductDetail} />
-      </Grid>
-      <Grid item xs={2}>
-        <ProductOverview
-          product_data={product_data}
-          closeProductDetail={closeProductDetail}
-        />
       </Grid>
     </Grid>
   );

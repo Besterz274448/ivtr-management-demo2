@@ -3,8 +3,10 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import ProductCard from "./ProductCard";
 import ProductDetail from "./ProductDetail";
+import SaleChannel from "./SaleChannel";
 import ProductEditHistory from "./ProductEditHistory";
 import { formatDate } from "../../../Helpers/date";
+import ProductDetailOverall from "./ProductDetailOverall";
 
 class ProductDetailContainer extends Component {
   constructor(props) {
@@ -54,11 +56,10 @@ class ProductDetailContainer extends Component {
         changed = true;
       }
     }
-
     if (changed) {
       const nowDate = formatDate(new Date());
       const data = {
-        type: {id:"main",subName:""},
+        type: { id: "main", subName: "" },
         editedItem: newData,
         oldItemValue: oldData,
         modifiedDate: nowDate,
@@ -75,11 +76,118 @@ class ProductDetailContainer extends Component {
       newProductDetail["editHistory"] = newEdit;
       newProductDetail["ModifiedOn"] = nowDate;
 
-      console.log(newProductDetail);
-
       this.setState({
         product_detail: newProductDetail,
       });
+      return true;
+    }
+
+    return false;
+  };
+
+  handleEditSubProduct = (item) => {
+    let newData = [];
+    let oldData = [];
+    let changed = false;
+    let index = [];
+
+    //check length item < state ? (delete case)
+
+    //find data changed
+    for (let i = 0; i < this.state.product_detail.SubProduct.length; i++) {
+      let newTemp = {};
+      let oldTemp = {};
+      for (let key in this.state.product_detail.SubProduct[i]) {
+        if (item[i][key] !== this.state.product_detail.SubProduct[i][key]) {
+          newTemp[key] = item[i][key];
+          oldTemp[key] = this.state.product_detail.SubProduct[i][key];
+          changed = true;
+        }
+      }
+      if (Object.keys(newTemp).length !== 0) {
+        index.push(i);
+        newData = [...newData, newTemp];
+        oldData = [...oldData, oldTemp];
+      }
+    }
+    if (this.state.product_detail.SubProduct.length < item.length) {
+      changed = true;
+      for (
+        let i = this.state.product_detail.SubProduct.length;
+        i < item.length;
+        i++
+      ) {
+        newData = [
+          ...newData,
+          {
+            Name: item[i].Name.toString(),
+            Price: parseFloat(item[i].Price),
+            Stock: parseInt(item[i].Stock),
+            Sold: item[i].Sold,
+            Order: item[i].Order,
+          },
+        ];
+        index.push(i);
+        oldData = [
+          ...oldData,
+          {
+            Name: "",
+            Price: "",
+            Stock: "",
+            Sold: "",
+            Order: ""
+          },
+        ];
+      }
+    }
+
+    if (changed) {
+      const nowDate = formatDate(new Date());
+      const AllData = [];
+
+      for (let i = 0; i < index.length; i++) {
+        let tagname =
+          index[i] < this.state.product_detail.SubProduct.length
+            ? this.state.product_detail.SubProduct[index[i]].Name
+            : newData[i].Name;
+        console.log(tagname);
+        let data = {
+          type: { id: "sub", subName: tagname },
+          editedItem: newData[i],
+          oldItemValue: oldData[i],
+          modifiedDate: nowDate,
+          user: "test",
+        };
+        AllData.push(data);
+      }
+      const newEdit = [...this.state.product_detail["editHistory"], ...AllData];
+      console.log(newEdit);
+      const newSubProductDetail = this.state.product_detail;
+      for (let i = 0; i < index.length; i++) {
+        if (index[i] < this.state.product_detail.SubProduct.length) {
+          for (let key in newData[i]) {
+            newSubProductDetail.SubProduct[index[i]][key] = newData[i][key];
+          }
+        } else {
+          newSubProductDetail.SubProduct = [
+            ...newSubProductDetail.SubProduct,
+            {
+              Name: newData[i].Name.toString(),
+              Price: parseFloat(newData[i].Price),
+              Stock: parseInt(newData[i].Stock),
+              Sold: newData[i].Sold,
+              Order: newData[i].Order,
+            },
+          ];
+        }
+      }
+      newSubProductDetail["editHistory"] = newEdit;
+      newSubProductDetail["ModifiedOn"] = nowDate;
+
+      this.setState({
+        product_detail: newSubProductDetail,
+      });
+      console.log(this.state.product_detail);
       return true;
     }
 
@@ -101,37 +209,44 @@ class ProductDetailContainer extends Component {
       imageNumber: number,
     });
   };
+
   render() {
     return (
       <React.Fragment>
+        <Grid container>
+          <ProductDetailOverall product={this.state.product_detail} />
+        </Grid>
         <Grid container spacing={1}>
-          <Grid item xs={3}>
+          <Grid item sm={3}>
             <Paper>
               <ProductCard
                 product={this.state.product_detail}
                 imageNumber={this.state.imageNumber}
                 onChangeImage={this.handleImage}
-              />
-            </Paper>
-          </Grid>
-          <Grid item xs={9}>
-            <Paper>
-              <ProductDetail
-                product={this.state.product_detail}
                 handleEditProduct={this.handleEditProduct}
               />
             </Paper>
+            <SaleChannel/>
           </Grid>
-        </Grid>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
+          <Grid item sm={9}>
             <Paper>
-              <ProductEditHistory product={this.state.product_detail}/>
+              <ProductDetail
+                product={this.state.product_detail}
+                SubProduct={[...this.state.product_detail.SubProduct]}
+                handleEditSubProduct={this.handleEditSubProduct}
+              />
             </Paper>
+            <ProductEditHistory product={this.state.product_detail} />
+
           </Grid>
         </Grid>
         <Grid container spacing={3}>
-          <Grid item xs={12}>
+          <Grid item sm={12}>
+            <Paper></Paper>
+          </Grid>
+        </Grid>
+        <Grid container spacing={3}>
+          <Grid item sm={12}>
             <Paper>ยอดขาย (chart)</Paper>
           </Grid>
         </Grid>

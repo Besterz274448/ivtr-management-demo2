@@ -8,15 +8,16 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
+import ToolTip from "@material-ui/core/ToolTip";
 
 const columns = [
-  { id: "no", label: "NO." },
-  { id: "name", label: "ชื่อสินค้า" },
-  { id: "edit", label: "ข้อมูลที่ถูกแก้ไข" },
-  { id: "oldValue", label: "ค่าเดิม" },
-  { id: "newValue", label: "ค่าใหม่" },
-  { id: "date", label: "เวลาที่แก้ไข" },
-  { id: "user", label: "ชื่อผู้แก้ไข" },
+  { id: "no", label: "NO.",width:"2%" },
+  { id: "name", label: "ชื่อสินค้า",width:"20" },
+  { id: "edit", label: "ข้อมูล",width:"10%" },
+  { id: "oldValue", label: "ค่าเดิม",width:"20%" },
+  { id: "newValue", label: "ค่าใหม่ (ผลต่าง)",width:"20%" },
+  { id: "date", label: "เวลาที่แก้ไข",width:"15%" },
+  { id: "user", label: "ชื่อผู้แก้ไข",width:"15%" },
 ];
 
 const numericProduct = ["Price", "Weight", "Stock"];
@@ -27,7 +28,7 @@ const useStyles = makeStyles({
     marginTop: "2%",
   },
   container: {
-    maxHeight: 440,
+    maxHeight: 1000,
   },
   header: {
     padding: "10px 5px",
@@ -39,7 +40,7 @@ export default function StickyHeadTable(props) {
   const rows = props.product.editHistory;
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -62,7 +63,7 @@ export default function StickyHeadTable(props) {
                 <TableCell
                   key={column.id}
                   align={column.align}
-                  // style={{ minWidth: column.minWidth }}
+                  style={{ width: column.width}}
                 >
                   {column.label}
                 </TableCell>
@@ -73,22 +74,21 @@ export default function StickyHeadTable(props) {
             {rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, index) => {
-                console.log(row);
                 const itemKey = [];
                 for (let key in row.editedItem) {
-                  itemKey.push(key);
+                    itemKey.push(key);
                 }
                 return (
                   <TableRow hover tabIndex={-1} key={index}>
                     <TableCell>{index + 1}</TableCell>
                     <TableCell>
-                      {row.type.id === "main" ? nameProduct : "subproduct"}
+                      {row.type.id === "main" ? "Main" : `สินค้าย่อย \n(${row.type.subName})`}
                     </TableCell>
                     <TableCell align="left">
                       {itemKey.map((data, index) => {
                         return (
                           <TableRow key={data}>
-                            <React.Fragment>{data}</React.Fragment>
+                            <TableCell style={{padding:0}}>{data}</TableCell>
                           </TableRow>
                         );
                       })}
@@ -97,7 +97,7 @@ export default function StickyHeadTable(props) {
                       {itemKey.map((data, index) => {
                         return (
                           <TableRow key={row.oldItemValue[data] + index}>
-                            <React.Fragment>{row.oldItemValue[data]}</React.Fragment>
+                            <TableCell style={{padding:0}}>{row.oldItemValue[data]}</TableCell>
                           </TableRow>
                         );
                       })}
@@ -108,21 +108,21 @@ export default function StickyHeadTable(props) {
                           <TableRow key={row.editedItem[data] + index}>
                             {numericProduct.indexOf(data) !== -1 ? (
                               <TableRow key={data}>
-                                <React.Fragment>
+                                <TableCell style={{padding:0}}>
                                   {row.editedItem[data]} (
                                   {row.editedItem[data] -
                                     row.oldItemValue[data] >=
                                   0
                                     ? "+"
-                                    : "-"}
+                                    : false}
                                   {row.editedItem[data] -
                                     row.oldItemValue[data]}
                                   )
-                                </React.Fragment>
+                                </TableCell>
                               </TableRow>
                             ) : (
                               <TableRow key={data}>
-                                <React.Fragment>{row.editedItem[data]}</React.Fragment>
+                                <TableCell style={{padding:0}}>{row.editedItem[data]}</TableCell>
                               </TableRow>
                             )}
                           </TableRow>
@@ -131,7 +131,7 @@ export default function StickyHeadTable(props) {
                     </TableCell>
 
                     <TableCell align="left">{row.modifiedDate}</TableCell>
-                    <TableCell align="center">{row.user}</TableCell>
+                    <TableCell align="left">{row.user}</TableCell>
                   </TableRow>
                 );
               })}
@@ -139,7 +139,7 @@ export default function StickyHeadTable(props) {
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[10]}
+        rowsPerPageOptions={[5]}
         component="div"
         count={rows.length}
         rowsPerPage={rowsPerPage}

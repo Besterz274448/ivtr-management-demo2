@@ -6,21 +6,25 @@ import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import { blue } from "@material-ui/core/colors";
+import EditIcon from "@material-ui/icons/Edit";
 import "./css/ProductCard.css";
+import EditProductDialog from "./components/EditProductDialog";
+
 import { Tooltip } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     paddingTop: "4px",
     height: "400px",
-    overflowY: "scroll",
+    overflowY:"scroll"
   },
   media: {
     height: 0,
     paddingTop: "56.25%", // 16:9
     marginLeft: "auto",
     marginRight: "auto",
-    width: "80%",
+    width: "90%",
   },
   expand: {
     transform: "rotate(0deg)",
@@ -79,20 +83,34 @@ function BoxMediaCard(props) {
 export default function RecipeReviewCard(props) {
   const classes = useStyles();
 
+  const [openEditProduct, setOpenEditProduct] = React.useState(false);
+
+
+  const handleClickOpen = (callback) => {
+    callback(true);
+  };
+
+  const handleClose = (callback) => {
+    callback(false);
+  };
+
+
   return (
     <Card id="productCard" className={classes.root}>
       <CardHeader
         title={
-          <Tooltip title={props.product.Name}>
-            <Typography>
-              <span>ชื่อ : </span>
-              {props.product.Name.length > 25
-                ? props.product.Name.slice(0, 24) + ".."
-                : props.product.Name}
-            </Typography>
-          </Tooltip>
+          <React.Fragment>
+            <Tooltip title={props.product.Name}>
+              <Typography>
+                <b>ชื่อ : </b>
+                {props.product.Name.length > 25
+                  ? props.product.Name.slice(0, 24) + ".."
+                  : props.product.Name}
+              </Typography>
+            </Tooltip>
+          </React.Fragment>
         }
-        subheader={"อัพเดทล่าสุด : " + props.product.ModifiedOn}
+        subheader={"อัพเดทล่าสุด :" + props.product.ModifiedOn}
       />
       <BoxMediaCard
         productImage={
@@ -106,6 +124,25 @@ export default function RecipeReviewCard(props) {
         handleImage={props.onChangeImage}
       />
       <CardContent>
+        <div style={{ width: "100%" }}>
+          <Button
+            variant="contained"
+            fullWidth
+            color="primary"
+            size="small"
+            className={classes.button}
+            onClick={handleClickOpen.bind(this, setOpenEditProduct)}
+          >
+            แก้ไขข้อมูลสินค้า
+            <EditIcon />
+          </Button>
+          <EditProductDialog
+                handleEditProduct={props.handleEditProduct}
+                product={props.product}
+                open={openEditProduct}
+                handleClose={handleClose.bind(this, setOpenEditProduct)}
+              />
+        </div>
         <div>
           <b>น้ำหนัก </b> : {props.product.Weight} KG
         </div>

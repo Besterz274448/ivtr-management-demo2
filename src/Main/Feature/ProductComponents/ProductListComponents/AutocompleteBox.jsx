@@ -22,6 +22,7 @@ export default function ComboBox({ filterData, onChangeSearchBar, clearText }) {
       getOptionLabel={(option) => option + ""}
       renderInput={(params) => (
         <TextField
+          style={{ width: 150}}
           {...params}
           variant="standard"
           placeholder="Search Your Item. . . "
@@ -30,4 +31,3 @@ export default function ComboBox({ filterData, onChangeSearchBar, clearText }) {
     />
   );
 }
-

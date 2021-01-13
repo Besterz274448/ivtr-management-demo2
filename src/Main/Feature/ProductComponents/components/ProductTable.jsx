@@ -19,11 +19,11 @@ import Tooltip from "@material-ui/core/Tooltip";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import DeleteIcon from "@material-ui/icons/Delete";
-import FilterBox from "./FilterBox";
-import AutocompleteBox from "./AutocompleteBox";
+import FilterBox from "../ProductListComponents/backup/FilterBox";
+import AutocompleteBox from "../ProductListComponents/backup/AutocompleteBox";
 import { NavLink } from "react-router-dom";
-import InputBox from "./InputBox";
-import LoadingProgress from "./LoadingProgress";
+import InputBox from "../ProductListComponents/backup/InputBox";
+import LoadingProgress from "../ProductListComponents/backup/LoadingProgress";
 import Button from "@material-ui/core/Button";
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 

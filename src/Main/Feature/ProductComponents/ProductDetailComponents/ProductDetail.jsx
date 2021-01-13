@@ -7,32 +7,12 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
-import CategoryIcon from "@material-ui/icons/Category";
-import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import EditIcon from "@material-ui/icons/Edit";
-import ShopIcon from "@material-ui/icons/Shop";
 import ControlPointIcon from "@material-ui/icons/ControlPoint";
 import TableContainer from "@material-ui/core/TableContainer";
 import TablePagination from "@material-ui/core/TablePagination";
-import EditProductDialog from "./components/EditProductDialog";
 import EditSubProductDialog from "./components/EditSubProductDialog";
-
-const FolderList = (props) => {
-  return (
-    <ListItem>
-      <ListItemAvatar>
-        <Avatar>{props.imageIcon}</Avatar>
-      </ListItemAvatar>
-      <ListItemText primary={props.label} secondary={props.detail} />
-    </ListItem>
-  );
-};
+import { Divider } from "@material-ui/core";
 
 const useTableStyles = makeStyles((theme) => ({
   root: {
@@ -76,6 +56,7 @@ function EnhancedTable(props) {
   return (
     <div className={classes.root}>
       <TableContainer>
+        <Divider />
         <Table
           aria-labelledby="tableTitle"
           size={"small"}
@@ -130,6 +111,7 @@ function EnhancedTable(props) {
 const useStyles = makeStyles((theme) => ({
   table: {},
   paper: {
+    width: "100%",
     height: "400px",
   },
   headDetail: {
@@ -149,15 +131,16 @@ const useStyles = makeStyles((theme) => ({
   inline: {
     display: "inline-block",
   },
-  product_header: {},
+  subproduct_head: {
+    paddingTop: "2%",
+    paddingBot: "2%",
+  },
 }));
 
 export default function ProductDetail(props) {
   const classes = useStyles();
-
-  const [openEditProduct, setOpenEditProduct] = React.useState(false);
+  const subProductArray = props.SubProduct.length > 0 ? [...props.SubProduct] : null;
   const [openEditSubProduct, setOpenEditSubProduct] = React.useState(false);
-
   const handleClickOpen = (callback) => {
     callback(true);
   };
@@ -166,73 +149,10 @@ export default function ProductDetail(props) {
     callback(false);
   };
 
-  // getModalStyle is not a pure function, we roll the style only on the first render
-
-  const product_detail = [
-    {
-      label: "ราคา",
-      detail: props.product.Price,
-      imageIcon: <MonetizationOnIcon />,
-    },
-    {
-      label: "ประเภท",
-      detail: props.product.Category,
-      imageIcon: <CategoryIcon />,
-    },
-    {
-      label: "จำนวนคงเหลือ",
-      detail: props.product.Stock,
-      imageIcon: <AccountBalanceIcon />,
-    },
-    {
-      label: "จำนวนสั่งซื้อ",
-      detail: props.product.Order,
-      imageIcon: <ShoppingCartIcon />,
-    },
-    {
-      label: "ขายได้ทั้งหมด",
-      detail: props.product.Sold,
-      imageIcon: <ShopIcon />,
-    },
-  ];
-
   return (
     <Paper className={classes.paper}>
-      <div>
-        <div id="product_header">
-          <div className={classes.product_header}>
-            {product_detail.map((data, index) => {
-              return (
-                <div key={data.label} className={classes.inline}>
-                  <FolderList
-                    label={data.label}
-                    detail={data.detail}
-                    imageIcon={data.imageIcon}
-                  />
-                </div>
-              );
-            })}
-            <div className={classes.inline_right} style={{ marginTop: "20px" ,position:"absolute" }}>
-              <Button
-                variant="text"
-                color="primary"
-                size="small"
-                className={classes.button}
-                onClick={handleClickOpen.bind(this, setOpenEditProduct)}
-              >
-                <EditIcon />
-              </Button>
-              <EditProductDialog
-                handleEditProduct={props.handleEditProduct}
-                product={props.product}
-                open={openEditProduct}
-                handleClose={handleClose.bind(this, setOpenEditProduct)}
-              />
-            </div>
-          </div>
-        </div>
-        <hr />
-        <div id="subproduct_header">
+      <div style={{ width: "100%" }}>
+        <div id="subproduct_header" className={classes.subproduct_head}>
           <div className={classes.inline_left}>
             <h4 className={classes.headDetail}>
               รายการสินค้าย่อย (Sub-Product)
@@ -251,23 +171,15 @@ export default function ProductDetail(props) {
               <EditIcon />
             </Button>
             <EditSubProductDialog
-              product={props.product}
+              handleEditSubProduct={props.handleEditSubProduct}
+              product={subProductArray}
               open={openEditSubProduct}
               handleClose={handleClose.bind(this, setOpenEditSubProduct)}
             />
           </div>
-          <div className={classes.inline_right}>
-            <Button
-              variant="contained"
-              color="primary"
-              size="small"
-              className={classes.button}
-            >
-              เพิ่มสินค้าย่อย
-            </Button>
-          </div>
         </div>
       </div>
+
       <EnhancedTable rows={props.product.SubProduct} />
     </Paper>
   );
