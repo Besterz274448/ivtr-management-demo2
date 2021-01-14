@@ -3,13 +3,22 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import BreadCrumbs from "../../../Components/BreadCrumbs";
+import UploadImage from "./UploadImage";
+import ProductAddMainForm from "./ProductAddMainForm";
+import ProductAddSubForm from "./ProductAddSubForm";
 import Button from "@material-ui/core/Button";
-import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
-import TextField from "@material-ui/core/TextField";
+import Divider from "@material-ui/core/Divider";
+import AddCircleRoundedIcon from "@material-ui/icons/AddCircleRounded";
+import SaveIcon from '@material-ui/icons/Save';
+import ListItem from "@material-ui/core/ListItem";
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
+  paper1: {
     backgroundColor: "rgb(255,255,255)",
+  },
+  paper2: {
+    backgroundColor: "rgb(255,255,255)",
+    marginTop: "1%",
   },
   mainDetail: {
     width: "100%",
@@ -21,25 +30,9 @@ const useStyles = makeStyles((theme) => ({
     margin: 0,
     padding: 0,
   },
-  inputForm: {
-    width: "95%",
-  },
-  boxInput: {
-    marginLeft: "2%",
-    marginBottom: "1%",
-  },
-  boxInputInline: {
-    width: "95%",
+  subDiv: {
     display: "flex",
-    marginLeft: "2%",
-    marginBottom: "1",
     justifyContent: "space-between",
-  },
-  inputInline: {
-    width: "30%",
-  },
-  uploadBox: {
-    display: "none",
   },
 }));
 
@@ -47,15 +40,9 @@ const handleUploadClick = (event) => {
   var file = event.target.files[0];
   const reader = new FileReader();
   var url = reader.readAsDataURL(file);
-
-  console.log(url);
-
-  // reader.onloadend = function (e) {
-  //   this.setState({
-  //     selectedFile: [reader.result],
-  //   });
-  // }.bind(this);
-  // console.log(url); // Would see a path?
+  reader.onloadend = function (e) {
+    console.log(reader.result);
+  }.bind(this);
 
   // this.setState({
   //   mainState: "uploaded",
@@ -66,137 +53,53 @@ const handleUploadClick = (event) => {
 
 export default function ProductAdd() {
   const classes = useStyles();
+  const [subProduct,setSubProduct] = React.useState([]);
+
+  const addNewSubProduct = ()=>{
+    const temp = [...subProduct]
+    temp.push({name:"",price:"",stock:"",weight:""});
+    setSubProduct(temp);
+  }
   return (
     <>
       <BreadCrumbs
-        before={[{ href: "/dashboard", name: "home" },{ href: "/product", name: "รายการสินค้า" }]}
+        before={[
+          { href: "/dashboard", name: "home" },
+          { href: "/product", name: "รายการสินค้า" },
+        ]}
         presentpage="เพิ่มสินค้า"
       />
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper1}>
         <div className={classes.mainDetail}>
           <h2 className={classes.headerMain}>ข้อมูลสินค้า</h2>
         </div>
         <Grid container>
           <Grid item xs={7}>
-            <div className={classes.boxInput}>
-              <TextField
-                className={classes.inputForm}
-                label="รหัสสินค้า"
-                style={{ margin: 8 }}
-                helperText="รหัสสินค้าต้องมีความยาวไม่เกิน 25 ตัวอักษร"
-                required
-                margin="normal"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="outlined"
-              />
-            </div>
-            <div className={classes.boxInput}>
-              <TextField
-                className={classes.inputForm}
-                label="ชื่อสินค้า"
-                style={{ margin: 8 }}
-                helperText="ชื่อสินค้าต้องมีความยาวมากกว่า 5 ตัวอักษร"
-                required
-                margin="normal"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="outlined"
-              />
-            </div>
-            <div className={classes.boxInput}>
-              <TextField
-                className={classes.inputForm}
-                label="ประเภทสินค้า"
-                style={{ margin: 8 }}
-                helperText="กรุณากรอกประเภทสินค้าให้ตรงกับประเภทที่คุณต้องการจัดเก็บ"
-                required
-                margin="normal"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="outlined"
-              />
-            </div>
-            <div className={classes.boxInputInline}>
-              <TextField
-                className={classes.inputInline}
-                label="ราคาสินค้า"
-                style={{ margin: 8 }}
-                required
-                margin="normal"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="outlined"
-              />
-              <TextField
-                className={classes.inputInline}
-                label="น้ำหนักสินค้า"
-                style={{ margin: 8 }}
-                required
-                margin="normal"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="outlined"
-              />
-              <TextField
-                className={classes.inputInline}
-                label="จำนวนสินค้า"
-                style={{ margin: 8 }}
-                required
-                margin="normal"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="outlined"
-              />
-            </div>
-            <div className={classes.boxInput}>
-              <TextField
-                className={classes.inputForm}
-                style={{ margin: 8 }}
-                label="รายละเอียดสินค้า"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                multiline
-                rows={4}
-                variant="outlined"
-              />
-            </div>
+            <ProductAddMainForm />
           </Grid>
           <Grid item xs={5}>
-            <div style={{ textAlign: "center" }}>
-              <div>
-                <img src="https://image.mfa.go.th/mfa/c_c_400x300/umufy3EgqL/migrate_directory/bulletin-20190127-194155.jpg" />
-              </div>
-
-              <input
-                accept="image/*"
-                className={classes.uploadBox}
-                id="contained-button-file"
-                multiple
-                type="file"
-                onChange={handleUploadClick}
-              />
-              <Button
-                color="primary"
-                variant="contained"
-                style={{ paddingTop: "5px", paddingBottom: "2px" }}
-              >
-                <label htmlFor="contained-button-file">
-                  <span>
-                    <AddPhotoAlternateIcon />
-                  </span>
-                  <span style={{ verticalAlign: "top" }}>อัพโหลดรูปภาพ</span>
-                </label>
-              </Button>
-              <p>สามารถอัพโหลดรูปภาพได้จำนวนสูงสุด 4 รูปภาพ</p>
+            <UploadImage handleImage={handleUploadClick} />
+          </Grid>
+        </Grid>
+        <Divider />
+        <div className={classes.mainDetail}>
+          <ListItem className={classes.subDiv}>
+            <h2 className={classes.headerMain}>ข้อมูลสินค้าย่อย</h2>
+            <div>
+                <Button variant="contained" color="primary" style={{marginRight:"35px"}} onClick={addNewSubProduct}>
+                  <AddCircleRoundedIcon />
+                  เพิ่มสินค้าย่อย
+                </Button>
+                <Button variant="contained" color="secondary">
+                  <SaveIcon />
+                  บันทึกข้อมูล
+                </Button>
             </div>
+          </ListItem>
+        </div>
+        <Grid container>
+          <Grid item xs={12}>
+            <ProductAddSubForm rows={subProduct} />
           </Grid>
         </Grid>
       </Paper>
