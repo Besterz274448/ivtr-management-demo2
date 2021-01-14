@@ -11,8 +11,6 @@ import Contact from "../../Feature/ContactComponents/Contact";
 import Setting from "../../Feature/SettingComponents/Setting";
 import {Switch, Route } from "react-router-dom";
 
-
-
 const useStyles = makeStyles((theme) => ({
   toolbar: {
     display: "flex",
@@ -25,6 +23,8 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
+    backgroundColor: "rgb(250,250,250)",
+
   },
 }));
 
