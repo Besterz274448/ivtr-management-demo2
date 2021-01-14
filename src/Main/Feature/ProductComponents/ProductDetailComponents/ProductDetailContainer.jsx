@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
+import BreadCrumbs from "../../../Components/BreadCrumbs";
 import Paper from "@material-ui/core/Paper";
 import ProductCard from "./ProductCard";
 import ProductDetail from "./ProductDetail";
@@ -135,7 +136,7 @@ class ProductDetailContainer extends Component {
             Price: "",
             Stock: "",
             Sold: "",
-            Order: ""
+            Order: "",
           },
         ];
       }
@@ -213,6 +214,13 @@ class ProductDetailContainer extends Component {
   render() {
     return (
       <React.Fragment>
+        <div style={{marginLeft:"1%"}}>
+          <BreadCrumbs
+            before={[{ href: "/dashboard", name: "home" },{ href: "/product", name: "รายการสินค้า" }]}
+            presentpage="รายละเอียดสินค้า"
+          />
+        </div>
+
         <Grid container>
           <ProductDetailOverall product={this.state.product_detail} />
         </Grid>
@@ -226,7 +234,7 @@ class ProductDetailContainer extends Component {
                 handleEditProduct={this.handleEditProduct}
               />
             </Paper>
-            <SaleChannel/>
+            <SaleChannel />
           </Grid>
           <Grid item sm={9}>
             <Paper>
@@ -237,7 +245,6 @@ class ProductDetailContainer extends Component {
               />
             </Paper>
             <ProductEditHistory product={this.state.product_detail} />
-
           </Grid>
         </Grid>
         <Grid container spacing={3}>

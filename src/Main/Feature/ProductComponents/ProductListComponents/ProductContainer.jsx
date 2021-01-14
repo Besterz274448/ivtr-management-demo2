@@ -1,5 +1,6 @@
 import React from "react";
 import ProductTable from "./ProductTable";
+import BreadCrumbs from "../../../Components/BreadCrumbs";
 import Grid from "@material-ui/core/Grid";
 export default function Product() {
   const [product_data, setProductData] = React.useState({});
@@ -15,6 +16,7 @@ export default function Product() {
   return (
     <Grid container  spacing={1}>
       <Grid item xs={12}>
+      <BreadCrumbs before={[{href:"/dashboard",name:"home"}]} presentpage="รายการสินค้า"/>
         <ProductTable showProductDetail={showProductDetail} />
       </Grid>
     </Grid>

@@ -2,11 +2,10 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import BreadCrumps from "./BreadCrumpsAddProduct";
+import BreadCrumbs from "../../../Components/BreadCrumbs";
 import Button from "@material-ui/core/Button";
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
 import TextField from "@material-ui/core/TextField";
-import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -69,7 +68,10 @@ export default function ProductAdd() {
   const classes = useStyles();
   return (
     <>
-      <BreadCrumps />
+      <BreadCrumbs
+        before={[{ href: "/dashboard", name: "home" },{ href: "/product", name: "รายการสินค้า" }]}
+        presentpage="เพิ่มสินค้า"
+      />
       <Paper className={classes.paper}>
         <div className={classes.mainDetail}>
           <h2 className={classes.headerMain}>ข้อมูลสินค้า</h2>
