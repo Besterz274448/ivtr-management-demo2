@@ -1,6 +1,7 @@
 import React  from "react";
 import axios from "axios";
 
+import MainLive from './/MainLive/MainLive';
 import ProductLive from './/ProductLive/ProductLive'
 import FacebookLogin from "react-facebook-login";
 
@@ -34,7 +35,7 @@ class LiveStream extends React.Component {
     if (this.state.access_token) {
       return (
         <>
-          <ProductLive />
+          <MainLive />
         </>
       )
     } else {

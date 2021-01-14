@@ -7,10 +7,9 @@ import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import DeleteIcon from "@material-ui/icons/Delete";
-import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import AddExistingProduct from "./components/AddExistingProduct";
-import ActiveConfirmDialog from "./components/ActiveConfirmDialog";
+import AddExistingProduct from "./components/AddExistingProduct/AddExistingProduct";
+import ConfirmDialog from "./components/ConfirmDialog";
 
 const monthNames = [
   "January",
@@ -81,7 +80,12 @@ const useToolbarStatStyles = makeStyles((theme) => ({
 }));
 
 export default function EnhancedTableToolbar(props) {
-  const { numSelected, date, onActiveLiveAll, handleRemoveWhenClickIcon } = props;
+  const {
+    numSelected,
+    date,
+    onActiveLiveAll,
+    handleRemoveWhenClickIcon,
+  } = props;
   const deleteClasses = useToolbarDeleteStyles();
   const stateClasses = useToolbarStatStyles();
 
@@ -109,37 +113,45 @@ export default function EnhancedTableToolbar(props) {
     );
   } else {
     return (
-      <Toolbar>
-        <Grid container spacing={1}>
-          <Grid item xs={4}>
-            <Typography variant="h5" id="statistics">
-              สินค้าไลฟ์
-            </Typography>
-          </Grid>
-          <Grid item xs={1}>
-            <AddExistingProduct />
-          </Grid>
-          <Grid item xs={1}>
-            <Button variant="contained" color="primary">
-              <Typography variant="h6" className={stateClasses.infoTitle}>
-                ทดลอง CF
-              </Typography>
-            </Button>
-          </Grid>
-          <Grid item xs={3}>
-            <ActiveConfirmDialog onActiveLiveAll={onActiveLiveAll} />
-          </Grid>
-          <Grid item xs={2}>
-            <div className={stateClasses.notice_update}>
-              <Typography variant="h6" className={stateClasses.info}>
-                Update on
-              </Typography>
-              <Typography variant="h6" className={stateClasses.infoTitle}>
-                {formatDate(date)}
-              </Typography>
-            </div>
-          </Grid>
-        </Grid>
+      <Toolbar variant="regular">
+        <Typography variant="h5" id="statistics">
+          สินค้าไลฟ์
+        </Typography>
+
+        <AddExistingProduct />
+
+        <Button
+          variant="contained"
+          color="primary"
+          style={{ marginLeft: 10 }}
+          size="small"
+        >
+          <Typography variant="h6" className={stateClasses.infoTitle}>
+            ทดลอง CF
+          </Typography>
+        </Button>
+
+        <ConfirmDialog
+          onActiveLiveAll={onActiveLiveAll}
+          displayText="เปิดใช้งาน CF ทั้งหมด"
+          color="primary"
+          status={true}
+        />
+        <ConfirmDialog
+          onActiveLiveAll={onActiveLiveAll}
+          displayText="ปิดใช้งาน CF ทั้งหมด"
+          color="secondary"
+          status={false}
+        />
+
+        <div className={stateClasses.notice_update} style={{ marginLeft: 100 }}>
+          <Typography variant="h6" className={stateClasses.info}>
+            Update on
+          </Typography>
+          <Typography variant="h6" className={stateClasses.infoTitle}>
+            {formatDate(date)}
+          </Typography>
+        </div>
       </Toolbar>
     );
   }

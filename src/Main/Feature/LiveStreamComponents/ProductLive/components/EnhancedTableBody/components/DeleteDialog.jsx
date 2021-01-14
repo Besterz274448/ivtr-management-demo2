@@ -6,7 +6,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-export default function AlertDialog(props) {
+export default function DeleteDialog(props) {
   const [open, setOpen] = React.useState(false);
   const { onRemoveProduct, productId } = props;
 
@@ -25,7 +25,12 @@ export default function AlertDialog(props) {
 
   return (
     <div>
-      <Button variant="outlined" color="secondary" onClick={handleClickOpen}>
+      <Button
+        variant="outlined"
+        color="secondary"
+        size="small"
+        onClick={handleClickOpen}
+      >
         ลบ
       </Button>
       <Dialog

@@ -1009,7 +1009,7 @@ export class Product {
   }
 
   get liveProduct() {
-    var temp = this.rows.slice(0, 3);
+    var temp = this.rows.slice(0, 8);
     temp[0].keyword = ["702406276", "Venlafaxine", "test"]
     temp[1].keyword = ["F76", "Venla8", "test-kub"]
     temp[2].keyword = []

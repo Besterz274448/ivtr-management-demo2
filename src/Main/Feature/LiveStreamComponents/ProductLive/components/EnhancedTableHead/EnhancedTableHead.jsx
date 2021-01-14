@@ -22,6 +22,13 @@ const useToolbarStyles = makeStyles(() => ({
 
 const headCells = [
   {
+    id: "live",
+    numeric: false,
+    disablePadding: true,
+    sort: true,
+    label: "ใช้งาน CF",
+  },
+  {
     id: "id",
     numeric: false,
     disablePadding: true,
@@ -64,13 +71,6 @@ const headCells = [
     label: "จำนวน CF",
   },
   {
-    id: "live",
-    numeric: false,
-    disablePadding: true,
-    sort: true,
-    label: "ใช้งาน CF",
-  },
-  {
     id: "keyword",
     numeric: false,
     disablePadding: false,
@@ -79,6 +79,13 @@ const headCells = [
   },
   {
     id: "buttonEdit",
+    numeric: false,
+    disablePadding: true,
+    sort: false,
+    label: "",
+  },
+  {
+    id: "buttonDelete",
     numeric: false,
     disablePadding: true,
     sort: false,
@@ -94,9 +101,10 @@ export default function EnhancedTableHead(props) {
     numSelected,
     rowCount,
     onRequestSort,
+    classes,
   } = props;
 
-  const classes = useToolbarStyles();
+  const toolbarClass = useToolbarStyles();
 
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
@@ -105,7 +113,7 @@ export default function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
+        <TableCell padding="checkbox" className={classes.tableCell}>
           <Checkbox
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
@@ -119,6 +127,7 @@ export default function EnhancedTableHead(props) {
             align={headCell.numeric ? "right" : "left"}
             padding={headCell.disablePadding ? "none" : "default"}
             sortDirection={orderBy === headCell.id ? order : false}
+            className={classes.tableCell}
           >
             {headCell.sort && (
               <TableSortLabel
@@ -128,7 +137,7 @@ export default function EnhancedTableHead(props) {
               >
                 {headCell.label}
                 {orderBy === headCell.id ? (
-                  <span className={classes.visuallyHidden}>
+                  <span className={toolbarClass.visuallyHidden}>
                     {order === "desc"
                       ? "sorted descending"
                       : "sorted ascending"}

@@ -7,9 +7,9 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Typography from "@material-ui/core/Typography";
 
-export default function ActiveConfirmDialog(props) {
+export default function ConfirmDialog(props) {
   const [open, setOpen] = React.useState(false);
-  const { onActiveLiveAll } = props;
+  const { onActiveLiveAll, status, displayText, color } = props;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -20,37 +20,53 @@ export default function ActiveConfirmDialog(props) {
   };
 
   const handleSubmit = (event) => {
-    onActiveLiveAll(event);
+    onActiveLiveAll(event, status);
     setOpen(false);
-  }
+  };
 
   return (
-    <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        เปิดใช้งาน CF ทั้งหมด
+    <div style={{ marginLeft: 10 }}>
+      <Button
+        variant="contained"
+        color={color}
+        onClick={handleClickOpen}
+        size="small"
+      >
+        {displayText}
       </Button>
       <Dialog
+
         open={open}
         onClose={handleClose}
         aria-labelledby="draggable-dialog-title"
       >
         <DialogTitle>
           <Typography variant="h6" color="textPrimary" display="inline">
-            เปิดใช้งาน CF ทั้งหมด
+            {displayText}
           </Typography>
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
             <Typography variant="body1" gutterBottom color="textSecondary">
-              ระบบจะทำการเปิดการใช้งาน CF ของสินค้าในหน้าไลฟ์ทุกชิ้น
+              ระบบจะทำการ{displayText} ของสินค้าในหน้าไลฟ์ทุกชิ้น
             </Typography>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleClose} color="primary">
+          <Button
+            onClick={handleClose}
+            color="secondary"
+            variant="contained"
+            size="small"
+          >
             ยกเลิก
           </Button>
-          <Button onClick={handleSubmit} color="primary">
+          <Button
+            onClick={handleSubmit}
+            color="primary"
+            variant="contained"
+            size="small"
+          >
             ยืนยัน
           </Button>
         </DialogActions>

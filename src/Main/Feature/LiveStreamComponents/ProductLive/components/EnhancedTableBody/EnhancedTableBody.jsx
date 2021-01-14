@@ -1,23 +1,12 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import Checkbox from "@material-ui/core/Checkbox";
-import Grid from "@material-ui/core/Grid";
 import Chip from "@material-ui/core/Chip";
 import Switch from "@material-ui/core/Switch";
 import { getComparator, stableSort } from "../../../utils/TableUtils";
 import EditDialog from "./components/EditDialog";
 import DeleteDialog from "./components/DeleteDialog";
-
-const useStyles = makeStyles((theme) => ({
-  chip: {
-    margin: theme.spacing(0.5),
-  },
-  dialog: {
-    margin: theme.spacing(0.3),
-  },
-}));
 
 export default function EnhancedTableBody(props) {
   const {
@@ -31,11 +20,9 @@ export default function EnhancedTableBody(props) {
     orderBy,
     page,
     rowsPerPage,
-    emptyRows,
-    dense,
+    classes,
   } = props;
 
-  const classes = useStyles();
   return (
     <>
       {stableSort(rows, getComparator(order, orderBy))
@@ -56,21 +43,19 @@ export default function EnhancedTableBody(props) {
               <TableCell
                 padding="checkbox"
                 onClick={(event) => handleClick(event, row.id)}
+                className={classes.TableCell}
               >
                 <Checkbox
                   checked={isItemSelected}
                   inputProps={{ "aria-labelledby": labelId }}
                 />
               </TableCell>
-              <TableCell component="th" id={labelId} scope="row" padding="none">
-                {row.id}
-              </TableCell>
-              <TableCell align="left">{row.name}</TableCell>
-              <TableCell align="left">{row.category}</TableCell>
-              <TableCell align="left">{row.price}</TableCell>
-              <TableCell align="left">{row.quantity}</TableCell>
-              <TableCell align="left">{row.cf}</TableCell>
-              <TableCell padding="none" align="left" style={{ width: "100px" }}>
+              <TableCell
+                padding="none"
+                align="left"
+                style={{ width: "100px" }}
+                className={classes.TableCell}
+              >
                 <Switch
                   checked={row.live}
                   onChange={(event) => {
@@ -80,7 +65,35 @@ export default function EnhancedTableBody(props) {
                   color="primary"
                 />
               </TableCell>
-              <TableCell padding="none" align="left">
+              <TableCell
+                component="th"
+                id={labelId}
+                scope="row"
+                padding="none"
+                className={classes.TableCell}
+              >
+                {row.id}
+              </TableCell>
+              <TableCell align="left" className={classes.TableCell}>
+                {row.name}
+              </TableCell>
+              <TableCell align="left" className={classes.TableCell}>
+                {row.category}
+              </TableCell>
+              <TableCell align="left" className={classes.TableCell}>
+                {row.price}
+              </TableCell>
+              <TableCell align="left" className={classes.TableCell}>
+                {row.quantity}
+              </TableCell>
+              <TableCell align="left" className={classes.TableCell}>
+                {row.cf}
+              </TableCell>
+              <TableCell
+                padding="none"
+                align="left"
+                className={classes.TableCell}
+              >
                 {row.keyword.map((keyword) => (
                   <Chip
                     key={keyword}
@@ -92,27 +105,26 @@ export default function EnhancedTableBody(props) {
                   />
                 ))}
               </TableCell>
-              <TableCell align="left" padding="none">
-                <Grid container>
-                  <Grid item xs={4} className={classes.dialog}>
-                    <EditDialog onEditProduct={handleEditProduct} row={row} />
-                  </Grid>
-                  <Grid item xs={4} className={classes.dialog}>
-                    <DeleteDialog
-                      onRemoveProduct={handleRemoveProduct}
-                      productId={row.id}
-                    />
-                  </Grid>
-                </Grid>
+              <TableCell
+                align="center"
+                padding="none"
+                className={classes.TableCell}
+              >
+                <EditDialog onEditProduct={handleEditProduct} row={row} />
+              </TableCell>
+              <TableCell
+                align="left"
+                padding="none"
+                className={classes.TableCell}
+              >
+                <DeleteDialog
+                  onRemoveProduct={handleRemoveProduct}
+                  productId={row.id}
+                />
               </TableCell>
             </TableRow>
           );
         })}
-      {emptyRows > 0 && (
-        <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
-          {/*<TableCell colSpan={12} />*/}
-        </TableRow>
-      )}
     </>
   );
 }

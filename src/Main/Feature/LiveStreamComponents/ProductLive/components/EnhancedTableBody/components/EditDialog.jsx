@@ -72,11 +72,11 @@ export default function EditDialog(props) {
 
   const handleClickSave = (event) => {
     const updateProduct = {
-      "id": product.id,
-      "keyword": product.keyword,
-      "price": product.price,
-      "quantity": product.quantity,
-    }
+      id: product.id,
+      keyword: product.keyword,
+      price: product.price,
+      quantity: product.quantity,
+    };
 
     onEditProduct(event, updateProduct);
     setOpen(false);
@@ -103,7 +103,12 @@ export default function EditDialog(props) {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Button
+        variant="outlined"
+        color="primary"
+        size="small"
+        onClick={handleClickOpen}
+      >
         แก้ไข
       </Button>
       <Dialog
@@ -123,7 +128,7 @@ export default function EditDialog(props) {
                   label="Keyword"
                   allowDuplicates={false}
                   value={product.keyword}
-                  newChipKeyCodes={[9, 32]} //Tab, Space
+                  newChipKeyCodes={[9, 32]}
                   onAdd={(chip) => handleAddChip(chip)}
                   onDelete={(_, index) => handleRemoveChip(index)}
                   fullWidth

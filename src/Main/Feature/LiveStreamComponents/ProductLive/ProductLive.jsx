@@ -4,7 +4,6 @@ import Table from "@material-ui/core/Table";
 import TableContainer from "@material-ui/core/TableContainer";
 import TablePagination from "@material-ui/core/TablePagination";
 import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
 import { Product } from "../utils/MockData";
 import EnhancedTableHead from "./components/EnhancedTableHead/EnhancedTableHead";
 import EnhancedTableToolbar from "./components/EnhancedTableToolbar/EnhancedTableToolbar";
@@ -13,13 +12,22 @@ import EnhancedTableBody from "./components/EnhancedTableBody/EnhancedTableBody"
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
+    marginTop: theme.spacing.unit * 3,
+    overflowX: "hide",
+  },
+  container: {
+    maxHeight: 460,
   },
   paper: {
     width: "100%",
     marginBottom: theme.spacing(2),
   },
   table: {
-    minWidth: 750,
+    minWidth: 340,
+  },
+  tableCell: {
+    paddingRight: 4,
+    paddingLeft: 5,
   },
 }));
 
@@ -29,8 +37,8 @@ export default function ProductLive() {
   const [orderBy, setOrderBy] = React.useState("name");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(true);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [dense, _] = React.useState(false);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [products, setProducts] = React.useState(new Product().liveProduct);
 
   const handleRequestSort = (event, property) => {
@@ -47,15 +55,15 @@ export default function ProductLive() {
   };
 
   const handleRemoveProduct = (event, productId) => {
-    const newArr = products.filter(x => x.id !== productId);
+    const newArr = products.filter((x) => x.id !== productId);
     setProducts(newArr);
-  }
+  };
 
   const handleRemoveWhenClickIcon = () => {
-    const newArr = products.filter(x => !selected.includes(x.id));
-    setProducts(newArr)
+    const newArr = products.filter((x) => !selected.includes(x.id));
+    setProducts(newArr);
     setSelected([]);
-  }
+  };
 
   const handleEditProduct = (event, product) => {
     const newArr = [...products];
@@ -68,9 +76,11 @@ export default function ProductLive() {
     setProducts(newArr);
   };
 
-  const handleActiveLiveAll = (event) => {
-    setProducts(products.map((x) => ({ ...x, live: true })));
+  const handleActiveLiveAll = (event, status) => {
+    setProducts(products.map((x) => ({ ...x, live: status })));
   };
+
+
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
@@ -113,73 +123,59 @@ export default function ProductLive() {
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
-  const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, products.length - page * rowsPerPage);
-
   return (
-    <div className={classes.root}>
-      <Paper className={classes.paper}>
-        <EnhancedTableToolbar
-          numSelected={selected.length}
-          date={new Date()}
-          onActiveLiveAll={handleActiveLiveAll}
-          handleRemoveWhenClickIcon={handleRemoveWhenClickIcon}
-        />
-        <TableContainer>
-          <Table
-            className={classes.table}
-            aria-labelledby="tableTitle"
-            size={dense ? "small" : "medium"}
-            aria-label="enhanced table"
-          >
-            <EnhancedTableHead
-              numSelected={selected.length}
+    <Paper className={classes.paper}>
+      <EnhancedTableToolbar
+        numSelected={selected.length}
+        date={new Date()}
+        onActiveLiveAll={handleActiveLiveAll}
+        handleRemoveWhenClickIcon={handleRemoveWhenClickIcon}
+      />
+      <TableContainer table className={classes.container} >
+        <Table
+          stickyHeader
+          className={classes.table}
+          aria-labelledby="tableTitle"
+          size={dense ? "small" : "medium"}
+          aria-label="enhanced table"
+          table-layout="fixed"
+        >
+          <EnhancedTableHead
+            numSelected={selected.length}
+            order={order}
+            orderBy={orderBy}
+            onSelectAllClick={handleSelectAllClick}
+            onRequestSort={handleRequestSort}
+            rowCount={products.length}
+            classes={classes}
+          />
+          <tbody>
+            <EnhancedTableBody
+              rows={products}
+              handleClick={handleClick}
+              isSelected={isSelected}
+              updateOneProduct={updateOneProduct}
+              handleEditProduct={handleEditProduct}
+              handleRemoveProduct={handleRemoveProduct}
               order={order}
               orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={products.length}
-            />
-            <tbody>
-              <EnhancedTableBody
-                rows={products}
-                handleClick={handleClick}
-                isSelected={isSelected}
-                updateOneProduct={updateOneProduct}
-                handleEditProduct={handleEditProduct}
-                handleRemoveProduct={handleRemoveProduct}
-                order={order}
-                orderBy={orderBy}
-                page={page}
-                rowsPerPage={rowsPerPage}
-                emptyRows={emptyRows}
-                dense={dense}
-              />
-            </tbody>
-          </Table>
-        </TableContainer>
-        <Grid container spacing={0}>
-          <Grid item xs={6}>
-            {/*<FormControlLabel
-              style={{ marginLeft: "20px" }}
-              control={<Switch checked={dense} onChange={handleChangeDense} />}
-              label="Dense padding"
-              labelplacementstart="start"
-            />*/}
-          </Grid>
-          <Grid item xs={6}>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25]}
-              component="div"
-              count={products.length}
-              rowsPerPage={rowsPerPage}
               page={page}
-              onChangePage={handleChangePage}
-              onChangeRowsPerPage={handleChangeRowsPerPage}
+              rowsPerPage={rowsPerPage}
+              classes={classes}
             />
-          </Grid>
-        </Grid>
-      </Paper>
-    </div>
+          </tbody>
+        </Table>
+      </TableContainer>
+      <TablePagination
+        className={classes.stickyFooter}
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={products.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onChangePage={handleChangePage}
+        onChangeRowsPerPage={handleChangeRowsPerPage}
+      />
+    </Paper>
   );
 }
