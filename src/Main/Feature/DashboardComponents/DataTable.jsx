@@ -113,10 +113,10 @@ export default function DataTable(props) {
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
   return (
     <>
+      <TableContainer component={Paper} className={classes.tableContainer}>
       <Typography variant="h6" className={classes.headerData}>
         คำสั่งซื้อล่าสุด
       </Typography>
-      <TableContainer component={Paper} className={classes.tableContainer}>
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>
