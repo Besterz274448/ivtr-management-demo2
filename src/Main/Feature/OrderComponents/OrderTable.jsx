@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Collapse from "@material-ui/core/Collapse";
@@ -99,14 +98,14 @@ function Row(props) {
                 </TableHead>
                 <TableBody>
                   {row.history.map((historyRow,index) => (
-                    <TableRow key={index}>
+                    <TableRow key={historyRow.customerId}>
                       <TableCell component="th" scope="row">
                         {historyRow.date}
                       </TableCell>
                       <TableCell>{historyRow.customerId}</TableCell>
                       <TableCell align="right">{historyRow.amount}</TableCell>
                       <TableCell align="right">
-                        {Math.round(historyRow.amount * row.price * 100) / 100}
+                        {Math.round(historyRow.amount * parseFloat(row.Total.split('$')[1]) * 100) / 100}
                       </TableCell>
                     </TableRow>
                   ))}
@@ -177,7 +176,7 @@ export default function OrderTable(props) {
             {rows.length > 0
               ? rows
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row, index) => <Row key={row.name + index} row={row} />)
+                  .map((row, index) => <Row key={row.id} row={row} />)
               : false}
           </TableBody>
         </Table>
