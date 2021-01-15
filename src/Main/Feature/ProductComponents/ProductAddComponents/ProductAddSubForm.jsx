@@ -9,7 +9,6 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 import DeleteIcon from "@material-ui/icons/Delete";
-import Button from "@material-ui/core/Button";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -43,9 +42,6 @@ const headerTable = [
   { id: "น้ำหนักสินค้า(กิโลกรัม)", align: "center" },
 ];
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
 
 export default function ProductAddSubForm(props) {
   const classes = useStyles();

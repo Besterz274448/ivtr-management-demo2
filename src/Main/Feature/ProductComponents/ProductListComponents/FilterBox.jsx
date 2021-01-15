@@ -1,41 +1,73 @@
-import React from 'react'
-import { makeStyles } from "@material-ui/core/styles";
+import React from "react";
+import IconButton from "@material-ui/core/IconButton";
+import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
+import FilterListIcon from '@material-ui/icons/FilterList';
 
+const options = [
+  "None",
+  "Atria",
+  "Callisto",
+  "Dione",
+  "Ganymede",
+  "Hangouts Call",
+  "Luna",
+  "Oberon",
+  "Phobos",
+  "Pyxis",
+  "Sedna",
+  "Titania",
+  "Triton",
+  "Umbriel",
+];
 
-export default function FilterBox({
-  headCells,
-  onChangeFilter,
-  InputWidth,
-  typeFilter,
-  filterSelected,
-}) {
-  const useStyles = makeStyles((theme) => ({
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: InputWidth || 120,
-    },
-  }));
-  const classes = useStyles();
+const ITEM_HEIGHT = 48;
+
+export default function LongMenu() {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
-    <FormControl className={classes.formControl}>
-      <Select
-        value={filterSelected}
-        onChange={(event) => {
-          onChangeFilter(event.target.value, typeFilter);
-        }}
-        id="grouped-select"
+    <div>
+      <IconButton
+        aria-label="more"
+        aria-controls="long-menu"
+        aria-haspopup="true"
+        onClick={handleClick}
       >
-        {headCells.map((data) => {
-          return (
-            <MenuItem key={data.id} value={data.id}>
-              {data.label}
-            </MenuItem>
-          );
-        })}
-      </Select>
-    </FormControl>
+        <FilterListIcon />
+      </IconButton>
+      <Menu
+        id="long-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={open}
+        onClose={handleClose}
+        PaperProps={{
+          style: {
+            maxHeight: ITEM_HEIGHT * 4.5,
+            width: "20ch",
+          },
+        }}
+      >
+        {options.map((option) => (
+          <MenuItem
+            key={option}
+            selected={option === "Pyxis"}
+            onClick={handleClose}
+          >
+            {option}
+          </MenuItem>
+        ))}
+      </Menu>
+    </div>
   );
 }

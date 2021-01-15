@@ -1,24 +1,49 @@
-import React from "react";
-import ProductTable from "./ProductTable";
-import BreadCrumbs from "../../../Components/BreadCrumbs";
-import Grid from "@material-ui/core/Grid";
-export default function Product() {
-  const [product_data, setProductData] = React.useState({});
+import { Typography } from "@material-ui/core";
+import React, { Component } from "react";
+import Paper from "@material-ui/core/Paper";
 
-  function showProductDetail(data) {
-    setProductData({ ...data });
+import ProductListTable from "./ProductListTable";
+import ProductListHeader from "./ProductListHeader";
+
+class ProductContainer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      product: [],
+    };
   }
 
-  function closeProductDetail(){
-      setProductData({});
+  fetchProductData = () => {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        const data = JSON.parse(xhr.responseText);
+        this.setState({
+          product: [...data],
+        });
+      }
+    };
+    xhr.open("GET", "https://ivtr-server.herokuapp.com/product/");
+    xhr.send();
+  };
+
+  componentDidMount() {
+    this.fetchProductData();
   }
 
-  return (
-    <Grid container  spacing={1}>
-      <Grid item xs={12}>
-      <BreadCrumbs before={[{href:"/dashboard",name:"home"}]} presentpage="รายการสินค้า"/>
-        <ProductTable showProductDetail={showProductDetail} />
-      </Grid>
-    </Grid>
-  );
+  render() {
+    return (
+      <>
+        <ProductListHeader
+          dataLength={this.state.product.length}
+          date={
+            this.state.product.length > 0 ? this.state.product[0].ModifiedOn : 0
+          }
+        />
+        <ProductListTable rows={this.state.product} />
+      </>
+    );
+  }
 }
+
+export default ProductContainer;

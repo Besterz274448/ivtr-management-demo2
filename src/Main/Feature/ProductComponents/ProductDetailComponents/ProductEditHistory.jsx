@@ -8,7 +8,6 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
-import ToolTip from "@material-ui/core/ToolTip";
 
 const columns = [
   { id: "no", label: "NO.",width:"2%" },
@@ -36,7 +35,6 @@ const useStyles = makeStyles({
 });
 
 export default function StickyHeadTable(props) {
-  const nameProduct = props.product.Name;
   const rows = props.product.editHistory;
   const classes = useStyles();
   const [page, setPage] = React.useState(0);

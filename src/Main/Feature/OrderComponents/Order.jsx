@@ -150,16 +150,13 @@ class OrderContainer extends Component {
           </Typography>
           <Typography variant="h5" style={{ fontWeight: "bold" }}>
             <TextField
-              id="filled-search"
-              label="Search field"
-              type="search"
-              variant="standard"
-              color="secondary"
+              id="outlined-full-width"
+              placeholder="SearchBox"
               size="small"
-              style={{ backgroundColor: "rgb(250,250,250)" }}
               InputProps={{
-                endAdornment: <SearchIcon />,
+                startAdornment: <SearchIcon style={{color: "rgb(150,150,150)"}}/>,
               }}
+              variant="outlined"
             />
           </Typography>
         </Box>

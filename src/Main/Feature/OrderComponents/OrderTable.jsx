@@ -176,7 +176,7 @@ export default function OrderTable(props) {
             {rows.length > 0
               ? rows
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row, index) => <Row key={row.id} row={row} />)
+                  .map((row, index) => <Row key={row.Id} row={row} />)
               : false}
           </TableBody>
         </Table>
