@@ -1,73 +1,43 @@
 import React from "react";
-import IconButton from "@material-ui/core/IconButton";
-import Menu from "@material-ui/core/Menu";
+import { makeStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
-import FilterListIcon from '@material-ui/icons/FilterList';
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 
-const options = [
-  "None",
-  "Atria",
-  "Callisto",
-  "Dione",
-  "Ganymede",
-  "Hangouts Call",
-  "Luna",
-  "Oberon",
-  "Phobos",
-  "Pyxis",
-  "Sedna",
-  "Titania",
-  "Triton",
-  "Umbriel",
-];
+export default function FilterBox({ data, maxWidth,minWidth, filterSelected, handleChangeSelected , type }) {
+  const useStyles = makeStyles((theme) => ({
+    formControl: {
+      margin: theme.spacing(1),
+      maxWidth: maxWidth || 120,
+      minWidth: minWidth || 50,
+      margin: 0,
+    },
+  }));
 
-const ITEM_HEIGHT = 48;
+  const handleChange = (event)=>{
+    handleChangeSelected(type,event.target.value);
+  }
 
-export default function LongMenu() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
+  const classes = useStyles();
   return (
-    <div>
-      <IconButton
-        aria-label="more"
-        aria-controls="long-menu"
-        aria-haspopup="true"
-        onClick={handleClick}
+    <FormControl
+      size="small"
+      variant="outlined"
+      className={classes.formControl}
+    >
+      <Select
+        onChange={handleChange}
+        value={filterSelected}
+        id={"filterBox" + maxWidth}
       >
-        <FilterListIcon />
-      </IconButton>
-      <Menu
-        id="long-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={open}
-        onClose={handleClose}
-        PaperProps={{
-          style: {
-            maxHeight: ITEM_HEIGHT * 4.5,
-            width: "20ch",
-          },
-        }}
-      >
-        {options.map((option) => (
-          <MenuItem
-            key={option}
-            selected={option === "Pyxis"}
-            onClick={handleClose}
-          >
-            {option}
-          </MenuItem>
-        ))}
-      </Menu>
-    </div>
+        {data.map((data) => {
+          return (
+            <MenuItem key={data.id} value={data.id}>
+              {data.label}
+            </MenuItem>
+          );
+        })}
+      </Select>
+    </FormControl>
   );
 }

@@ -120,7 +120,7 @@ export default function BestSellBoard() {
                       {row.amount}
                     </TableCell>
                     <TableCell className={classes.dataPercentage} align="right">
-                      {row.value}%
+                      <b>{row.value}%</b>
                     </TableCell>
                   </TableRow>
                 ))}

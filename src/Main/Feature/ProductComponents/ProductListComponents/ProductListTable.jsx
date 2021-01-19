@@ -192,14 +192,13 @@ const EnhancedTableToolbar = (props) => {
             <Button
               color="primary"
               variant="contained"
-              style={{ marginRight: "10px" }}
+              style={{ marginRight: "0%" }}
               onClick={() => {
-                window.location.href =
-                  "/product/addproduct";
+                window.location.href = "/product/addproduct";
               }}
             >
-                <AddCircleIcon />
-                เพิ่มสินค้า
+              <AddCircleIcon />
+              เพิ่มสินค้า
             </Button>
           </Tooltip>
         )}
@@ -233,11 +232,10 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     top: 20,
     width: 1,
-    
   },
-  tableHeader:{
-    color:"rgb(140,140,140)"
-  }
+  tableHeader: {
+    color: "rgb(140,140,140)",
+  },
 }));
 
 export default function EnhancedTable(props) {
@@ -247,6 +245,11 @@ export default function EnhancedTable(props) {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  React.useEffect(() => {
+    setPage(0);
+  }, [props.rows]);
+
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";

@@ -150,17 +150,24 @@ class OrderContainer extends Component {
           </Typography>
           <Typography variant="h5" style={{ fontWeight: "bold" }}>
             <TextField
-              id="outlined-full-width"
               placeholder="SearchBox"
               size="small"
               InputProps={{
-                startAdornment: <SearchIcon style={{color: "rgb(150,150,150)"}}/>,
+                startAdornment: (
+                  <SearchIcon style={{ color: "rgb(150,150,150)" }} />
+                ),
               }}
               variant="outlined"
             />
           </Typography>
         </Box>
-        <Typography>จำนวนสั่งซื้อ 25 รายการ</Typography>
+        <Typography
+          style={{
+            color: "rgb(150,150,150)"
+          }}
+        >
+          จำนวนสั่งซื้อ 25 รายการ
+        </Typography>
         <div style={{ marginTop: "1%" }}>
           <AppBar position="static" style={classStyle.AppBar}>
             <Tabs
