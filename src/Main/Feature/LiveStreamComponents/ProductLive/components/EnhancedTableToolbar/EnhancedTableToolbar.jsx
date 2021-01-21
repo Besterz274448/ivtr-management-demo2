@@ -8,7 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Button from "@material-ui/core/Button";
-import AddExistingProduct from "./components/AddExistingProduct/AddExistingProduct";
+import AddExistingProduct from "./components/AddExistingProduct";
 import ConfirmDialog from "./components/ConfirmDialog";
 
 const monthNames = [
@@ -117,21 +117,39 @@ export default function EnhancedTableToolbar(props) {
         <Typography variant="h5" id="statistics">
           สินค้าไลฟ์
         </Typography>
-
-        <AddExistingProduct />
-
         <Button
           variant="contained"
           color="primary"
+          size="medium"
+          style={{ marginLeft: "auto" }}
+        >
+          <Typography variant="h6" className={stateClasses.infoTitle}>
+            เริ่ม LIVE
+          </Typography>
+        </Button>
+        <Button
+          variant="contained"
+          color="secondary"
           style={{ marginLeft: 10 }}
-          size="small"
+          size="medium"
         >
           <Typography variant="h6" className={stateClasses.infoTitle}>
             ทดลอง CF
           </Typography>
         </Button>
+        <AddExistingProduct />
+        <Button
+          variant="contained"
+          color="secondary"
+          style={{ marginLeft: 10, marginRight: 20}}
+          size="medium"
+        >
+          <Typography variant="h6" className={stateClasses.infoTitle}>
+            พิมพ์
+          </Typography>
+        </Button>
 
-        <ConfirmDialog
+        {/*<ConfirmDialog
           onActiveLiveAll={onActiveLiveAll}
           displayText="เปิดใช้งาน CF ทั้งหมด"
           color="primary"
@@ -142,7 +160,7 @@ export default function EnhancedTableToolbar(props) {
           displayText="ปิดใช้งาน CF ทั้งหมด"
           color="secondary"
           status={false}
-        />
+        /> 
 
         <div className={stateClasses.notice_update} style={{ marginLeft: 100 }}>
           <Typography variant="h6" className={stateClasses.info}>
@@ -151,7 +169,7 @@ export default function EnhancedTableToolbar(props) {
           <Typography variant="h6" className={stateClasses.infoTitle}>
             {formatDate(date)}
           </Typography>
-        </div>
+        </div> */}
       </Toolbar>
     );
   }

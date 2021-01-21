@@ -10,8 +10,8 @@ import TableRow from "@material-ui/core/TableRow";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 import Paper from "@material-ui/core/Paper";
 import Checkbox from "@material-ui/core/Checkbox";
-import { Product } from "../../../../../utils/MockData";
-import { getComparator, stableSort } from "../../../../../utils/TableUtils";
+import { Product } from "../../../../utils/MockData";
+import { getComparator, stableSort } from "../../../../utils/TableUtils";
 
 const headCells = [
   {

@@ -26,14 +26,14 @@ export default function AddExistingProduct() {
   };
 
   return (
-    <div style={{ marginLeft: 300 }}>
+    <div style={{ marginLeft: 10 }}>
       <Button
-        variant="outlined"
+        variant="contained"
         color="primary"
-        size="small"
+        size="medium"
         onClick={handleClickOpen}
       >
-        +เพิ่มสินค้าไลฟ์
+        + เพิ่มสินค้า
       </Button>
       <Dialog
       maxWidth='lg'

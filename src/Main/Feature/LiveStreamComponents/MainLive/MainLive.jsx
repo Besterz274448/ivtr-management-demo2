@@ -1,29 +1,56 @@
 import React from "react";
 import { makeStyles, TableContainer } from "@material-ui/core";
-
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
-import TitleToolbar from "./components/TitleToolbar";
+import TablePagination from "@material-ui/core/TablePagination";
+import LiveTableTitle from "./components/LiveTableTitle";
 import LiveTableHeader from "./components/LiveTableHeader";
+import LiveTableBody from "./components/LiveTableBody";
+import LivePageTitle from "./components/LivePageTitle";
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
+function createData(
+  increment,
+  name,
+  description,
+  contact,
+  lead,
+  order,
+  createdon,
+  status
+) {
+  return {
+    increment,
+    name,
+    description,
+    contact,
+    lead,
+    order,
+    createdon,
+    status,
+  };
 }
 
 const rows = [
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Donut", 452, 25.0, 51, 4.9),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Honeycomb", 408, 3.2, 87, 6.5),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Jelly Bean", 375, 0.0, 94, 0.0),
-  createData("KitKat", 518, 26.0, 65, 7.0),
-  createData("Lollipop", 392, 0.2, 98, 0.0),
-  createData("Marshmallow", 318, 0, 81, 2.0),
-  createData("Nougat", 360, 19.0, 9, 37.0),
-  createData("Oreo", 437, 18.0, 63, 4.0),
+  createData(
+    "1",
+    "โลีะเสื้อ",
+    "บ้านจะไม่มีที่เก็บละ",
+    10,
+    150,
+    20,
+    Date.now(),
+    "waiting"
+  ),
+  createData(
+    "2",
+    "ไลฟ์ประจำสัปดาห์",
+    "หาแดกไงค่ะ",
+    20,
+    170,
+    30,
+    Date.now(),
+    "offline"
+  ),
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -50,10 +77,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MainLive() {
+export default function MainLive(props) {
   const [selected, setSelected] = React.useState([]);
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("caloreies");
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const classes = useStyles();
 
@@ -72,15 +101,28 @@ export default function MainLive() {
     setSelected([]);
   };
 
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const emptyRows =
+    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+
   return (
     <div className={classes.root}>
+      <LivePageTitle  date={new Date()} dataLength={rows.length} />
       <Paper className={classes.paper}>
-        <TitleToolbar numSelected={selected.length} title={"Live เมนูหลัก"} />
+      <LiveTableTitle title={"ข้อมูลรายการไลฟ์สด"} />
         <TableContainer>
           <Table
             className={classes.table}
             aria-labelledby="tableTitle"
-            size={"medium"}
+            size={"small"}
             aria-label="enhanced table"
           >
             <LiveTableHeader
@@ -92,8 +134,28 @@ export default function MainLive() {
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
             />
+            <tbody>
+              <LiveTableBody
+                rows={rows}
+                order={order}
+                orderBy={orderBy}
+                page={page}
+                rowsPerPage={rowsPerPage}
+                emptyRows={emptyRows}
+                classes={classes}
+              />
+            </tbody>
           </Table>
         </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+        />
       </Paper>
     </div>
   );
