@@ -7,7 +7,6 @@ import Select from "@material-ui/core/Select";
 export default function FilterBox({ data, maxWidth,minWidth, filterSelected, handleChangeSelected , type }) {
   const useStyles = makeStyles((theme) => ({
     formControl: {
-      margin: theme.spacing(1),
       maxWidth: maxWidth || 120,
       minWidth: minWidth || 50,
       margin: 0,

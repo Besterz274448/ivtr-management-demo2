@@ -14,7 +14,7 @@ import './Sidebar.css'
 
 import { NavLink } from "react-router-dom";
 
-const drawerWidth = 200;
+const drawerWidth = 230;
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -85,7 +85,7 @@ export default function Sidebar({
         </IconButton>
       </div>
       <Divider />
-      <List>
+      <List className="sidebar-box">
         {sideBarIcon.map((data, index) => (
           <ListItem button key={data.text}>
             <NavLink

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import ProductListTable from "./ProductListTable";
+
 import ProductListHeader from "./ProductListHeader";
-import "./ProductList.css"
+import "./ProductList.css";
 
 const numeric_record = ["Price", "Stock", "Sold"];
 
@@ -14,7 +15,8 @@ class ProductContainer extends Component {
       filter_data: [],
       filter_selected: "id",
       operator_selected: ">",
-      defaultSearch:""
+      defaultSearch: "",
+      open:true,
     };
   }
 
@@ -42,7 +44,7 @@ class ProductContainer extends Component {
     this.setState({
       [state]: value,
       data: this.state.product,
-      defaultSearch: this.state.defaultSearch === null ? "" : null
+      defaultSearch: this.state.defaultSearch === null ? "" : null,
     });
   };
 
@@ -90,8 +92,8 @@ class ProductContainer extends Component {
           } else {
             filterData = this.state.product;
           }
-
           break;
+        default:break;
       }
     } else {
       filterData = this.state.product.filter((data) => {
@@ -116,6 +118,7 @@ class ProductContainer extends Component {
           product: [...data],
           data: [...data],
           filter_data: this.findDuplicate(data, this.state.filter_selected),
+          open:false
         });
       }
     };
@@ -142,7 +145,7 @@ class ProductContainer extends Component {
             this.state.product.length > 0 ? this.state.product[0].ModifiedOn : 0
           }
         />
-        <ProductListTable rows={this.state.data} />
+        <ProductListTable rows={this.state.data} open={this.state.open}/>
       </>
     );
   }

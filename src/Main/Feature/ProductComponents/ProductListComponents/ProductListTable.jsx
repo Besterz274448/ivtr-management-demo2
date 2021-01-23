@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import { lighten, makeStyles } from "@material-ui/core/styles";
+import Backdrop from "@material-ui/core/Backdrop";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -233,6 +235,10 @@ const useStyles = makeStyles((theme) => ({
     top: 20,
     width: 1,
   },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#fff",
+  },
   tableHeader: {
     color: "rgb(140,140,140)",
   },
@@ -249,7 +255,6 @@ export default function EnhancedTable(props) {
   React.useEffect(() => {
     setPage(0);
   }, [props.rows]);
-
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -294,6 +299,9 @@ export default function EnhancedTable(props) {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
+        <Backdrop className={classes.backdrop} open={props.open}>
+          <CircularProgress/>
+        </Backdrop>
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table

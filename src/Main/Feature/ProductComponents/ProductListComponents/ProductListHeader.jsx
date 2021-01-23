@@ -100,7 +100,6 @@ export default function ProductListHeader(props) {
           <Autocomplete
             clearOnBlur={false}
             id="product_search_min_range"
-            clearText
             value={props.defaultSearch}
             options={props.filter_data.map((option) => option + "")}
             onInputChange={(event, values) => {
@@ -129,7 +128,6 @@ export default function ProductListHeader(props) {
                 <Autocomplete
                   clearOnBlur={false}
                   id="product_search_max_range"
-                  clearText
                   value={props.defaultSearch}
                   options={props.filter_data.map((option) => option + "")}
                   onInputChange={(event, values) => {

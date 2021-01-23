@@ -7,28 +7,28 @@ import UploadImage from "./UploadImage";
 import ProductAddMainForm from "./ProductAddMainForm";
 import ProductAddSubForm from "./ProductAddSubForm";
 import Button from "@material-ui/core/Button";
+import Alert from '@material-ui/lab/Alert';
 import Divider from "@material-ui/core/Divider";
+import Collapse from "@material-ui/core/Collapse";
+import AddSaleChannel from "./AddSaleChannel";
 import AddCircleRoundedIcon from "@material-ui/icons/AddCircleRounded";
-import SaveIcon from '@material-ui/icons/Save';
+import SaveIcon from "@material-ui/icons/Save";
 import ListItem from "@material-ui/core/ListItem";
 
 const useStyles = makeStyles((theme) => ({
   paper1: {
     backgroundColor: "rgb(255,255,255)",
   },
-  paper2: {
-    backgroundColor: "rgb(255,255,255)",
-    marginTop: "1%",
-  },
   mainDetail: {
     width: "100%",
     margin: 0,
-    padding: "1% 2%",
+    padding: "1% 0%",
     color: "rgb(80,80,80)",
   },
   headerMain: {
     margin: 0,
     padding: 0,
+    marginLeft:"1%"
   },
   subDiv: {
     display: "flex",
@@ -36,30 +36,53 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const handleUploadClick = (event) => {
-  var file = event.target.files[0];
-  const reader = new FileReader();
-  var url = reader.readAsDataURL(file);
-  reader.onloadend = function (e) {
-    console.log(reader.result);
-  }.bind(this);
-
-  // this.setState({
-  //   mainState: "uploaded",
-  //   selectedFile: event.target.files[0],
-  //   imageUploaded: 1,
-  // });
-};
-
 export default function ProductAdd() {
   const classes = useStyles();
-  const [subProduct,setSubProduct] = React.useState([]);
+  const [expanded, setExpanded] = React.useState(true);
+  const [progress,setProgress] = React.useState(false);
+  const [alertMessage,setAlertMessage] = React.useState({severity:"success",message:"เพิ่มสินค้าสำเร็จ ! "});
+  const [data,setData] = React.useState({
+    product_id:"",
+    product_name:"",
+    product_category:"",
+    product_price:0,
+    product_weight:0,
+    product_stock:0,
+    product_detail:"",
+  });
+  const [image, setImage] = React.useState([]);
+  const [subProduct, setSubProduct] = React.useState([]);
 
-  const addNewSubProduct = ()=>{
-    const temp = [...subProduct]
-    temp.push({name:"",price:"",stock:"",weight:""});
+  const handleUploadClick = (event) => {
+    var file = event.target.files[0];
+    const reader = new FileReader();
+    var url = reader.readAsDataURL(file);
+    reader.onloadend = async function (e) {
+      await setImage([...image, reader.result]);
+    }
+  };
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
+  const addNewSubProduct = () => {
+    const temp = [...subProduct];
+    temp.push({ name: "", price: 0.0, stock: 0, weight: 0.0 });
     setSubProduct(temp);
+  };
+
+  const createProduct = (e)=>{
+    e.preventDefault();
+    alert('test');
   }
+
+  const handleData = (value,tag)=>{
+    let items = {...data};
+    items[tag] = value;
+    setData(items);
+  }
+
   return (
     <>
       <BreadCrumbs
@@ -71,29 +94,58 @@ export default function ProductAdd() {
       />
       <Paper className={classes.paper1}>
         <div className={classes.mainDetail}>
-          <h2 className={classes.headerMain}>ข้อมูลสินค้า</h2>
+          {!progress ? <ListItem className={classes.subDiv}>
+            <h2 className={classes.headerMain}>ข้อมูลสินค้า</h2>
+            <Button type="submit" form="add_product_form" variant="contained" color="secondary" >
+              <SaveIcon />
+              บันทึกข้อมูล
+            </Button>
+          </ListItem> : 
+          <Alert severity={alertMessage.severity}>{alertMessage.message}</Alert> }
         </div>
-        <Grid container>
+        <Grid container style={{ paddingBottom: "2%" }}>
           <Grid item xs={7}>
-            <ProductAddMainForm />
+            <form id="add_product_form" onSubmit={createProduct}>
+              <ProductAddMainForm data={data} handleData={handleData}/>
+            </form>
           </Grid>
           <Grid item xs={5}>
-            <UploadImage handleImage={handleUploadClick} />
+            <UploadImage image={image} handleImage={handleUploadClick} />
           </Grid>
         </Grid>
         <Divider />
         <div className={classes.mainDetail}>
           <ListItem className={classes.subDiv}>
+            <h2 className={classes.headerMain}>ช่องทางการขาย</h2>
+            <div>
+              {/* <Button
+                variant="contained"
+                color="primary"
+                onClick={handleExpandClick}
+                aria-expanded={expanded}
+              >
+                <AddCircleRoundedIcon />
+                เพิ่มช่องทางการขาย
+              </Button> */}
+            </div>
+          </ListItem>
+          <Collapse in={expanded} timeout="auto" unmountOnExit>
+            <AddSaleChannel />
+          </Collapse>
+        </div>
+        <Divider />
+        <div className={classes.mainDetail}>
+          <ListItem className={classes.subDiv}>
             <h2 className={classes.headerMain}>ข้อมูลสินค้าย่อย</h2>
             <div>
-                <Button variant="contained" color="primary" style={{marginRight:"35px"}} onClick={addNewSubProduct}>
-                  <AddCircleRoundedIcon />
-                  เพิ่มสินค้าย่อย
-                </Button>
-                <Button variant="contained" color="secondary">
-                  <SaveIcon />
-                  บันทึกข้อมูล
-                </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={addNewSubProduct}
+              >
+                <AddCircleRoundedIcon />
+                เพิ่มข้อมูลสินค้าย่อย
+              </Button>
             </div>
           </ListItem>
         </div>

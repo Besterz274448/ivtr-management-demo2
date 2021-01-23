@@ -10,10 +10,9 @@ import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 import DeleteIcon from "@material-ui/icons/Delete";
 
-
 const useStyles = makeStyles((theme) => ({
   table: {
-    width: "95%",
+    width: "97%",
     marginLeft: "2%",
   },
   thHead: {
@@ -27,11 +26,10 @@ const useStyles = makeStyles((theme) => ({
   },
   thRow: {
     backgroundColor: "rgb(105,105,255)",
-
   },
   textfieldBox: {
     boxSizing: "border-box",
-    padding:"13px"
+    padding: "13px",
   },
 }));
 
@@ -42,13 +40,12 @@ const headerTable = [
   { id: "น้ำหนักสินค้า(กิโลกรัม)", align: "center" },
 ];
 
-
 export default function ProductAddSubForm(props) {
   const classes = useStyles();
 
   return (
     <>
-      <TableContainer component={Paper} style={{paddingBottom:"50px"}}>
+      <TableContainer component={Paper} style={{ paddingBottom: "50px" }}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow className={classes.thRow}>
@@ -93,6 +90,7 @@ export default function ProductAddSubForm(props) {
                     size="small"
                     variant="outlined"
                     color="primary"
+                    type="number"
                     defaultValue={""}
                     inputProps={{ className: classes.textfieldBox }}
                   />
@@ -102,6 +100,7 @@ export default function ProductAddSubForm(props) {
                     size="small"
                     variant="outlined"
                     color="primary"
+                    type="number"
                     defaultValue={""}
                     inputProps={{ className: classes.textfieldBox }}
                   />
@@ -111,6 +110,7 @@ export default function ProductAddSubForm(props) {
                     size="small"
                     variant="outlined"
                     color="primary"
+                    type="number"
                     defaultValue={""}
                     inputProps={{ className: classes.textfieldBox }}
                   />
