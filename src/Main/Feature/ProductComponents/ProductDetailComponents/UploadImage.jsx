@@ -37,6 +37,7 @@ export default function UploadImage(props) {
               className={classes.inputForm}
               style={{ margin: 8 }}
               label="รายละเอียดสินค้า"
+              value={props.description}
               onChange={(event)=>{
                 props.handleData(event.target.value,"product_description")
               }}
@@ -72,9 +73,9 @@ export default function UploadImage(props) {
         <p>สามารถอัพโหลดรูปภาพได้จำนวนสูงสุด 4 รูปภาพ</p>
         <div className={classes.imageTag}>
           <ListItem style={{ clear: "display:" }}>
-            {props.image.map((data, index) => {
+            {props.image != null ? props.image.map((data, index) => {
               return <ImageComponent image={data} key={data + index} />;
-            })}
+            }) : false}
           </ListItem>
         </div>
       </div>

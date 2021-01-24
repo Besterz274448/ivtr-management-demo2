@@ -7,7 +7,7 @@ import UploadImage from "./UploadImage";
 import ProductAddMainForm from "./ProductAddMainForm";
 import ProductAddSubForm from "./ProductAddSubForm";
 import Button from "@material-ui/core/Button";
-import Alert from '@material-ui/lab/Alert';
+import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
 import Collapse from "@material-ui/core/Collapse";
 import AddSaleChannel from "./AddSaleChannel";
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   headerMain: {
     margin: 0,
     padding: 0,
-    marginLeft:"1%"
+    marginLeft: "1%",
   },
   subDiv: {
     display: "flex",
@@ -39,16 +39,21 @@ const useStyles = makeStyles((theme) => ({
 export default function ProductAdd() {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(true);
-  const [progress,setProgress] = React.useState(false);
-  const [alertMessage,setAlertMessage] = React.useState({severity:"success",message:"เพิ่มสินค้าสำเร็จ ! "});
-  const [data,setData] = React.useState({
-    product_id:"",
-    product_name:"",
-    product_category:"",
-    product_price:0,
-    product_weight:0,
-    product_stock:0,
-    product_detail:"",
+  const [progress, setProgress] = React.useState(false);
+  const [alertMessage, setAlertMessage] = React.useState({
+    severity: "success",
+    message: "เพิ่มสินค้าสำเร็จ ! ",
+  });
+  const [data, setData] = React.useState({
+    product_id: "",
+    product_name: "",
+    product_category: "",
+    product_price: undefined,
+    product_weight: undefined,
+    product_stock: undefined,
+    product_description: "",
+    product_image: [],
+    product_subItems: [],
   });
   const [image, setImage] = React.useState([]);
   const [subProduct, setSubProduct] = React.useState([]);
@@ -59,7 +64,7 @@ export default function ProductAdd() {
     var url = reader.readAsDataURL(file);
     reader.onloadend = async function (e) {
       await setImage([...image, reader.result]);
-    }
+    };
   };
 
   const handleExpandClick = () => {
@@ -72,16 +77,46 @@ export default function ProductAdd() {
     setSubProduct(temp);
   };
 
-  const createProduct = (e)=>{
-    e.preventDefault();
-    alert('test');
-  }
+  const showAlert = (sev, mes) => {
+    let warning = { severity: sev, message: mes };
+    setAlertMessage(warning);
+    setProgress(true);
+    setTimeout(() => {
+      setProgress(false);
+    }, 3000);
+  };
 
-  const handleData = (value,tag)=>{
-    let items = {...data};
+  const createProduct = (e) => {
+    e.preventDefault();
+    data.product_image = image;
+    if (subProduct.length > 0) {
+      for (let i = 0; i < subProduct.length; i++) {
+        if (subProduct[i].name === "") {
+          showAlert("warning","กรุณากรอกข้อมูลสินค้าย่อยให้ครบถ้วน");
+          return;
+        }
+      }
+      data.product_subItems = subProduct;
+      //sending data to backend
+
+
+      //if success
+      showAlert("success","เพิ่มสินค้าสำเร็จ");
+
+    }
+  };
+
+  const handleSubdata = (value, index, type) => {
+    let items = [...subProduct];
+    items[index][type] = value;
+    setSubProduct(items);
+  };
+
+  const handleData = (value, tag) => {
+    let items = { ...data };
     items[tag] = value;
     setData(items);
-  }
+  };
 
   return (
     <>
@@ -94,23 +129,38 @@ export default function ProductAdd() {
       />
       <Paper className={classes.paper1}>
         <div className={classes.mainDetail}>
-          {!progress ? <ListItem className={classes.subDiv}>
-            <h2 className={classes.headerMain}>ข้อมูลสินค้า</h2>
-            <Button type="submit" form="add_product_form" variant="contained" color="secondary" >
-              <SaveIcon />
-              บันทึกข้อมูล
-            </Button>
-          </ListItem> : 
-          <Alert severity={alertMessage.severity}>{alertMessage.message}</Alert> }
+          {!progress ? (
+            <ListItem className={classes.subDiv}>
+              <h2 className={classes.headerMain}>ข้อมูลสินค้า</h2>
+              <Button
+                type="submit"
+                form="add_product_form"
+                variant="contained"
+                color="secondary"
+              >
+                <SaveIcon />
+                บันทึกข้อมูล
+              </Button>
+            </ListItem>
+          ) : (
+            <Alert severity={alertMessage.severity}>
+              {alertMessage.message}
+            </Alert>
+          )}
         </div>
         <Grid container style={{ paddingBottom: "2%" }}>
           <Grid item xs={7}>
             <form id="add_product_form" onSubmit={createProduct}>
-              <ProductAddMainForm data={data} handleData={handleData}/>
+              <ProductAddMainForm data={data} handleData={handleData} />
             </form>
           </Grid>
           <Grid item xs={5}>
-            <UploadImage image={image} handleImage={handleUploadClick} />
+            <UploadImage
+              image={image}
+              description={data.product_description}
+              handleData={handleData}
+              handleImage={handleUploadClick}
+            />
           </Grid>
         </Grid>
         <Divider />
@@ -151,7 +201,10 @@ export default function ProductAdd() {
         </div>
         <Grid container>
           <Grid item xs={12}>
-            <ProductAddSubForm rows={subProduct} />
+            <ProductAddSubForm
+              rows={subProduct}
+              handleSubdata={handleSubdata}
+            />
           </Grid>
         </Grid>
       </Paper>

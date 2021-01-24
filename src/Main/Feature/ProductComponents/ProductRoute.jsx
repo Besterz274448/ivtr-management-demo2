@@ -2,7 +2,7 @@ import React from "react"
 import Product from './ProductListComponents/ProductContainer'
 import { Switch, Route } from "react-router-dom";
 import ProductAdd from "./ProductAddComponents/ProductAdd";
-import ProductDetail from "./ProductDetailComponents/ProductDetailContainer"
+import ProductDetail from "./ProductDetailComponents/ProductDetail"
 
 export default function ProductRoute() {
 

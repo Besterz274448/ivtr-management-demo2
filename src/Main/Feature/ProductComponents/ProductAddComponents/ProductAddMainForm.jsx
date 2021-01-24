@@ -32,6 +32,9 @@ export default function ProductAddMainForm(props) {
         <div className={classes.boxInput}>
           <TextField
             className={classes.inputForm}
+            onChange={(event)=>{
+              props.handleData(event.target.value,"product_id")
+            }}
             label="รหัสสินค้า"
             style={{ margin: 8 }}
             helperText="รหัสสินค้าต้องมีความยาวไม่เกิน 25 ตัวอักษร"
@@ -47,6 +50,9 @@ export default function ProductAddMainForm(props) {
           <TextField
             className={classes.inputForm}
             label="ชื่อสินค้า"
+            onChange={(event)=>{
+              props.handleData(event.target.value,"product_name")
+            }}
             style={{ margin: 8 }}
             helperText="ชื่อสินค้าต้องมีความยาวมากกว่า 5 ตัวอักษร"
             required
@@ -61,6 +67,9 @@ export default function ProductAddMainForm(props) {
           <TextField
             className={classes.inputForm}
             label="ประเภทสินค้า"
+            onChange={(event)=>{
+              props.handleData(event.target.value,"product_category")
+            }}
             style={{ margin: 8 }}
             helperText="กรุณากรอกประเภทสินค้าให้ตรงกับประเภทที่คุณต้องการจัดเก็บ"
             required
@@ -76,6 +85,9 @@ export default function ProductAddMainForm(props) {
             className={classes.inputInline}
             type="number"
             label="ราคาสินค้า"
+            onChange={(event)=>{
+              props.handleData(event.target.value,"product_price")
+            }}
             style={{ margin: 8 }}
             required
             margin="normal"
@@ -88,6 +100,9 @@ export default function ProductAddMainForm(props) {
             className={classes.inputInline}
             type="number"
             label="น้ำหนักสินค้า"
+            onChange={(event)=>{
+              props.handleData(event.target.value,"product_weight")
+            }}
             style={{ margin: 8 }}
             required
             margin="normal"
@@ -100,6 +115,9 @@ export default function ProductAddMainForm(props) {
             className={classes.inputInline}
             type="number"
             label="จำนวนสินค้า"
+            onChange={(event)=>{
+              props.handleData(event.target.value,"product_stock")
+            }}
             style={{ margin: 8 }}
             required
             margin="normal"

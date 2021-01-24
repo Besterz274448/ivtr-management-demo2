@@ -38,19 +38,21 @@ const headerTable = [
   { id: "ราคาสินค้า(บาท)", align: "center" },
   { id: "จำนวนสินค้า(ชิ้น)", align: "center" },
   { id: "น้ำหนักสินค้า(กิโลกรัม)", align: "center" },
+  { id: "ขายแล้ว", align: "center" },
+  { id: "จำนวนสั่งซื้อทั้งหมด", align: "center" },
 ];
 
-export default function ProductAddSubForm(props) {
+export default function ProductDetailSubForm(props) {
   const classes = useStyles();
-
   return (
     <>
+
       <TableContainer component={Paper} style={{ paddingBottom: "50px" }}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow className={classes.thRow}>
               <TableCell className={classes.thHead}>No.</TableCell>
-              {headerTable.map((data, index) => {
+              {headerTable.map((data) => {
                 return (
                   <TableCell
                     className={classes.thHead}
@@ -67,8 +69,8 @@ export default function ProductAddSubForm(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {props.rows.map((row, index) => (
-              <TableRow key={index}>
+            {props.data.map((row, index) => (
+              <TableRow key={Math.random()}>
                 <TableCell
                   component="td"
                   scope="row"
@@ -81,10 +83,10 @@ export default function ProductAddSubForm(props) {
                     size="small"
                     variant="outlined"
                     color="primary"
-                    defaultValue={""}
-                    onChange={(event)=>{
-                      props.handleSubdata(event.target.value,index,"name")
-                    }}
+                    value={row.Name}
+                    // onChange={(event)=>{
+                    //   props.handleSubdata(event.target.value,index,"name")
+                    // }}
                     inputProps={{ className: classes.textfieldBox }}
                   />
                 </TableCell>
@@ -94,10 +96,10 @@ export default function ProductAddSubForm(props) {
                     variant="outlined"
                     color="primary"
                     type="number"
-                    defaultValue={row.price}
-                    onChange={(event)=>{
-                      props.handleSubdata(event.target.value,index,"price")
-                    }}
+                    value={row.Price}
+                    // onChange={(event)=>{
+                    //   props.handleSubdata(event.target.value,index,"price")
+                    // }}
                     inputProps={{ className: classes.textfieldBox }}
                   />
                 </TableCell>
@@ -107,10 +109,10 @@ export default function ProductAddSubForm(props) {
                     variant="outlined"
                     color="primary"
                     type="number"
-                    defaultValue={row.stock}
-                    onChange={(event)=>{
-                      props.handleSubdata(event.target.value,index,"stock")
-                    }}
+                    value={row.Stock}
+                    // onChange={(event)=>{
+                    //   props.handleSubdata(event.target.value,index,"stock")
+                    // }}
                     inputProps={{ className: classes.textfieldBox }}
                   />
                 </TableCell>
@@ -120,10 +122,32 @@ export default function ProductAddSubForm(props) {
                     variant="outlined"
                     color="primary"
                     type="number"
-                    defaultValue={row.weight}
-                    onChange={(event)=>{
-                      props.handleSubdata(event.target.value,index,"weight")
-                    }}
+                    defaultValue={row.Weight}
+                    // onChange={(event)=>{
+                    //   props.handleSubdata(event.target.value,index,"weight")
+                    // }}
+                    inputProps={{ className: classes.textfieldBox }}
+                  />
+                </TableCell>
+                <TableCell align="center">
+                  <TextField
+                    size="small"
+                    variant="outlined"
+                    color="primary"
+                    type="number"
+                    disabled
+                    defaultValue={row.Sold}
+                    inputProps={{ className: classes.textfieldBox }}
+                  />
+                </TableCell>
+                <TableCell align="center">
+                  <TextField
+                    size="small"
+                    variant="outlined"
+                    color="primary"
+                    type="number"
+                    disabled
+                    defaultValue={row.Order}
                     inputProps={{ className: classes.textfieldBox }}
                   />
                 </TableCell>
