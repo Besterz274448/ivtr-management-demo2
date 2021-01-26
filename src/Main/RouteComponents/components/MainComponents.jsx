@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MainComponents({selected}){
       const classes = useStyles();
+      
     return (
       <main className={classes.content}>
         <div className={classes.toolbar} />

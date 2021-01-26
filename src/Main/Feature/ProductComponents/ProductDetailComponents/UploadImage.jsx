@@ -19,15 +19,25 @@ const useStyles = makeStyles((theme) => ({
   },
   imageTag: {
     width: "95%",
-    marginRight:"auto",
-    marginLeft:"auto",
+    marginRight: "auto",
+    marginLeft: "auto",
     overflowX: "auto",
     overflowY: "none",
+  },
+  inputText: {
+    color: "rgb(70,70,70)",
   },
 }));
 
 export default function UploadImage(props) {
   const classes = useStyles();
+  const { image } = props;
+  const [description, setDescription] = React.useState();
+  const [changed, setChanged] = React.useState(false);
+
+  React.useEffect(() => {
+    setDescription(props.description);
+  }, [props.description]);
   return (
     <>
       <div style={{ textAlign: "center" }}>
@@ -37,12 +47,22 @@ export default function UploadImage(props) {
               className={classes.inputForm}
               style={{ margin: 8 }}
               label="รายละเอียดสินค้า"
-              value={props.description}
-              onChange={(event)=>{
-                props.handleData(event.target.value,"product_description")
+              value={description}
+              onBlur={(event) => {
+                if (changed) {
+                  props.handleData(event.target.value, "product_description");
+                  setChanged(false);
+                }
+              }}
+              onChange={(event) => {
+                setDescription(event.target.value);
+                setChanged(true);
               }}
               InputLabelProps={{
                 shrink: true,
+              }}
+              InputProps={{
+                className: classes.inputText,
               }}
               multiline
               rows={6}
@@ -70,12 +90,16 @@ export default function UploadImage(props) {
             <span style={{ verticalAlign: "top" }}>อัพโหลดรูปภาพ</span>
           </label>
         </Button>
-        <p>สามารถอัพโหลดรูปภาพได้จำนวนสูงสุด 4 รูปภาพ</p>
+        <p className={classes.inputText}>
+          สามารถอัพโหลดรูปภาพได้จำนวนสูงสุด 4 รูปภาพ
+        </p>
         <div className={classes.imageTag}>
           <ListItem style={{ clear: "display:" }}>
-            {props.image != null ? props.image.map((data, index) => {
-              return <ImageComponent image={data} key={data + index} />;
-            }) : false}
+            {image != null
+              ? image.map((data, index) => {
+                  return <ImageComponent image={data} key={data + index} />;
+                })
+              : false}
           </ListItem>
         </div>
       </div>

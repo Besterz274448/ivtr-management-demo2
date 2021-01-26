@@ -37,7 +37,7 @@ export default function UploadImage(props) {
               className={classes.inputForm}
               style={{ margin: 8 }}
               label="รายละเอียดสินค้า"
-              onChange={(event)=>{
+              onBlur={(event)=>{
                 props.handleData(event.target.value,"product_description")
               }}
               InputLabelProps={{

@@ -19,6 +19,16 @@ const useStyles = makeStyles((theme) => ({
     color: "rgb(240,240,240)",
     fontSize: "13px",
     fontWeight: "bold",
+    borderRight: "1px solid rgb(210,210,210)",
+    borderLeft: "1px solid rgb(210,210,210)",
+  },
+  inputText: {
+    color: "rgb(70,70,70)",
+  },
+  tdCell: {
+    padding: 0,
+    borderRight: "1px solid rgb(210,210,210)",
+    borderLeft: "1px solid rgb(210,210,210)",
   },
   tdNumber: {
     color: "rgb(150,150,150)",
@@ -29,7 +39,9 @@ const useStyles = makeStyles((theme) => ({
   },
   textfieldBox: {
     boxSizing: "border-box",
-    padding: "13px",
+    padding:"15px",
+    textAlign:"center",
+    color:"rgb(70,70,70)"
   },
 }));
 
@@ -76,58 +88,74 @@ export default function ProductAddSubForm(props) {
                 >
                   {index + 1}
                 </TableCell>
-                <TableCell align="center">
+                <TableCell align="center" className={classes.tdCell}>
                   <TextField
                     size="small"
                     variant="outlined"
                     color="primary"
+                    required
                     defaultValue={""}
-                    onChange={(event)=>{
-                      props.handleSubdata(event.target.value,index,"name")
+                    InputProps={{
+                      className: classes.inputText,
+                    }}
+                    onBlur={(event) => {
+                      props.handleSubdata(event.target.value, index, "name");
                     }}
                     inputProps={{ className: classes.textfieldBox }}
                   />
                 </TableCell>
-                <TableCell align="center">
+                <TableCell align="center" className={classes.tdCell}>
                   <TextField
                     size="small"
                     variant="outlined"
                     color="primary"
                     type="number"
+                    required
                     defaultValue={row.price}
-                    onChange={(event)=>{
-                      props.handleSubdata(event.target.value,index,"price")
+                    InputProps={{
+                      className: classes.inputText,
+                    }}
+                    onBlur={(event) => {
+                      props.handleSubdata(event.target.value, index, "price");
                     }}
                     inputProps={{ className: classes.textfieldBox }}
                   />
                 </TableCell>
-                <TableCell align="center">
+                <TableCell align="center" className={classes.tdCell}>
                   <TextField
                     size="small"
                     variant="outlined"
                     color="primary"
                     type="number"
+                    required
                     defaultValue={row.stock}
-                    onChange={(event)=>{
-                      props.handleSubdata(event.target.value,index,"stock")
+                    InputProps={{
+                      className: classes.inputText,
+                    }}
+                    onBlur={(event) => {
+                      props.handleSubdata(event.target.value, index, "stock");
                     }}
                     inputProps={{ className: classes.textfieldBox }}
                   />
                 </TableCell>
-                <TableCell align="center">
+                <TableCell align="center" className={classes.tdCell}>
                   <TextField
                     size="small"
                     variant="outlined"
                     color="primary"
                     type="number"
+                    required
                     defaultValue={row.weight}
-                    onChange={(event)=>{
-                      props.handleSubdata(event.target.value,index,"weight")
+                    InputProps={{
+                      className: classes.inputText,
+                    }}
+                    onBlur={(event) => {
+                      props.handleSubdata(event.target.value, index, "weight");
                     }}
                     inputProps={{ className: classes.textfieldBox }}
                   />
                 </TableCell>
-                <TableCell align="center">
+                <TableCell align="center" className={classes.tdCell}>
                   <DeleteIcon />
                 </TableCell>
               </TableRow>

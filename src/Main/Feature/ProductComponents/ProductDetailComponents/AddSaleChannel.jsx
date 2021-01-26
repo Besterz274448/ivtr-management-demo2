@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
   buttonText: {
     paddingLeft: "10%",
   },
+  tableHead:{
+    color:"rgb(80,80,80)"
+  }
 }));
 
 export default function AddSaleChannel(props) {
@@ -120,13 +123,13 @@ export default function AddSaleChannel(props) {
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
-            <TableRow>
-              <TableCell>Channel</TableCell>
-              <TableCell align="left">Name</TableCell>
-              <TableCell align="right">Status</TableCell>
-              <TableCell align="right">Url</TableCell>
-              <TableCell align="right">Sync</TableCell>
-              <TableCell align="right">Action</TableCell>
+          <TableRow>
+              <TableCell className={classes.tableHead}>Channel</TableCell>
+              <TableCell className={classes.tableHead} align="left">Name</TableCell>
+              <TableCell className={classes.tableHead} align="right">Status</TableCell>
+              <TableCell className={classes.tableHead} align="right">Url</TableCell>
+              <TableCell className={classes.tableHead} align="right">Sync</TableCell>
+              <TableCell className={classes.tableHead} align="right">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

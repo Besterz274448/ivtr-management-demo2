@@ -10,6 +10,9 @@ const useStyles = makeStyles((theme) => ({
   inputForm: {
     width: "95%",
   },
+  inputText:{
+    color:"rgb(70,70,70)"
+  },
   boxInput: {
     marginLeft: "2%",
     marginBottom: "1%",
@@ -32,7 +35,7 @@ export default function ProductAddMainForm(props) {
         <div className={classes.boxInput}>
           <TextField
             className={classes.inputForm}
-            onChange={(event)=>{
+            onBlur={(event)=>{
               props.handleData(event.target.value,"product_id")
             }}
             label="รหัสสินค้า"
@@ -40,6 +43,9 @@ export default function ProductAddMainForm(props) {
             helperText="รหัสสินค้าต้องมีความยาวไม่เกิน 25 ตัวอักษร"
             required
             margin="normal"
+            InputProps={{
+              className: classes.inputText
+            }}
             InputLabelProps={{
               shrink: true,
             }}
@@ -50,13 +56,16 @@ export default function ProductAddMainForm(props) {
           <TextField
             className={classes.inputForm}
             label="ชื่อสินค้า"
-            onChange={(event)=>{
+            onBlur={(event)=>{
               props.handleData(event.target.value,"product_name")
             }}
             style={{ margin: 8 }}
             helperText="ชื่อสินค้าต้องมีความยาวมากกว่า 5 ตัวอักษร"
             required
             margin="normal"
+            InputProps={{
+              className: classes.inputText
+            }}
             InputLabelProps={{
               shrink: true,
             }}
@@ -67,13 +76,16 @@ export default function ProductAddMainForm(props) {
           <TextField
             className={classes.inputForm}
             label="ประเภทสินค้า"
-            onChange={(event)=>{
+            onBlur={(event)=>{
               props.handleData(event.target.value,"product_category")
             }}
             style={{ margin: 8 }}
             helperText="กรุณากรอกประเภทสินค้าให้ตรงกับประเภทที่คุณต้องการจัดเก็บ"
             required
             margin="normal"
+            InputProps={{
+              className: classes.inputText
+            }}
             InputLabelProps={{
               shrink: true,
             }}
@@ -85,12 +97,15 @@ export default function ProductAddMainForm(props) {
             className={classes.inputInline}
             type="number"
             label="ราคาสินค้า"
-            onChange={(event)=>{
+            onBlur={(event)=>{
               props.handleData(event.target.value,"product_price")
             }}
             style={{ margin: 8 }}
             required
             margin="normal"
+            InputProps={{
+              className: classes.inputText
+            }}
             InputLabelProps={{
               shrink: true,
             }}
@@ -100,12 +115,15 @@ export default function ProductAddMainForm(props) {
             className={classes.inputInline}
             type="number"
             label="น้ำหนักสินค้า"
-            onChange={(event)=>{
+            onBlur={(event)=>{
               props.handleData(event.target.value,"product_weight")
             }}
             style={{ margin: 8 }}
             required
             margin="normal"
+            InputProps={{
+              className: classes.inputText
+            }}
             InputLabelProps={{
               shrink: true,
             }}
@@ -115,12 +133,15 @@ export default function ProductAddMainForm(props) {
             className={classes.inputInline}
             type="number"
             label="จำนวนสินค้า"
-            onChange={(event)=>{
+            onBlur={(event)=>{
               props.handleData(event.target.value,"product_stock")
             }}
             style={{ margin: 8 }}
             required
             margin="normal"
+            InputProps={{
+              className: classes.inputText
+            }}
             InputLabelProps={{
               shrink: true,
             }}

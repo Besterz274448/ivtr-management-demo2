@@ -88,22 +88,14 @@ export default function ProductAdd() {
 
   const createProduct = (e) => {
     e.preventDefault();
+    console.log('pass');
     data.product_image = image;
-    if (subProduct.length > 0) {
-      for (let i = 0; i < subProduct.length; i++) {
-        if (subProduct[i].name === "") {
-          showAlert("warning","กรุณากรอกข้อมูลสินค้าย่อยให้ครบถ้วน");
-          return;
-        }
-      }
-      data.product_subItems = subProduct;
-      //sending data to backend
+    data.product_subItems = subProduct;
+    console.log(data);
+    //sending data to backend
 
-
-      //if success
-      showAlert("success","เพิ่มสินค้าสำเร็จ");
-
-    }
+    //if success
+    showAlert("success", "เพิ่มสินค้าสำเร็จ");
   };
 
   const handleSubdata = (value, index, type) => {
@@ -148,27 +140,26 @@ export default function ProductAdd() {
             </Alert>
           )}
         </div>
-        <Grid container style={{ paddingBottom: "2%" }}>
-          <Grid item xs={7}>
-            <form id="add_product_form" onSubmit={createProduct}>
+        <form id="add_product_form" onSubmit={createProduct}>
+          <Grid container style={{ paddingBottom: "2%" }}>
+            <Grid item xs={7}>
               <ProductAddMainForm data={data} handleData={handleData} />
-            </form>
+            </Grid>
+            <Grid item xs={5}>
+              <UploadImage
+                image={image}
+                description={data.product_description}
+                handleData={handleData}
+                handleImage={handleUploadClick}
+              />
+            </Grid>
           </Grid>
-          <Grid item xs={5}>
-            <UploadImage
-              image={image}
-              description={data.product_description}
-              handleData={handleData}
-              handleImage={handleUploadClick}
-            />
-          </Grid>
-        </Grid>
-        <Divider />
-        <div className={classes.mainDetail}>
-          <ListItem className={classes.subDiv}>
-            <h2 className={classes.headerMain}>ช่องทางการขาย</h2>
-            <div>
-              {/* <Button
+          <Divider />
+          <div className={classes.mainDetail}>
+            <ListItem className={classes.subDiv}>
+              <h2 className={classes.headerMain}>ช่องทางการขาย</h2>
+              <div>
+                {/* <Button
                 variant="contained"
                 color="primary"
                 onClick={handleExpandClick}
@@ -177,36 +168,37 @@ export default function ProductAdd() {
                 <AddCircleRoundedIcon />
                 เพิ่มช่องทางการขาย
               </Button> */}
-            </div>
-          </ListItem>
-          <Collapse in={expanded} timeout="auto" unmountOnExit>
-            <AddSaleChannel />
-          </Collapse>
-        </div>
-        <Divider />
-        <div className={classes.mainDetail}>
-          <ListItem className={classes.subDiv}>
-            <h2 className={classes.headerMain}>ข้อมูลสินค้าย่อย</h2>
-            <div>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={addNewSubProduct}
-              >
-                <AddCircleRoundedIcon />
-                เพิ่มข้อมูลสินค้าย่อย
-              </Button>
-            </div>
-          </ListItem>
-        </div>
-        <Grid container>
-          <Grid item xs={12}>
-            <ProductAddSubForm
-              rows={subProduct}
-              handleSubdata={handleSubdata}
-            />
+              </div>
+            </ListItem>
+            <Collapse in={expanded} timeout="auto" unmountOnExit>
+              <AddSaleChannel />
+            </Collapse>
+          </div>
+          <Divider />
+          <div className={classes.mainDetail}>
+            <ListItem className={classes.subDiv}>
+              <h2 className={classes.headerMain}>ข้อมูลสินค้าย่อย</h2>
+              <div>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={addNewSubProduct}
+                >
+                  <AddCircleRoundedIcon />
+                  เพิ่มข้อมูลสินค้าย่อย
+                </Button>
+              </div>
+            </ListItem>
+          </div>
+          <Grid container>
+            <Grid item xs={12}>
+              <ProductAddSubForm
+                rows={subProduct}
+                handleSubdata={handleSubdata}
+              />
+            </Grid>
           </Grid>
-        </Grid>
+        </form>
       </Paper>
     </>
   );

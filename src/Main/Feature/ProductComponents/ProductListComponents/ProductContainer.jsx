@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import ProductListTable from "./ProductListTable";
-
 import ProductListHeader from "./ProductListHeader";
 import "./ProductList.css";
 
