@@ -115,7 +115,7 @@ class OrderContainer extends Component {
       document.getElementsByClassName("tabList")[no].style.color = "white";
     } else {
       document.getElementsByClassName("tabList")[no].style.color =
-        "rgb(150,150,150)";
+        "rgb(150,150,10)";
       document.getElementsByClassName("tabList")[no].style.backgroundColor =
         "white";
     }

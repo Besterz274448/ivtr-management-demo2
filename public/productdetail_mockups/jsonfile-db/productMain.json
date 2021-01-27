@@ -1,0 +1,147 @@
+{
+    "productList": [
+        {
+            "SKU": "",
+            "name": "",
+            "price": 0,
+            "stock": 0,
+            "category": "",
+            "sold": 0,
+            "subProduct": [
+                {
+                    "subSKU": "",
+                    "subName": "",
+                    "subStock": 0,
+                    "subSold": 0,
+                    "subPrice": 0
+                }
+            ]
+        }
+    ],
+    "productDetail": [
+        {
+            "UniqueID": "",
+            "SKU": "",
+            "Name": "",
+            "Description": "",
+            "Category": "",
+            "Price": 0,
+            "Stock": 0,
+            "Sold": 0,
+            "Order": 0,
+            "SubProduct": [
+                {
+                    "SubId": "",
+                    "Price": 0,
+                    "Stock": 0,
+                    "Sold": 0,
+                    "Order": 0
+                }
+            ],
+            "Picture": [
+                ""
+            ],
+            "้editHistory": [],
+            "CreatedOn": 0,
+            "ModifiedOn": 0,
+            "Chanel": {
+                "Shopee": {
+                    "status": true,
+                    "api": ""
+                },
+                "Lazada": {
+                    "status": true,
+                    "api": ""
+                },
+                "Facebook": {
+                    "status": true,
+                    "api": ""
+                },
+                "Line": {
+                    "status": true,
+                    "api": ""
+                }
+            },
+            "Weight": 0,
+            "sellHistory": [
+                {
+                    "billID": 0,
+                    "id": "",
+                    "date": 0,
+                    "amount": 0,
+                    "netPrice": 0
+                }
+            ]
+        }
+    ],
+    "order": [
+        {
+            "UniqueID": "",
+            "billID": "",
+            "itemList": [
+                {
+                    "SKU": "",
+                    "name": "",
+                    "amount": 0,
+                    "price": 0
+                }
+            ],
+            "buyer": {
+                "platform": {
+                    "Acc": "",
+                    "name": ""
+                },
+                "name": "",
+                "phone": "",
+                "address": {
+                    "detail1": "",
+                    "detail2": "",
+                    "district": "",
+                    "county": "",
+                    "zipCode": 0
+                }
+            },
+            "seller": {
+                "name": "",
+                "phone": "",
+                "address": {
+                    "detail1": "",
+                    "detail2": "",
+                    "district": "",
+                    "county": "",
+                    "zipCode": 0
+                }
+            },
+            "logistic": {
+                "tracking": "",
+                "brand": ""
+            },
+            "buyChanel": "",
+            "dateOrder": 0,
+            "dateClose": 0,
+            "payment": {
+                "transaction": "",
+                "amount": 0
+            },
+            "status": ""
+        }
+    ],
+    "editHistory": {
+        "ID": [
+            {
+                "dateTime": 0,
+                "by": "",
+                "update": [
+                    {
+                        "from": {},
+                        "to": {}
+                    }
+                ]
+            }
+        ]
+    },
+    "2": "",
+    "3": "",
+    "4": "",
+    "setting": {}
+}

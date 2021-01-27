@@ -98,7 +98,7 @@ export default function ProductAdd() {
     showAlert("success", "เพิ่มสินค้าสำเร็จ");
   };
 
-  const handleSubdata = (value, index, type) => {
+  const handleSubData = (value, index, type) => {
     let items = [...subProduct];
     items[index][type] = value;
     setSubProduct(items);
@@ -194,7 +194,7 @@ export default function ProductAdd() {
             <Grid item xs={12}>
               <ProductAddSubForm
                 rows={subProduct}
-                handleSubdata={handleSubdata}
+                handleSubData={handleSubData}
               />
             </Grid>
           </Grid>
