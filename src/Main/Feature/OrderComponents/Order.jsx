@@ -29,8 +29,9 @@ const classStyle = {
   },
   TabListStyle: {
     margin: "0 auto",
-    width: "19.5%",
+    width: "18.5%",
     border: "1px solid rgb(200,200,200)",
+    boxShadow:"2px 2px 3px rgba(0,0,0,0.2)"
   },
 };
 
@@ -190,7 +191,7 @@ class OrderContainer extends Component {
                     this.changeTabBackground(false, 0);
                   }
                 }}
-                label={<TabContainer label="follow" number="1" />}
+                label={<TabContainer label="Wait For Payment" number="1" />}
                 {...this.a11yProps(0)}
               />
               <Tab
@@ -204,7 +205,7 @@ class OrderContainer extends Component {
                     this.changeTabBackground(false, 1);
                   }
                 }}
-                label={<TabContainer label="Wait For Payment" number="2" />}
+                label={<TabContainer label="Confirm Payment" number="2" />}
                 {...this.a11yProps(1)}
               />
               <Tab
@@ -218,7 +219,7 @@ class OrderContainer extends Component {
                     this.changeTabBackground(false, 2);
                   }
                 }}
-                label={<TabContainer label="Confirm Payment" number="3" />}
+                label={<TabContainer label="Wait For Shipment" number="3" />}
                 {...this.a11yProps(2)}
               />
               <Tab
@@ -232,7 +233,7 @@ class OrderContainer extends Component {
                     this.changeTabBackground(false, 3);
                   }
                 }}
-                label={<TabContainer label="Wait For Shipment" number="4" />}
+                label={<TabContainer label="Completed" number="4" />}
                 {...this.a11yProps(2)}
               />
               <Tab
@@ -246,7 +247,7 @@ class OrderContainer extends Component {
                     this.changeTabBackground(false, 4);
                   }
                 }}
-                label={<TabContainer label="Completed" number="5" />}
+                label={<TabContainer label="Cancel Order" number="5" />}
                 {...this.a11yProps(2)}
               />
             </Tabs>

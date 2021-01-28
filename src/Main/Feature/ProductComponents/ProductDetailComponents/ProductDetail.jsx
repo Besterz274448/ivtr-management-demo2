@@ -17,6 +17,7 @@ import SaveIcon from "@material-ui/icons/Save";
 import ListItem from "@material-ui/core/ListItem";
 import { Typography } from "@material-ui/core";
 import { formatDate } from "../../../Helpers/date";
+import EditHistory from "./EditHistoryTable";
 
 const useStyles = makeStyles((theme) => ({
   paper1: {
@@ -98,8 +99,7 @@ export default function ProductAdd() {
         setEdited(!edited);
         setAlertMessage({
           severity: "warning",
-          message:
-            'ข้อมูลมีการเปลี่ยนแปลง! กรุณากดปุ่ม "บันทึกข้อมูล" เพื่อยืนยันการเปลี่ยนแปลง',
+          message: 'ข้อมูลมีการเปลี่ยนแปลง! กรุณากดปุ่ม "บันทึกข้อมูล" เพื่อยืนยันการเปลี่ยนแปลง',
         });
       }
     };
@@ -121,12 +121,9 @@ export default function ProductAdd() {
         setOldData(response_data);
         setData(response_data);
         for (let i = 0; i < response_data.product_subItems.length; i++) {
-          response_data.product_subItems[i]["id"] =
-            response_data.product_subItems[i].Name;
+          response_data.product_subItems[i]["id"] = response_data.product_subItems[i].Name;
         }
-        setSubProduct(
-          JSON.parse(JSON.stringify(response_data.product_subItems))
-        );
+        setSubProduct(JSON.parse(JSON.stringify(response_data.product_subItems)));
         setImage(JSON.parse(JSON.stringify(response_data.product_image)));
       }
     };
@@ -146,8 +143,7 @@ export default function ProductAdd() {
       setEdited(!edited);
       setAlertMessage({
         severity: "warning",
-        message:
-          'ข้อมูลมีการเปลี่ยนแปลง! กรุณากดปุ่ม "บันทึกข้อมูล" เพื่อยืนยันการเปลี่ยนแปลง',
+        message: 'ข้อมูลมีการเปลี่ยนแปลง! กรุณากดปุ่ม "บันทึกข้อมูล" เพื่อยืนยันการเปลี่ยนแปลง',
       });
     }
   };
@@ -176,13 +172,15 @@ export default function ProductAdd() {
       //check if data changed ?
       const nowDate = formatDate(new Date());
       if (changed) {
-        data.product_edit_history = [...data.product_edit_history, {
-          type: "แก้ไขข้อมูลสินค้าหลัก",
-          editedItem: newHistory,
-          oldItemValue: oldHistory,
-          modifiedDate: nowDate,
-          user: "test",
-        },
+        data.product_edit_history = [
+          ...data.product_edit_history,
+          {
+            type: "แก้ไขข้อมูลสินค้าหลัก",
+            editedItem: newHistory,
+            oldItemValue: oldHistory,
+            modifiedDate: nowDate,
+            user: "test",
+          },
         ];
       }
       if (setImageEdited) {
@@ -200,7 +198,7 @@ export default function ProductAdd() {
         for (let i = 0; i < deletedIndex.length; i++) {
           history = {
             type: "ลบข้อมูลสินค้าย่อย",
-            editedItem: {
+            newValue: {
               Name: "",
               Price: null,
               Stock: null,
@@ -208,7 +206,7 @@ export default function ProductAdd() {
               Sold: null,
               Order: null,
             },
-            oldItemValue: { ...data.product_subItems[deletedIndex[i]] },
+            oldValue: { ...data.product_subItems[deletedIndex[i]] },
             modifiedDate: nowDate,
             user: "test",
           };
@@ -233,7 +231,7 @@ export default function ProductAdd() {
                 sub_changed = true;
               }
             }
-            if(sub_changed) {
+            if (sub_changed) {
               history = {
                 type: "แก้ไขข้อมูลสินค้าย่อย",
                 editedItem: { ...sub_edited },
@@ -263,17 +261,15 @@ export default function ProductAdd() {
         }
 
         for (let i = 0; i < subProduct.length; i++) {
-          subProduct[i]["id"] =
-          subProduct[i].Name;
+          subProduct[i]["id"] = subProduct[i].Name;
         }
         data.product_subItems = subProduct;
       }
 
-      setOldData({...data});
-      setData({...data});
-      setSubProduct(
-        JSON.parse(JSON.stringify(subProduct))
-      );
+      data.product_modifiedOn = nowDate;
+      setOldData({ ...data });
+      setData({ ...data });
+      setSubProduct(JSON.parse(JSON.stringify(subProduct)));
       //clear alert info
       console.log(data);
       setEdited(false);
@@ -303,8 +299,7 @@ export default function ProductAdd() {
       setEdited(!edited);
       setAlertMessage({
         severity: "warning",
-        message:
-          'ข้อมูลมีการเปลี่ยนแปลง! กรุณากดปุ่ม "บันทึกข้อมูล" เพื่อยืนยันการเปลี่ยนแปลง',
+        message: 'ข้อมูลมีการเปลี่ยนแปลง! กรุณากดปุ่ม "บันทึกข้อมูล" เพื่อยืนยันการเปลี่ยนแปลง',
       });
     }
   };
@@ -321,8 +316,7 @@ export default function ProductAdd() {
       setEdited(!edited);
       setAlertMessage({
         severity: "warning",
-        message:
-          'ข้อมูลมีการเปลี่ยนแปลง! กรุณากดปุ่ม "บันทึกข้อมูล" เพื่อยืนยันการเปลี่ยนแปลง',
+        message: 'ข้อมูลมีการเปลี่ยนแปลง! กรุณากดปุ่ม "บันทึกข้อมูล" เพื่อยืนยันการเปลี่ยนแปลง',
       });
     }
   };
@@ -338,8 +332,7 @@ export default function ProductAdd() {
       setEdited(!edited);
       setAlertMessage({
         severity: "warning",
-        message:
-          'ข้อมูลมีการเปลี่ยนแปลง! กรุณากดปุ่ม "บันทึกข้อมูล" เพื่อยืนยันการเปลี่ยนแปลง',
+        message: 'ข้อมูลมีการเปลี่ยนแปลง! กรุณากดปุ่ม "บันทึกข้อมูล" เพื่อยืนยันการเปลี่ยนแปลง',
       });
     }
   };
@@ -360,29 +353,16 @@ export default function ProductAdd() {
           color="primary"
           style={{ marginLeft: "auto" }}
         />
-        <Chip
-          label={"ยอดขายทั้งหมด : " + data.product_sold}
-          variant="outlined"
-          color="primary"
-          style={{ marginLeft: "2%" }}
-        />
+        <Chip label={"ยอดขายทั้งหมด : " + data.product_sold} variant="outlined" color="primary" style={{ marginLeft: "2%" }} />
       </ListItem>
       <Alert severity={alertMessage.severity || "info"}>
-        <Typography>
-          {alertMessage.message || "อัพเดทล่าสุด : " + data.product_modifiedOn}
-        </Typography>
+        <Typography>{alertMessage.message || "อัพเดทล่าสุด : " + data.product_modifiedOn}</Typography>
       </Alert>
       <Paper className={classes.paper1}>
         <div className={classes.mainDetail}>
           <ListItem className={classes.subDiv}>
             <h2 className={classes.headerMain}>ข้อมูลสินค้า</h2>
-            <Button
-              type="submit"
-              form="edit_product_form"
-              variant="contained"
-              color="secondary"
-              disabled={waiting}
-            >
+            <Button type="submit" form="edit_product_form" variant="contained" color="secondary" disabled={waiting}>
               <SaveIcon />
               บันทึกข้อมูล
             </Button>
@@ -427,11 +407,7 @@ export default function ProductAdd() {
             <ListItem className={classes.subDiv}>
               <h2 className={classes.headerMain}>ข้อมูลสินค้าย่อย</h2>
               <div>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={addNewSubProduct}
-                >
+                <Button variant="contained" color="primary" onClick={addNewSubProduct}>
                   <AddCircleRoundedIcon />
                   เพิ่มข้อมูลสินค้าย่อย
                 </Button>
@@ -440,14 +416,20 @@ export default function ProductAdd() {
           </div>
           <Grid container>
             <Grid item xs={12}>
-              <ProductDetailSubForm
-                data={subProduct}
-                deleteSubProduct={deleteSubProduct}
-                handleSubProduct={handleSubProduct}
-              />
+              <ProductDetailSubForm data={subProduct} deleteSubProduct={deleteSubProduct} handleSubProduct={handleSubProduct} />
             </Grid>
           </Grid>
         </form>
+        <div className={classes.mainDetail}>
+          <ListItem className={classes.subDiv}>
+            <h2 className={classes.headerMain}>ประวัติการแก้ไขสินค้า</h2>
+          </ListItem>
+        </div>
+        <Grid container>
+          <Grid item xs={12}>
+            <EditHistory rows={data.product_edit_history} />
+          </Grid>
+        </Grid>
       </Paper>
     </>
   );

@@ -15,7 +15,7 @@ class ProductContainer extends Component {
       filter_selected: "id",
       operator_selected: ">",
       defaultSearch: "",
-      open:true,
+      open: true,
     };
   }
 
@@ -55,52 +55,39 @@ class ProductContainer extends Component {
       switch (this.state.operator_selected) {
         case ">":
           filterData = this.state.product.filter((data) => {
-            return (
-              parseFloat(data[this.state.filter_selected]) > parseFloat(value)
-            );
+            return parseFloat(data[this.state.filter_selected]) > parseFloat(value);
           });
           break;
         case "<":
           filterData = this.state.product.filter((data) => {
-            return (
-              parseFloat(data[this.state.filter_selected]) < parseFloat(value)
-            );
+            return parseFloat(data[this.state.filter_selected]) < parseFloat(value);
           });
           break;
         case "=":
           filterData = this.state.product.filter((data) => {
-            return (
-              parseFloat(data[this.state.filter_selected]) === parseFloat(value)
-            );
+            return parseFloat(data[this.state.filter_selected]) === parseFloat(value);
           });
           break;
         case "[]":
-          var min_value =
-            document.getElementById("product_search_min_range").value || null;
-          var max_value =
-            document.getElementById("product_search_max_range").value || null;
+          var min_value = document.getElementById("product_search_min_range").value || null;
+          var max_value = document.getElementById("product_search_max_range").value || null;
           if (min_value !== null && max_value !== null) {
             filterData = this.state.product.filter((data) => {
               return (
-                parseFloat(data[this.state.filter_selected]) >=
-                  parseFloat(min_value) &&
-                parseFloat(data[this.state.filter_selected]) <=
-                  parseFloat(max_value)
+                parseFloat(data[this.state.filter_selected]) >= parseFloat(min_value) &&
+                parseFloat(data[this.state.filter_selected]) <= parseFloat(max_value)
               );
             });
           } else {
             filterData = this.state.product;
           }
           break;
-        default:break;
+        default:
+          break;
       }
     } else {
       filterData = this.state.product.filter((data) => {
-        return (
-          data[this.state.filter_selected]
-            .toLowerCase()
-            .indexOf(value.toLowerCase()) >= 0
-        );
+        return data[this.state.filter_selected].toLowerCase().indexOf(value.toLowerCase()) >= 0;
       });
     }
     this.setState({
@@ -117,7 +104,7 @@ class ProductContainer extends Component {
           product: [...data],
           data: [...data],
           filter_data: this.findDuplicate(data, this.state.filter_selected),
-          open:false
+          open: false,
         });
       }
     };
@@ -140,11 +127,12 @@ class ProductContainer extends Component {
           handleChangeTextfield={this.handleChangeTextfield}
           filter_data={this.state.filter_data}
           defaultSearch={this.state.defaultSearch}
-          date={
-            this.state.product.length > 0 ? this.state.product[0].ModifiedOn : 0
-          }
+          date={this.state.product.length > 0 ? this.state.product[0].ModifiedOn : 0}
         />
-        <ProductListTable rows={this.state.data} open={this.state.open}/>
+        <div>
+        
+        </div>
+        <ProductListTable rows={this.state.data} open={this.state.open} />
       </>
     );
   }

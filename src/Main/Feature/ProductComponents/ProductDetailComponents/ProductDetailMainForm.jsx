@@ -90,7 +90,7 @@ export default function ProductDetailMainForm(props) {
           }}
           onBlur={(event) => {
             if (changed) {
-              props.handleData(event.target.value, "product_id");
+              props.handleData(event.target.value, "product_name");
               setChanged(false);
             }
           }}

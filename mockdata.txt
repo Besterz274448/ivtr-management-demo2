@@ -1,0 +1,23 @@
+Product
+{
+  id: id1,
+  sku_id:
+  name: 
+  description:"",
+  image:"",
+  delivery_price:
+  createOn: Date,
+  modifiedOn:,
+  sale_channel:[]
+},
+
+SubProduct{
+ id:
+ name:
+ product_id:
+ quantity:
+ price:
+ order:,
+ sold:
+ keyword:""
+}

@@ -62,12 +62,11 @@ function Row(props) {
           <b>{row.Total}</b>
         </TableCell>
         <TableCell className={classes.tableRow} width="10%" align="center">
-          <select className={classes.selectBox} 
+          <select onChange={(event)=>{console.log(event.target.value)}}className={classes.selectBox} 
           name="cars" id="cars">
-            <option value="volvo">จัดการคำสั่งซื้อ</option>
-            <option value="saab">รอการชำระเงิน</option>
-            <option value="mercedes">ยืนยันการชำระเงิน</option>
-            <option value="audi">รอการจัดส่ง</option>
+            <option value="payment">รอการชำระเงิน</option>
+            <option value="confirm">รอยืนยันการชำระเงิน</option>
+            <option value="cancel">ยกเลิก</option>
           </select>
         </TableCell>
         <TableCell width="5%">
