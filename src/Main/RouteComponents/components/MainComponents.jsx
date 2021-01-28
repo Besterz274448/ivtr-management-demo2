@@ -2,6 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Product from "../../Feature/ProductComponents/ProductRoute";
 import LiveStream from "../../Feature/LiveStreamComponents/LiveStream";
+import CFpage from "../../Feature/LiveStreamComponents/CFLive/CFPage"
 import Order from "../../Feature/OrderComponents/Order";
 import Dashboard from "../../Feature/DashboardComponents/Dashboard";
 import Report from "../../Feature/ReportComponents/Report";
@@ -37,7 +38,7 @@ export default function MainComponents({ selected }) {
           <Route path="/dashboard" exact component={Dashboard} />
           <Route path="/product" component={Product} />
           <Route path="/order" exact component={Order} />
-          <Route path="/livestream" component={LiveStream} />
+          {<Route path="/livestream" component={/*LiveStream*/CFpage} />}
           <Route path="/promotion" exact component={Promotion} />
           <Route path="/campaign" component={Campaign} />
           <Route path="/report" exact component={Report} />

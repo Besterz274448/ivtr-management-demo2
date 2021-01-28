@@ -9,7 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Button from "@material-ui/core/Button";
 import AddExistingProduct from "./components/AddExistingProduct";
-import ConfirmDialog from "./components/ConfirmDialog";
+
 
 const monthNames = [
   "January",
@@ -82,8 +82,6 @@ const useToolbarStatStyles = makeStyles((theme) => ({
 export default function EnhancedTableToolbar(props) {
   const {
     numSelected,
-    date,
-    onActiveLiveAll,
     handleRemoveWhenClickIcon,
   } = props;
   const deleteClasses = useToolbarDeleteStyles();
@@ -117,16 +115,6 @@ export default function EnhancedTableToolbar(props) {
         <Typography variant="h5" id="statistics">
           สินค้าไลฟ์
         </Typography>
-        <Button
-          variant="contained"
-          color="primary"
-          size="medium"
-          style={{ marginLeft: "auto" }}
-        >
-          <Typography variant="h6" className={stateClasses.infoTitle}>
-            เริ่ม LIVE
-          </Typography>
-        </Button>
         <Button
           variant="contained"
           color="secondary"

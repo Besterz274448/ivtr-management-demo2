@@ -1,9 +1,12 @@
 import React from "react";
 import axios from "axios";
 import { Switch, Route } from "react-router-dom";
+import FacebookLogin from "react-facebook-login";
+
 import MainLive from ".//MainLive/MainLive";
 import ProductLive from ".//ProductLive/ProductLive";
-import FacebookLogin from "react-facebook-login";
+import CFPage from ".//CFLive/CFPage";
+
 
 class LiveStream extends React.Component {
   state = {
@@ -39,11 +42,12 @@ class LiveStream extends React.Component {
   };
 
   render() {
-    if (this.state.access_token) {
+    if (/*this.state.access_token*/true) {
       return (
         <Switch>
           <Route path="/livestream" exact component={MainLive} />
           <Route path="/livestream/product" exact component={ProductLive} />
+          <Route path="/livestream/cfpage" exact component={CFPage} />
         </Switch>
       );
     } else {
