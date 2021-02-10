@@ -5,7 +5,6 @@
             "name": "",
             "price": 0,
             "stock": 0,
-            "category": "",
             "sold": 0,
             "subProduct": [
                 {
@@ -24,7 +23,6 @@
             "SKU": "",
             "Name": "",
             "Description": "",
-            "Category": "",
             "Price": 0,
             "Stock": 0,
             "Sold": 0,
@@ -126,22 +124,64 @@
             "status": ""
         }
     ],
-    "editHistory": {
-        "ID": [
-            {
-                "dateTime": 0,
-                "by": "",
-                "update": [
-                    {
-                        "from": {},
-                        "to": {}
-                    }
-                ]
-            }
-        ]
-    },
     "2": "",
     "3": "",
     "4": "",
-    "setting": {}
+    "setting": {},
+    "Product": [
+        {
+            "product.collection.id": "",
+            "sku_id": "",
+            "name": "",
+            "description": "",
+            "image": [],
+            "delivery_price": "",
+            "createOn": 0,
+            "weight": 0,
+            "modifiedOn": 0,
+            "sale_channel": [
+                {
+                    "lazada": {
+                        "api": "",
+                        "active": false
+                    },
+                    "shopee": {
+                        "api": "",
+                        "active": false
+                    }
+                }
+            ],
+            "attr": [
+                "",
+                ""
+            ]
+        }
+    ],
+    "SubProduct": {
+        "product.collection.id": [
+            {
+                "sku_id": "",
+                "name": "X",
+                "attr": {
+                    "": ""
+                },
+                "stock": 0,
+                "price": 0,
+                "order": 0,
+                "sold": 0,
+                "keyword": ""
+            }
+        ]
+    },
+    "editHistory": {
+        "product.collection.id": [
+            {
+                "dateTime": 0,
+                "type": "",
+                "by": "",
+                "oldValue": {},
+                "newValue": {}
+            }
+        ]
+    }
 }

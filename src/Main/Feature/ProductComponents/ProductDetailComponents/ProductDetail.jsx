@@ -118,6 +118,7 @@ export default function ProductAdd() {
     xhttp.onreadystatechange = () => {
       if (xhttp.readyState === 4 && xhttp.status === 200) {
         var response_data = JSON.parse(xhttp.responseText);
+
         setOldData(response_data);
         setData(response_data);
         for (let i = 0; i < response_data.product_subItems.length; i++) {
@@ -142,6 +143,9 @@ export default function ProductAdd() {
     let items = { ...data };
     items[tag] = value;
     setData(items);
+    console.log("data", data, "olddata", oldData);
+    console.log(data === oldData);
+
     if (!edited) {
       setEdited(!edited);
       setAlertMessage({
@@ -176,13 +180,15 @@ export default function ProductAdd() {
       //check if data changed ?
       const nowDate = formatDate(new Date());
       if (changed) {
-        data.product_edit_history = [...data.product_edit_history, {
-          type: "แก้ไขข้อมูลสินค้าหลัก",
-          editedItem: newHistory,
-          oldItemValue: oldHistory,
-          modifiedDate: nowDate,
-          user: "test",
-        },
+        data.product_edit_history = [
+          ...data.product_edit_history,
+          {
+            type: "แก้ไขข้อมูลสินค้าหลัก",
+            editedItem: newHistory,
+            oldItemValue: oldHistory,
+            modifiedDate: nowDate,
+            user: "test",
+          },
         ];
       }
       if (setImageEdited) {
@@ -193,7 +199,11 @@ export default function ProductAdd() {
         let history;
         let deletedIndex = [];
         for (let i = 0; i < data.product_subItems.length; i++) {
-          if (subProduct.findIndex((sub) => sub.id === data.product_subItems[i].Name) === -1) {
+          if (
+            subProduct.findIndex(
+              (sub) => sub.id === data.product_subItems[i].Name
+            ) === -1
+          ) {
             deletedIndex.push(i);
           }
         }
@@ -223,17 +233,23 @@ export default function ProductAdd() {
           sub_changed = false;
           sub_edited = {};
           sub_oldvalue = {};
-          let index = data.product_subItems.findIndex((sub) => sub.Name === subProduct[i].id);
+          let index = data.product_subItems.findIndex(
+            (sub) => sub.Name === subProduct[i].id
+          );
           if (index !== -1) {
             //check some changed value
             for (let k = 0; k < SubType.length; k++) {
-              if (data.product_subItems[index][SubType[k]] !== subProduct[i][SubType[k]]) {
-                sub_oldvalue[SubType[k]] = data.product_subItems[index][SubType[k]];
+              if (
+                data.product_subItems[index][SubType[k]] !==
+                subProduct[i][SubType[k]]
+              ) {
+                sub_oldvalue[SubType[k]] =
+                  data.product_subItems[index][SubType[k]];
                 sub_edited[SubType[k]] = subProduct[i][SubType[k]];
                 sub_changed = true;
               }
             }
-            if(sub_changed) {
+            if (sub_changed) {
               history = {
                 type: "แก้ไขข้อมูลสินค้าย่อย",
                 editedItem: { ...sub_edited },
@@ -241,7 +257,10 @@ export default function ProductAdd() {
                 modifiedDate: nowDate,
                 user: "test",
               };
-              data.product_edit_history = [...data.product_edit_history, history];
+              data.product_edit_history = [
+                ...data.product_edit_history,
+                history,
+              ];
             }
           } else {
             history = {
@@ -263,17 +282,14 @@ export default function ProductAdd() {
         }
 
         for (let i = 0; i < subProduct.length; i++) {
-          subProduct[i]["id"] =
-          subProduct[i].Name;
+          subProduct[i]["id"] = subProduct[i].Name;
         }
         data.product_subItems = subProduct;
       }
 
-      setOldData({...data});
-      setData({...data});
-      setSubProduct(
-        JSON.parse(JSON.stringify(subProduct))
-      );
+      setOldData({ ...data });
+      setData({ ...data });
+      setSubProduct(JSON.parse(JSON.stringify(subProduct)));
       //clear alert info
       console.log(data);
       setEdited(false);
@@ -423,7 +439,7 @@ export default function ProductAdd() {
             </Collapse>
           </div>
           <Divider />
-          <div className={classes.mainDetail}>
+          <div className={classes.mainDetail} id="test">
             <ListItem className={classes.subDiv}>
               <h2 className={classes.headerMain}>ข้อมูลสินค้าย่อย</h2>
               <div>
